@@ -45,6 +45,17 @@ class JobsController extends BaseController {
 	}
 	
 	
+	public function ShowJobDetailPage($jobName)
+	{
+	
+	 
+	 $job=Job::where('titlu',$jobName)->first();
+	 
+	 return View::make('jobs_detail')->with('job',$job);
+	
+	
+	}
+	
 	
     public function ProcessCreateJob()
 	{
