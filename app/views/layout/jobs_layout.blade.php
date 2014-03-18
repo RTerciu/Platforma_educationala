@@ -13,9 +13,9 @@
 	
 	<nav>
 	  <ul class="nav nav-pills nav-stacked span2">
-		<li><a href="{{action('JobsController@ShowJobsPage')}}">De ce Jobs ?</a></li>
+		<li><a href="{{action('JobsController@ShowJobsPage')	  }}">De ce Jobs ?</a></li>
 		<li><a href="{{action('JobsController@ShowCreateJobsPage')}}">Creaza Job 	</a></li>
-		<li><a href="#">Cauta Job	</a></li>
+		<li><a href="{{action('JobsController@ShowJobsTable')	  }}">Cauta Job	</a></li>
 
 	  </ul>
 	</nav>

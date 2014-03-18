@@ -15,6 +15,28 @@ class JobsController extends BaseController {
 	
 	}
 	
+	
+	public function ShowJobsTable()
+	{
+	
+	$jobs=Job::all();
+	
+	return View::make('Jobs_table')->with('tabel',$jobs);
+	
+	
+	}
+	
+	public function ShowJobsForCategoryPage($categoryName)
+	{
+	
+	$category=Category::all();
+	echo var_dump($category);
+	
+	
+	}
+	
+	
+	
     public function ProcessCreateJob()
 	{
 
@@ -22,7 +44,7 @@ class JobsController extends BaseController {
 	$input = Input::all();
 
 	$rules = array(
-	'titlu' 	=> 'required|min:3|max:32',
+	'titlu' 	=> 'required|min:3|max:100',
 	'categorie' => 'required|integer',
 	'pret' 		=> 'required|integer',
 	'descriere' => 'required|min:10|max:500',
@@ -41,6 +63,7 @@ class JobsController extends BaseController {
 				
 				$job->titlu=Input::get('titlu');
 				$job->categorie=Input::get('categorie');
+				$job->id_user=1;
 				$job->pret=Input::get('pret');
 				$job->deadline=Input::get('deadline');
 				$job->descriere=Input::get('descriere');
@@ -49,8 +72,5 @@ class JobsController extends BaseController {
 				return Redirect::to('jobs');
 			}
 				
-				
-	
-	
 	}
 }

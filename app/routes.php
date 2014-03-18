@@ -21,3 +21,5 @@ Route::post('/signup','UsersController@PostSignUp');
 Route::get('job/create','JobsController@ShowCreateJobsPage');
 Route::post('job/create','JobsController@ProcessCreateJob');
 Route::get('jobs','JobsController@ShowJobsPage');
+Route::get('jobs/all','JobsController@ShowJobsTable');
+Route::get('jobs/category/{categoryName}','JobsController@ShowJobsForCategoryPage');
