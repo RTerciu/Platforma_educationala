@@ -3,7 +3,7 @@
 
 
 @section('jobs_content')
-<h2>Acestea toate joburile disponibile</h2><hr>
+<h2>Acestea sunt toate joburile disponibile</h2><hr>
 <table class="table table-striped">
 <tr>
 

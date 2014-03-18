@@ -8,10 +8,10 @@
 	
 			<style>
 		div.left {float:left;
-				width:20%;
+				width:15%;
 					}
 		div.right{float:right;
-				width:70%;}
+				width:80%;}
 		</style>
 
 	

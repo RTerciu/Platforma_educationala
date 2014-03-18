@@ -29,10 +29,19 @@ class JobsController extends BaseController {
 	public function ShowJobsForCategoryPage($categoryName)
 	{
 	
-	$category=Category::all();
-	echo var_dump($category);
+	$category=Category::where('nume',$categoryName)->first();
 	
+	if($category==''|| !isSet($category))
+		return Redirect::to('jobs/all');
 	
+	else
+		{
+		
+		$jobs=Job::where('categorie',$category->id)->get();
+		return View::make('Jobs_table')->with('tabel',$jobs);
+		//echo var_dump($category);
+		
+		}
 	}
 	
 	
@@ -45,7 +54,7 @@ class JobsController extends BaseController {
 
 	$rules = array(
 	'titlu' 	=> 'required|min:3|max:100',
-	'categorie' => 'required|integer',
+	'categorie' => 'required',
 	'pret' 		=> 'required|integer',
 	'descriere' => 'required|min:10|max:500',
 	'deadline'	=> 'required|after:2014-03-17'
