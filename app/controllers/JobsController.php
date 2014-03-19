@@ -16,12 +16,24 @@ class JobsController extends BaseController {
 	}
 	
 	
+	
+	
 	public function ShowJobsTable()
 	{
 	
 	$jobs=Job::all();
 	
 	return View::make('Jobs_table')->with('tabel',$jobs);
+	
+	
+	}
+	
+	
+	public function ProcessBetForJob($jobName,$userId)
+	{
+	
+	
+	echo $jobName.$userId;
 	
 	
 	}

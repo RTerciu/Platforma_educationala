@@ -37,3 +37,4 @@ Route::get('jobs','JobsController@ShowJobsPage');
 Route::get('jobs/all','JobsController@ShowJobsTable');
 Route::get('jobs/category/{categoryName}','JobsController@ShowJobsForCategoryPage');
 Route::get('jobs/{jobName}','JobsController@ShowJobDetailPage');
+Route::get('jobs/{jobName}/{userId}','JobsController@ProcessBetForJob');

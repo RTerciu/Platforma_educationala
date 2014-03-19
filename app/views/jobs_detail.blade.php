@@ -12,7 +12,8 @@
 <p><span>Deadline:</span></p><p>{{$job->deadline}}</p><hr>
 <p><span>Descriere:</span></p><p>{{$job->descriere}}</p><hr>
 
-<button class="btn btn-primary">Inscrie-te la acest Job!</button>
+<?php $url='jobs/'.$job->titlu.'/'.Auth::user()->id; ?>
+<a href="{{URL::to($url)}}" class="btn btn-primary">Inscrie-te la acest Job!</a>
 
 
 @stop

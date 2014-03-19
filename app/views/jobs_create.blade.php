@@ -28,7 +28,7 @@
 		
 		<div class="form-group">
 			<label for="descriere">Descriere</label>
-			<textarea name="descriere" class="form-control" rows="5" id="descriere" ></textarea>
+			<textarea name="descriere" class="form-control" rows="10" id="descriere_job" ></textarea>
 		</div>
 		
 		
