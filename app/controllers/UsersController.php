@@ -7,9 +7,32 @@ class UsersController extends BaseController {
 		return View::make('signUp');
 	}
 	
+	public function ShowSignIn()
+	{
+		return View::make('signIn');
+	}
+	
+	public function SignOut()
+	{
+		Auth::logout();
+		return Redirect::to('/')->with('signout_notice','Sadly, you have successfully signed out.');
+	}
+	
+	public function PostSignIn()
+	{
+		if(Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password'))))
+		{
+			return Redirect::to('/');
+		}
+		else
+		{
+			return Redirect::to('signin');
+		}
+	}
+	
 	public function PostSignUp()
 	{
-		$destinationPath = 'uploads/';
+		$destinationPath = '/uploads/avatars/';
 		$file = Input::file('avatar');
 		
 		//echo var_dump(Input::all());
@@ -21,7 +44,7 @@ class UsersController extends BaseController {
 		{
 			$user = new User;
 			$user->email = Input::get('email');
-			$user->password = Input::get('password');
+			$user->password = Hash::make(Input::get('password'));
 			$user->avatar = $destinationPath.$filename;
 			$user->save();
 		}

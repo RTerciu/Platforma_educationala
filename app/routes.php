@@ -13,10 +13,23 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	return View::make('home');
 });
+
 Route::get('/signup','UsersController@ShowSignUp');
+
 Route::post('/signup','UsersController@PostSignUp');
+
+Route::get('/signin','UsersController@ShowSignIn');
+
+Route::post('/signin','UsersController@PostSignIn');
+
+Route::get('/signout','UsersController@SignOut');
+
+Route::get('/documents/create','DocumentsController@GetCreate');
+
+Route::post('/documents/create','DocumentsController@PostCreate');
+
 
 Route::get('job/create','JobsController@ShowCreateJobsPage');
 Route::post('job/create','JobsController@ProcessCreateJob');

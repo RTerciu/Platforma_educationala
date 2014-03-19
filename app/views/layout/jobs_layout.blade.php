@@ -7,8 +7,9 @@
 		<h1>Jobs <small>For everyone....</small></h1>
 	</div>
 	
-	<div>
-	<div  class="left">
+	<div class="row">
+	
+	<div  class="col-md-2">
 	<h2><small>La treaba!</small></h2>
 	
 	<nav>
@@ -17,12 +18,13 @@
 		<li><a href="{{action('JobsController@ShowCreateJobsPage')}}">Creaza Job 	</a></li>
 		<li><a href="{{action('JobsController@ShowJobsTable')	  }}">Cauta Job	</a></li>
 		<li><a href="{{url('jobs/category/categorie1')	  }}">Job-categ.	</a></li>
+		<li><a href="{{url('jobs/Job1')	  }}">Job1-detalii.	</a></li>
 
 	  </ul>
 	</nav>
 	
 	</div>
-	<div  class="right">
+	<div  class="col-md-10">
 
 	@yield('jobs_content')
 	

@@ -2,11 +2,16 @@
 
 @section('content')
 	<div class="page-header">
-		<h1>Sign up <small>Go on, it's free!</small></h1>
+		<h1>Sign in <small>If you signed up!</small></h1>
 	</div>
 	
-	{{ Form::open(array('action' => 'UsersController@ShowSignUp', 'files' => true, 'role' => 'form' ))}}
+	{{ Form::open(array('action' => 'UsersController@ShowSignIn', 'role' => 'form' ))}}
 		<div class="form-group">
+		
+			@if(Session::has('login_errors'))
+				<p class="alert alert-danger">User name or password incorrect.</p>
+			@endif
+		
 			<label for="email">Email</label>
 			<input type="text" class="form-control" name="email" id="email" />
 		</div>
@@ -14,10 +19,6 @@
 			<label for="password">Password</label>
 			<input type="password" class="form-control" name="password" id="password" />
 		</div>
-		<div class="form-group">
-			<label for="avatar">Avatar</label>
-			<input type="file" class="form-control" name="avatar" id="avatar" />
-		</div>
-		<input type="submit" class="btn btn-primary" name="submit" value="Register" />
+		<input type="submit" class="btn btn-primary" name="submit" value="Sign In" />
 	{{Form::close()}}
 @stop
