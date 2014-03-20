@@ -31,6 +31,7 @@ Route::get('/documents/create','DocumentsController@GetCreate');
 Route::post('/documents/create','DocumentsController@PostCreate');
 
 
+
 Route::get('job/create','JobsController@ShowCreateJobsPage');
 Route::post('job/create','JobsController@ProcessCreateJob');
 Route::get('jobs','JobsController@ShowJobsPage');

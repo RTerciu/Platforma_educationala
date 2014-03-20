@@ -33,9 +33,34 @@ class JobsController extends BaseController {
 	{
 	
 	
-	echo $jobName.$userId;
+	
+	$job=DB::table('jobs')->where('titlu',$jobName)->first();
+	
+	$jobID=$job['_id'];
+	
+	$jobExists=JobBet::where('jobID',$jobID)->where('userID',$userId)->count();
+	/*echo var_dump($jobExists);*/
+	
+	if($jobExists>0)
+	{
+	
+
+	$mesaj='Participi deja la licitatia pentru acest job';
+	
+	}
+	
+	else
+	{
+	$jobBet=new JobBet;
+	$jobBet->jobID=$jobID;
+	$jobBet->userID=$userId;
+	$jobBet->save();
+	//DB::table('jobs_bet')->insert(array('jobID'=>$jobID,'userID'=>$userId));
+	$mesaj='Te-ai inscris cu success la licitatia pentru acest job!';
+	}
 	
 	
+	return Redirect::to('jobs/'.$jobName)->with('mesaj',$mesaj);
 	}
 	
 	public function ShowJobsForCategoryPage($categoryName)

@@ -5,6 +5,16 @@
 @section('jobs_content')
 <h2>{{$job->titlu}}</h2><hr>
 
+<?php
+$m=Session::get('mesaj');
+
+?>
+@if(isset($m))
+<div class="alert alert-info">  
+	<a class="close" data-dismiss="alert">×</a>  
+	<strong>Info!</strong>{{Session::get('mesaj')}}  
+</div> 
+@endif
 <p><span>Creat de:</span></p><p>{{$job->id_user}}</p><hr>
 <p><span>La data de:</span></p><p>{{$job->created_at}}</p><hr>
 <p><span>Editat la:</span></p><p>{{$job->edited_at}}</p><hr>
