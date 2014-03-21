@@ -36,7 +36,7 @@ class JobsController extends BaseController {
 	
 	$job=DB::table('jobs')->where('titlu',$jobName)->first();
 	
-	$jobID=$job['_id'];
+	$jobID=(string)$job['_id'];
 	
 	$jobExists=JobBet::where('jobID',$jobID)->where('userID',$userId)->count();
 	/*echo var_dump($jobExists);*/
@@ -60,7 +60,7 @@ class JobsController extends BaseController {
 	else
 	{
 	$jobBet=new JobBet;
-	$jobBet->jobID=$jobID;
+	$jobBet->jobID=(string)$jobID;
 	$jobBet->userID=$userId;
 	$jobBet->save();
 	//DB::table('jobs_bet')->insert(array('jobID'=>$jobID,'userID'=>$userId));
@@ -95,10 +95,10 @@ class JobsController extends BaseController {
 	
 	 
 	 $job=Job::where('titlu',$jobName)->first();
-	// $jobAuthor=$job->id_user;
+	 $jobID=(string)$job['_id'];
+	 $bidders=JobBet::where('jobID',$jobID)->get();
 	 
-	 //echo $jobAuthor;
-	 return View::make('jobs_detail')->with('job',$job);
+	 return View::make('jobs_detail')->with('job',$job)->with('bidders',$bidders);
 	
 	
 	}

@@ -4,7 +4,7 @@
 
 @section('jobs_content')
 <h2>Acestea sunt toate joburile disponibile</h2><hr>
-<table class="table table-striped">
+<table class="table table-hover table-bordered table-striped">
 <tr>
 
 <td>Nr. Crt </td>

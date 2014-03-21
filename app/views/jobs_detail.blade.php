@@ -3,7 +3,6 @@
 
 
 @section('jobs_content')
-<h2>{{$job->titlu}}</h2><hr>
 
 <?php
 $m=Session::get('mesaj');
@@ -17,21 +16,41 @@ $m=Session::get('mesaj');
 @endif
 
 
+
+<h2>{{$job->titlu}}
+
+<?php $url='jobs/'.$job->titlu.'/'.Auth::user()->id; ?>
+<a href="{{URL::to($url)}}" class="btn btn-primary">Inscrie-te la acest Job!</a></h2>
+
+<hr>
+
+
+
 <?php 
 
 $user=DB::table('users')->where('_id',$job->id_user)->first();
 $userEmail=$user['email'];
 
 ?>
-<p><span>Creat de:</span></p><p>{{$userEmail}}</p><hr>
-<p><span>La data de:</span></p><p>{{$job->created_at}}</p><hr>
-<p><span>Editat la:</span></p><p>{{$job->edited_at}}</p><hr>
-<p><span>Pret:</span></p><p>{{$job->pret}}</p><hr>
-<p><span>Deadline:</span></p><p>{{$job->deadline}}</p><hr>
-<p><span>Descriere:</span></p><p>{{$job->descriere}}</p><hr>
+<small><p class="text-right">Adaugat de <strong>{{$userEmail}} </strong> la data de <strong>{{$job->created_at}}</strong> <strong>{{$job->edited_at}}</strong></p></small>
 
-<?php $url='jobs/'.$job->titlu.'/'.Auth::user()->id; ?>
-<a href="{{URL::to($url)}}" class="btn btn-primary">Inscrie-te la acest Job!</a>
+<p class="text-right">Suma oferita <strong>{{$job->pret}}</strong> si trebuie realizat pana pe <strong> {{$job->deadline}} </strong></p><hr>
+
+<h3>Descriere:</h3><p>{{$job->descriere}}</p><hr>
+
+<p>Au licitat la acest job urmatorii useri:</p>
+@foreach($bidders as $bidder)
+
+<?php  
+$b=User::where('_id',$bidder['userID'])->first();
+$bidderName=$b['email'];
+
+?>
+<strong>{{$bidderName}}</strong>
+
+@endforeach
+
+
 
 
 @stop
