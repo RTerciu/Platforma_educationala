@@ -18,7 +18,7 @@
 		<li><a href="{{action('JobsController@ShowCreateJobsPage')}}">Creaza Job 	</a></li>
 		<li><a href="{{action('JobsController@ShowJobsTable')	  }}">Cauta Job	</a></li>
 		<li><a href="{{url('jobs/category/categorie1')	  }}">Job-categ.	</a></li>
-		<li><a href="{{url('jobs/Job1')	  }}">Job1-detalii.	</a></li>
+		
 
 	  </ul>
 	</nav>

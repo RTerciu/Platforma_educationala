@@ -48,6 +48,14 @@ class JobsController extends BaseController {
 	$mesaj='Participi deja la licitatia pentru acest job';
 	
 	}
+	else 
+	
+	if($job['id_user']==Auth::user()->id)
+	{
+	
+	$mesaj='Nu te poti inscrie la propriul job!';
+	
+	}
 	
 	else
 	{
@@ -87,7 +95,9 @@ class JobsController extends BaseController {
 	
 	 
 	 $job=Job::where('titlu',$jobName)->first();
+	// $jobAuthor=$job->id_user;
 	 
+	 //echo $jobAuthor;
 	 return View::make('jobs_detail')->with('job',$job);
 	
 	
@@ -120,13 +130,13 @@ class JobsController extends BaseController {
 				
 				$job->titlu=Input::get('titlu');
 				$job->categorie=Input::get('categorie');
-				$job->id_user=1;
+				$job->id_user=Auth::user()->id;
 				$job->pret=Input::get('pret');
 				$job->deadline=Input::get('deadline');
 				$job->descriere=Input::get('descriere');
 				
 				$job->save();
-				return Redirect::to('jobs');
+				return Redirect::to('jobs/all');
 			}
 				
 	}

@@ -21,11 +21,16 @@
 <?php $i=0 ?>
 
 @foreach($tabel as $job)
-<tr>
-<?php $i++ ?>
+<tr  style="cursor:pointer" onclick="document.location.href='{{url('jobs/'.$job->titlu)}}'" >
+<?php 
+
+$user=DB::table('users')->where('_id',$job->id_user)->first();
+$userEmail=$user['email'];
+
+$i++ ?>
 <td>{{$i}}</td>
 <td>{{$job->titlu}}</td>
-<td>{{$job->id_user}}</td>
+<td>{{$userEmail}}</td>
 <td>{{$job->categorie}}</td>
 <td>{{$job->pret}}</td>
 <td>{{$job->created_at}}</td>

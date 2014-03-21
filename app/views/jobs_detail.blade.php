@@ -15,7 +15,15 @@ $m=Session::get('mesaj');
 	<strong>Info!</strong>{{Session::get('mesaj')}}  
 </div> 
 @endif
-<p><span>Creat de:</span></p><p>{{$job->id_user}}</p><hr>
+
+
+<?php 
+
+$user=DB::table('users')->where('_id',$job->id_user)->first();
+$userEmail=$user['email'];
+
+?>
+<p><span>Creat de:</span></p><p>{{$userEmail}}</p><hr>
 <p><span>La data de:</span></p><p>{{$job->created_at}}</p><hr>
 <p><span>Editat la:</span></p><p>{{$job->edited_at}}</p><hr>
 <p><span>Pret:</span></p><p>{{$job->pret}}</p><hr>

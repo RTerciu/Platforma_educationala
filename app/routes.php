@@ -32,6 +32,8 @@ Route::post('/documents/create','DocumentsController@PostCreate');
 
 
 
+Route::group(array('before' => 'auth'), function()
+{
 Route::get('job/create','JobsController@ShowCreateJobsPage');
 Route::post('job/create','JobsController@ProcessCreateJob');
 Route::get('jobs','JobsController@ShowJobsPage');
@@ -39,3 +41,5 @@ Route::get('jobs/all','JobsController@ShowJobsTable');
 Route::get('jobs/category/{categoryName}','JobsController@ShowJobsForCategoryPage');
 Route::get('jobs/{jobName}','JobsController@ShowJobDetailPage');
 Route::get('jobs/{jobName}/{userId}','JobsController@ProcessBetForJob');
+
+});
