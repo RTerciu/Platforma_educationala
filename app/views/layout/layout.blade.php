@@ -4,25 +4,20 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Platform</title>
+	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script type="text/javascript" href="{{asset('js/bootstrap.min.js')}}"></script>
+	<script type="text/javascript" src="js/home_buttons.js"></script>
 	<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+	
+	
 	
 	<script>
         tinymce.init({selector:'textarea#descriere_job'});
-</script>
+	</script>
 	
 	<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}"/>
-	
-	
-				<style>
-		div.left {float:left;
-				width:15%;
-					}
-		div.right{float:right;
-				width:80%;}
-		</style>
-	
+	<link rel="stylesheet" href="{{ asset('css/style_home.css')}}" type="text/css" media="screen">
 	
 </head>
 <body>

@@ -16,6 +16,14 @@ Route::get('/', function()
 	return View::make('home');
 });
 
+Route::get('teo',function()
+{
+
+return View::make('teo');
+
+});
+
+
 Route::get('/signup','UsersController@ShowSignUp');
 
 Route::post('/signup','UsersController@PostSignUp');

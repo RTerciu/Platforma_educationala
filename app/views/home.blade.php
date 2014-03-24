@@ -12,4 +12,31 @@
 	
 	@endif
 	
+	
+
+
+
+<div id="menu">
+	
+	<div id="buttons">
+		<div id="b1" ></div>
+		<div id="b2" ></div> 
+		<div id="b3" ></div>
+	</div>
+	
+	<div id="bannere">&nbsp;</div>
+
+
+	
+
+	<div id="dot">
+		<div id="dot1"></div>
+		<div id="dot2"></div>
+		<div id="dot3"></div>
+	</div>
+
+</div>
+	
+
+	
 @stop
