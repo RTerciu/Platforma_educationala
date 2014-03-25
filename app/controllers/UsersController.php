@@ -35,8 +35,6 @@ class UsersController extends BaseController {
 		$destinationPath = '/uploads/avatars/';
 		$file = Input::file('avatar');
 		
-		//echo var_dump(Input::all());
-		
 		$filename = Input::file('avatar')->getClientOriginalName();
 		$uploadSuccess = Input::file('avatar')->move($destinationPath, $filename);
 		
@@ -46,6 +44,7 @@ class UsersController extends BaseController {
 			$user->email = Input::get('email');
 			$user->password = Hash::make(Input::get('password'));
 			$user->avatar = $destinationPath.$filename;
+			$user->username = Input::get('username');
 			$user->save();
 		}
 		
