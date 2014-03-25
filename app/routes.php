@@ -41,7 +41,11 @@ Route::post('/documents/create','DocumentsController@PostCreate');
 
 
 Route::group(array('before' => 'auth'), function()
-{
+{	
+	Route::get('remove/job/created/{jobID}','JobsController@RemoveJobCreated');
+	Route::get('remove/job/applied/{jobID}','JobsController@RemoveJobApplied');
+	Route::get('myjobs/applied','JobsController@ShowMyJobsApplied');
+	Route::get('myjobs/created','JobsController@ShowMyJobsCreated');
 	Route::get('job/create','JobsController@ShowCreateJobsPage');
 	Route::post('job/create','JobsController@ProcessCreateJob');
 	Route::get('jobs','JobsController@ShowJobsPage');

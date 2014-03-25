@@ -16,7 +16,76 @@ class JobsController extends BaseController {
 	}
 	
 	
+	public function ShowMyJobsApplied()
+	{
+	$userID=Auth::user()->id;
 	
+	$jobs=JobBet::where('userID',$userID)->get();
+	
+	echo $jobs;
+	
+	}
+	
+	public function ShowMyJobsCreated()
+	{
+	$userID=Auth::user()->id;
+	$jobs=Job::where('id_user',$userID)->get();
+	
+	echo $jobs;
+
+	}
+	
+	public function RemoveJobCreated($jobID)
+	{
+	
+	
+	$job=Job::where('_id',$jobID)->first();
+	if(isSet($job))
+	  {	
+		$userID=Auth::user()->id;
+		$userWhoCreatedJob=$job['id_user'];
+		
+		if($userID==$userWhoCreatedJob)
+			{
+			
+			
+			JobBet::where('jobID',$jobID)->delete();
+			Job::where('_id',$jobID)->delete();
+			
+			echo json_encode(array('status'=>'ok','mesaj'=>'Ai sters cu succes!'));
+			
+			
+			}
+		else	
+			echo json_encode(array('status'=>'nop','mesaj'=>'Nasol, cine esti tu sa stergi?!'));
+		
+	
+	
+		}
+	else 
+		echo json_encode(array('status'=>'nop','mesaj'=>'Nasol! Job-ul asta nu prea exista!'));
+	
+	}
+	
+	public function RemoveJobApplied($jobID)
+	{
+	
+	$userID=Auth::user()->id;
+	
+	$jobBet=JobBet::where('jobID',$jobID)->where('userID',$userID)->count();
+	
+	
+	
+	if($jobBet)
+	    {JobBet::where('jobID',$jobID)->where('userID',$userID)->delete();
+		echo json_encode(array('status'=>'ok','mesaj'=>'Ai renuntat la job, slabule!'));
+		}
+	else 
+		echo 
+			json_encode(array('status'=>'nop','mesaj'=>'Prin magie se pare ca nu ai aplicat la acest job!'));
+	
+	
+	}
 	
 	public function ShowJobsTable()
 	{
@@ -95,11 +164,15 @@ class JobsController extends BaseController {
 	
 	 
 	 $job=Job::where('titlu',$jobName)->first();
-	 $jobID=(string)$job['_id'];
+	 
+	 if(isSet($job))
+	 {$jobID=(string)$job['_id'];
 	 $bidders=JobBet::where('jobID',$jobID)->get();
 	 
 	 return View::make('jobs_detail')->with('job',$job)->with('bidders',$bidders);
-	
+	 }
+	 else 
+	 return Redirect::to('jobs/all');
 	
 	}
 	
