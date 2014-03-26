@@ -43,7 +43,11 @@
 				<ul class="nav navbar-nav navbar-right">
 					@if(Auth::check())
 						<li class="dropdown">
+<<<<<<< HEAD
 							<a href="javascript:$('.dropdown-menu').toggle();"  class="dropdown-toggle" data-toggle="dropdown"><img src="{{URL::to(Auth::user()->avatar)}}" class="img-thumbnail" width="50" height="50">{{Auth::user()->email}} <b class="caret"></b></a>
+=======
+							<a href="javascript:$('.dropdown-menu').toggle();"  class="dropdown-toggle" data-toggle="dropdown"><img src="{{Auth::user()->avatar}}" class="img-thumbnail" width="50" height="50">{{Auth::user()->email}} <b class="caret"></b></a>
+>>>>>>> 9632b3232e6a5ab564819862ff9636f6eee500db
 							<ul class="dropdown-menu">
 								<li>
 									<a href="{{URL::to('/users/'.Auth::user()->username)}}">Profile</a>
