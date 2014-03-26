@@ -10,7 +10,7 @@ $m=Session::get('mesaj');
 ?>
 @if(isset($m))
 <div class="alert alert-info">  
-	<a class="close" data-dismiss="alert">×</a>  
+	<a href="javascript:$('.alert-info').toggle();" class="close" data-dismiss="alert">×</a>  
 	<strong>Info!</strong>{{Session::get('mesaj')}}  
 </div> 
 @endif

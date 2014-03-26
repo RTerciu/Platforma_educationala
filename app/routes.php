@@ -34,20 +34,29 @@ Route::post('/signin','UsersController@PostSignIn');
 
 Route::get('/signout','UsersController@SignOut');
 
-Route::get('/documents/create','DocumentsController@GetCreate');
-
-Route::post('/documents/create','DocumentsController@PostCreate');
-
-
-
 Route::group(array('before' => 'auth'), function()
 {
-Route::get('job/create','JobsController@ShowCreateJobsPage');
-Route::post('job/create','JobsController@ProcessCreateJob');
-Route::get('jobs','JobsController@ShowJobsPage');
-Route::get('jobs/all','JobsController@ShowJobsTable');
-Route::get('jobs/category/{categoryName}','JobsController@ShowJobsForCategoryPage');
-Route::get('jobs/{jobName}','JobsController@ShowJobDetailPage');
-Route::get('jobs/{jobName}/{userId}','JobsController@ProcessBetForJob');
+	Route::get('/users/{userName}','UsersController@ShowProfile');
+	Route::post('/users/{userName}','UsersController@PostProfile');
+	 
+	Route::get('/documents/create','DocumentsController@GetCreate');
+	Route::post('/documents/create','DocumentsController@PostCreate');
+	
+	
+	Route::get('remove/job/created/{jobID}','JobsController@RemoveJobCreated');
+	Route::get('remove/job/applied/{jobID}','JobsController@RemoveJobApplied');
+	Route::get('myjobs/applied','JobsController@ShowMyJobsApplied');
+	Route::get('myjobs/created','JobsController@ShowMyJobsCreated');
+	
+	Route::get('job/create','JobsController@ShowCreateJobsPage');
+	Route::post('job/create','JobsController@ProcessCreateJob');
+	
+	Route::get('jobs','JobsController@ShowJobsPage');
+	Route::get('jobs/all','JobsController@ShowJobsTable');
+	
+	Route::get('jobs/category/{categoryName}','JobsController@ShowJobsForCategoryPage');
+	
+	Route::get('jobs/{jobName}','JobsController@ShowJobDetailPage');
+	Route::get('jobs/{jobName}/{userId}','JobsController@ProcessBetForJob');
 
 });

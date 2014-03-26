@@ -9,9 +9,9 @@ class DocumentsController extends BaseController{
 	
 	public function PostCreate()
 	{
-		$destinationPath = '/uploads/documents/';
+		$destinationPath = 'uploads/documents/';
 		
-		if(Input::has('document') && Input::has('title') && Input::get('category'))
+		if(Input::has('title') && Input::get('category'))
 		{
 		
 			$file = Input::file('document');
