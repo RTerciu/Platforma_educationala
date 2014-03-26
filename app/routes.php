@@ -35,7 +35,7 @@ Route::post('/signin','UsersController@PostSignIn');
 Route::get('/signout','UsersController@SignOut');
 
 Route::group(array('before' => 'auth'), function()
-<<<<<<< HEAD
+
 {
 	Route::get('/users/{userName}','UsersController@ShowProfile');
 	Route::post('/users/{userName}','UsersController@PostProfile');
@@ -44,14 +44,11 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('/documents/create','DocumentsController@PostCreate');
 	
 	
-=======
-{	
->>>>>>> 9632b3232e6a5ab564819862ff9636f6eee500db
 	Route::get('remove/job/created/{jobID}','JobsController@RemoveJobCreated');
 	Route::get('remove/job/applied/{jobID}','JobsController@RemoveJobApplied');
 	Route::get('myjobs/applied','JobsController@ShowMyJobsApplied');
 	Route::get('myjobs/created','JobsController@ShowMyJobsCreated');
-<<<<<<< HEAD
+
 	
 	Route::get('job/create','JobsController@ShowCreateJobsPage');
 	Route::post('job/create','JobsController@ProcessCreateJob');
@@ -61,13 +58,13 @@ Route::group(array('before' => 'auth'), function()
 	
 	Route::get('jobs/category/{categoryName}','JobsController@ShowJobsForCategoryPage');
 	
-=======
+
 	Route::get('job/create','JobsController@ShowCreateJobsPage');
 	Route::post('job/create','JobsController@ProcessCreateJob');
 	Route::get('jobs','JobsController@ShowJobsPage');
 	Route::get('jobs/all','JobsController@ShowJobsTable');
 	Route::get('jobs/category/{categoryName}','JobsController@ShowJobsForCategoryPage');
->>>>>>> 9632b3232e6a5ab564819862ff9636f6eee500db
+
 	Route::get('jobs/{jobName}','JobsController@ShowJobDetailPage');
 	Route::get('jobs/{jobName}/{userId}','JobsController@ProcessBetForJob');
 
