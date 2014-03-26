@@ -12,9 +12,9 @@
 	<div  class="col-md-2">
 		<nav>
 		  <ul class="nav nav-pills nav-stacked">
-			<li class="active"><a href="{{action('JobsController@ShowJobsPage')	  }}">Profil</a></li>
-			<li><a href="{{action('JobsController@ShowCreateJobsPage')}}">Job-uri curente</a></li>
-			<li><a href="{{action('JobsController@ShowJobsTable')	  }}">Job-urile tale</a></li>
+			<li><a href="{{URL::to('/users/'.Auth::user()->username)}}">Profil</a></li>
+			<li><a href="{{action('JobsController@ShowMyJobsApplied')}}">Job-uri licitate</a></li>
+			<li><a href="{{action('JobsController@ShowMyJobsCreated')}}">Job-uri create</a></li>
 		  </ul>
 		</nav>
 	</div>

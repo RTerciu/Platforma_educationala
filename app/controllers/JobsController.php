@@ -4,14 +4,14 @@ class JobsController extends BaseController {
 
 	public function ShowJobsPage()
 	{
-		return View::make('Jobs_main');
+		return View::make('jobs.Jobs_main');
 	}
 	
 	
 	public function ShowCreateJobsPage()
 	{
 	
-		return View::make('Jobs_create');
+		return View::make('jobs.Jobs_create');
 	
 	}
 	
@@ -22,7 +22,7 @@ class JobsController extends BaseController {
 	
 	$jobs=JobBet::where('userID',$userID)->get();
 	
-	echo $jobs;
+	return View::make('profile.jobs_applied')->with('jobs',$jobs);
 	
 	}
 	
@@ -31,7 +31,7 @@ class JobsController extends BaseController {
 	$userID=Auth::user()->id;
 	$jobs=Job::where('id_user',$userID)->get();
 	
-	echo $jobs;
+	return View::make('profile.jobs_created')->with('jobs',$jobs);
 
 	}
 	
@@ -52,18 +52,18 @@ class JobsController extends BaseController {
 			JobBet::where('jobID',$jobID)->delete();
 			Job::where('_id',$jobID)->delete();
 			
-			echo json_encode(array('status'=>'ok','mesaj'=>'Ai sters cu succes!'));
+			return Redirect::to('myjobs/created')->with('mesaj','Ai sters cu succes!');
 			
 			
 			}
 		else	
-			echo json_encode(array('status'=>'nop','mesaj'=>'Nasol, cine esti tu sa stergi?!'));
+			return Redirect::to('myjobs/created')->with('mesaj','Nasol, cine esti tu sa stergi?!');
 		
 	
 	
 		}
 	else 
-		echo json_encode(array('status'=>'nop','mesaj'=>'Nasol! Job-ul asta nu prea exista!'));
+			return Redirect::to('myjobs/created')->with('mesaj','Nasol! Job-ul asta nu prea exista!');
 	
 	}
 	
@@ -78,7 +78,7 @@ class JobsController extends BaseController {
 	
 	if($jobBet)
 	    {JobBet::where('jobID',$jobID)->where('userID',$userID)->delete();
-		echo json_encode(array('status'=>'ok','mesaj'=>'Ai renuntat la job, slabule!'));
+		return Redirect::to('myjobs/applied')->with('mesaj','Ai renuntat la job, slabule!');
 		}
 	else 
 		echo 
@@ -92,7 +92,7 @@ class JobsController extends BaseController {
 	
 	$jobs=Job::all();
 	
-	return View::make('Jobs_table')->with('tabel',$jobs);
+	return View::make('jobs.Jobs_table')->with('tabel',$jobs);
 	
 	
 	}
@@ -152,7 +152,7 @@ class JobsController extends BaseController {
 		{
 		
 		$jobs=Job::where('categorie',$category->id)->get();
-		return View::make('Jobs_table')->with('tabel',$jobs);
+		return View::make('jobs.Jobs_table')->with('tabel',$jobs);
 		//echo var_dump($category);
 		
 		}
@@ -169,7 +169,7 @@ class JobsController extends BaseController {
 	 {$jobID=(string)$job['_id'];
 	 $bidders=JobBet::where('jobID',$jobID)->get();
 	 
-	 return View::make('jobs_detail')->with('job',$job)->with('bidders',$bidders);
+	 return View::make('jobs.jobs_detail')->with('job',$job)->with('bidders',$bidders);
 	 }
 	 else 
 	 return Redirect::to('jobs/all');

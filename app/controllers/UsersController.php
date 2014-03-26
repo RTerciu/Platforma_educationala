@@ -14,7 +14,7 @@ class UsersController extends BaseController {
 	
 	public function ShowProfile($username)
 	{
-		return View::make('profile');
+		return View::make('profile.profile');
 	}
 	
 	public function SignOut()
