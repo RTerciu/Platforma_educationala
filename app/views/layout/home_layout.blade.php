@@ -173,11 +173,13 @@
 		
 		
 		
-		
+		<div class="row">
 		<div class="search1" >
 				 <input type="text" class="input1" id="search1" placeholder="Cauta ce iti doresti..."/>
 				 <div class="post_job" id="post_job"></div>
 		</div>
+		</div>
+		
 		<br>
 		<div class="row">
 		
