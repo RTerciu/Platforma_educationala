@@ -35,6 +35,16 @@ Route::post('/signin','UsersController@PostSignIn');
 
 Route::get('/signout','UsersController@SignOut');
 
+
+Route::get('/search/documents/{searchString}','SearchController@SearchDocs');
+Route::get('/search/joburi/{searchString}','SearchController@SearchJobs');
+
+
+
+
+
+
+
 Route::group(array('before' => 'auth'), function()
 
 {

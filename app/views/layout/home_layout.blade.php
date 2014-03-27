@@ -116,6 +116,8 @@
 	
 	<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}" type="text/css" media="screen"/>
 	<link rel="stylesheet" href="{{ asset('css/style.css')}}" type="text/css" media="screen">
+	<link rel="stylesheet" href="{{ asset('css/style_radu.css')}}" type="text/css" media="screen">
+	
 </head>
 <body>
 <div class="container-fluid">
@@ -168,6 +170,28 @@
 		</nav>
 		</div>
 		
+		
+		
+		
+		
+		<div class="search1" >
+				 <input type="text" class="input1" id="search1" placeholder="Cauta ce iti doresti..."/>
+				 <div class="post_job" id="post_job"></div>
+		</div>
+		<br>
+		<div class="row">
+		
+		<div class="col-md-2" id="doc_recent">Docuri recente</div>
+		<div class="col-md-2" id="doc_recommended">Docuri recomandate</div>
+		<div class="col-md-2" id="doc_results">O vrajeala ieftina</div>
+		<div class="col-md-2" id="job_results">O alta vrajeala ieftina</div>
+		<div class="col-md-2" id="job_recommended">Joburi recomandate</div>
+		<div class="col-md-2" id="job_recent">Joburi recente</div>
+		
+		
+		</div>
+		
+		
 		<div class="row">
 			<div class="main-buttons">
 				<div class="button button-1">
@@ -190,6 +214,6 @@
 		</div>
 		
 		@yield('content')
-	</div>
+</div>
 </body>
 </html>

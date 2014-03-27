@@ -1,109 +1,31 @@
-
-
-/*		MENU		*/
-/*
-#menu{position:relative;}*/
-/*#menu div{display:;}*/
-
-/*		BULINE		BULINE		BULINE		*/
-
-#buttons{margin:0 auto;width:100%;}
-
-#b1:active{background-image:url("../img/buton_activ/Bulina_Banner_1.png");}
-#b1:active{background-image:url("../img/buton_activ/Bulina_Banner_1.png");}
-#b1:active{background-image:url("../img/buton_activ/Bulina_Banner_1.png");}
-
-#b1{
-background-image:url("../img/buton_inactiv/bulina_STAND_BY_faraLiniuta_1.png");
-background-color:white;
-width:348px;
-height:149px;
-outline:none;
-border:none;
-}
-#b2{
-background-image:url("../img/buton_inactiv/bulina_STAND_BY_faraLiniuta_2.png");
-background-color:white;
-width:348px;
-height:149px;
-outline:none;
-border:none;
-}
-#b3{
-background-image:url("../img/buton_inactiv/bulina_STAND_BY_cuLiniuta_3.png");
-background-color:white;
-width:348px;
-height:149px;
-outline:none;
-border:none;
-}
-
-#b1:hover{background-image:url("../img/buton_hover/bulina_1_Hover.png");}
-#b2:hover{background-image:url("../img/buton_hover/bulina_2_Hover.png");}
-#b3:hover{background-image:url("../img/buton_hover/bulina_3_Hover.png");}
-
-/*		BANNERE		BANNERE		BANNERE		*/
-
-#bannere div{
-margin-top:-10px;
-
-top:0px;
-left:0px;
-z-index=2;
-}
-
-#banner1{
-background-image:url("../img/Banner_albastru_stanga.jpg");
-background-repeat:no-repeat;
-width:100%;
-height:100%;
-margin-top:-8%;
-visibility:hidden;
-}
-#banner2{
-background-image:url("../img/Banner_principal.jpg");
-background-repeat:no-repeat;
-width:100%;
-height:787px;
-margin-top:-8%;
-}
-#searchButton
+.search1
 {
-background-image:url("../img/lupa.png");
-width:374px;
-height:374px;
-margin-left:40%;
-}
-#searchButton:hover{background-image:url("../img/lupa_hover.png");}
+height:280px;
+width:50%;
+margin:auto;
+background:url('../img/search_box1.png') no-repeat; 
 
 
-#banner3{
-background-image:url("../img/Banner_portocaliu_dreapta.jpg");
-width:100%;
-height:100%;
-visibility:hidden;
 }
 
-/*		BULINUTE	*/
+.input1
+{
+margin-left:5%;
+margin-top:110px;
+width:45%;
+height:40px;
+-webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
 
-#dot{margin:0 auto;width:60px;margin-top:33.1%;}
-#dot div{display:-webkit-inline-box;width:15px;height:15px;background-color:#cad1cf;border-radius:100%;}
 
-/*		ANUNTURI	ANUNTURI	ANUNTURI	*/
-
-#anunturi{margin:0 auto;width:1800px;}
-#anunturi div{display:-webkit-inline-box;}
-
-#anunt{
-width:450px;
-height:135px;
-background-color:#ead683;
-
-border-bottom-left-radius:100px;
-border-bottom-right-radius:80px;
-border-top-left-radius:100px;
-border-top-right-radius:80px;
-margin-left:6%;
 }
 
 
+.post_job
+{
+width:30%;
+float:right;
+height:280px;
+margin-right:5%;
+}
