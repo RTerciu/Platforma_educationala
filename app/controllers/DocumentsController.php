@@ -2,10 +2,53 @@
 
 class DocumentsController extends BaseController{
 
+	public function ShowMainPage()
+	{
+	
+	return View::make('documents.documents_main');
+	
+	
+	}
+
+	
+	public function GetList()
+	{
+
+	$documents=Document::all();
+	return View::make('documents.documents_list')->with('documents',$documents);
+	}
+
+	public function DocumentDownloaded($documentName)
+	{
+	
+	$document=Document::where('title',$documentName)->first();
+	$document->nrDownloads=$document->nrDownloads+1;
+	$document->save();
+	
+	$file= public_path().'\\'.$document->document;
+	
+	return Response::download($file);
+	
+	//return Redirect::to('/documents/'.$documentName);
+	
+	}
+	
+	
+	
+	
 	public function GetCreate()
 	{
-		return View::make('create');
+		return View::make('documents.create');
 	}
+	
+	public function GetDocumentDetailPage($documentName)
+	{
+	$document=Document::where('title',$documentName)->first();
+	return View::make('documents.document_detail')->with('document',$document);
+
+	}
+	
+
 	
 	public function PostCreate()
 	{
@@ -23,7 +66,10 @@ class DocumentsController extends BaseController{
 			{
 				$document = new Document;
 				$document->title = Input::get('title');
+				$document->userID=Auth::user()->id;
 				$document->category = Input::get('category');
+				$document->descriere= Input::get('descriere');
+				$document->nrDownloads=0;
 				$document->document = $destinationPath.$filename;
 				$document->save();
 			}
@@ -37,7 +83,7 @@ class DocumentsController extends BaseController{
 			return Redirect::to('/documents/create')->with('create_errors', 'Missing fields.');
 		}
 		
-		return Redirect::to('/documents/create');
+		return Redirect::to('/documents/create')->with('create_errors','Ati uploadat documentul cu success');
 	}
 
 }

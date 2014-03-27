@@ -1,9 +1,7 @@
 @extends('layout.jobs_layout')
 
-
-
 @section('jobs_content')
-<h2>Creaza Job</h2><hr>
+<h2 class="text-left">Creaza Job</h2>
 
 	{{ Form::open(array('action' => 'JobsController@ProcessCreateJob', 'files' => true, 'role' => 'form' ))}}
 		<div class="form-group">

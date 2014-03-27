@@ -1,6 +1,6 @@
-@extends('layout.layout')
+@extends('layout.documents_layout')
 
-@section('content')
+@section('documents_content')
 	<div class="page-header">
 		<h1>Upload <small>and share!</small></h1>
 	</div>
@@ -9,7 +9,7 @@
 		<div class="form-group">
 		
 			@if(Session::has('create_errors'))
-				<p class="alert alert-danger">{{Session::get('create_errors')}}</p>
+				<p class="alert alert-info">{{Session::get('create_errors')}}</p>
 			@endif
 		
 			<label for="email">Title</label>
@@ -23,6 +23,12 @@
 			<label for="email">Category</label>
 			<textarea class="form-control" name="category" id="category"></textarea>
 		</div>
+		
+		<div class="form-group">
+			<label for="descriere">Descriere</label>
+			<textarea name="descriere" class="form-control" rows="10" id="descriere_job" ></textarea>
+		</div>
+		
 		<input type="submit" class="btn btn-primary" name="submit" value="Upload" />
 	{{Form::close()}}
 @stop

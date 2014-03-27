@@ -24,6 +24,7 @@ return View::make('teo');
 });
 
 
+
 Route::get('/signup','UsersController@ShowSignUp');
 
 Route::post('/signup','UsersController@PostSignUp');
@@ -37,11 +38,20 @@ Route::get('/signout','UsersController@SignOut');
 Route::group(array('before' => 'auth'), function()
 
 {
+	Route::get('/download/document/{documentName}','DocumentsController@DocumentDownloaded');
+
 	Route::get('/users/{userName}','UsersController@ShowProfile');
 	Route::post('/users/{userName}','UsersController@PostProfile');
+	
+	Route::get('documents','DocumentsController@ShowMainPage');
+	Route::get('documents/all','DocumentsController@GetList');
+	
+	Route::get('documents/create','DocumentsController@GetCreate');
+	Route::post('documents/create','DocumentsController@PostCreate');
+	
+	Route::get('documents/{documentName}','DocumentsController@GetDocumentDetailPage');
 	 
-	Route::get('/documents/create','DocumentsController@GetCreate');
-	Route::post('/documents/create','DocumentsController@PostCreate');
+
 	
 	
 	Route::get('remove/job/created/{jobID}','JobsController@RemoveJobCreated');

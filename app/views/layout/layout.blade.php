@@ -10,8 +10,6 @@
 	<script type="text/javascript" src="{{asset('js/home_buttons.js')}}"></script>
 	<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
 	
-	
-	
 	<script>
         tinymce.init({selector:'textarea#descriere_job'});
 	</script>
@@ -29,7 +27,7 @@
 				</div>
 				<ul class="nav navbar-nav">
 					<li>
-						<a href="{{URL::to('/documents/create')}}" class="navbar-brand">Upload document</a>
+						<a href="{{URL::to('/documents')}}" class="navbar-brand">Documente</a>
 					</li>
 					
 					<li>
