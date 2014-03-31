@@ -48,16 +48,21 @@ Route::get('/search/joburi/{searchString}','SearchController@SearchJobs');
 Route::group(array('before' => 'auth'), function()
 
 {
-	Route::get('/download/document/{documentName}','DocumentsController@DocumentDownloaded');
+	Route::get('/download/document/{documentName}','DocumentsController@DocumentDownload');
 
 	Route::get('/users/{userName}','UsersController@ShowProfile');
 	Route::post('/users/{userName}','UsersController@PostProfile');
+	
+	
 	
 	Route::get('documents','DocumentsController@ShowMainPage');
 	Route::get('documents/all','DocumentsController@GetList');
 	
 	Route::get('documents/create','DocumentsController@GetCreate');
 	Route::post('documents/create','DocumentsController@PostCreate');
+	
+	Route::get('documents/downloaded','DocumentsController@DocumentsDownloaded');
+	Route::get('documents/uploaded','DocumentsController@DocumentsUploaded');
 	
 	Route::get('documents/{documentName}','DocumentsController@GetDocumentDetailPage');
 	 

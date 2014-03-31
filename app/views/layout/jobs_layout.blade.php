@@ -4,7 +4,7 @@
 
 @section('content')
 	<div class="page-header">
-		<h1>Jobs <small>For everyone....</small></h1>
+		<h1>Jobs <small>La munca nu la intins mana...</small></h1>
 	</div>
 	
 	<div class="row">

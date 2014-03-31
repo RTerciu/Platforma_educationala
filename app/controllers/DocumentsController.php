@@ -18,15 +18,28 @@ class DocumentsController extends BaseController{
 	return View::make('documents.documents_list')->with('documents',$documents);
 	}
 
-	public function DocumentDownloaded($documentName)
+	public function DocumentDownload($documentName)
 	{
 	
 	$document=Document::where('title',$documentName)->first();
-	$document->nrDownloads=$document->nrDownloads+1;
-	$document->save();
+	
 	
 	$file= public_path().'\\'.$document->document;
+	//contruiesc data
+	$data=date("Y-m-d H:i:s");
 	
+	$userID=Auth::user()->id;
+	//verificare downloadat deja
+	$already_downloaded=DB::table('downloaded_docs')->where('docID',$document->_id)->where('userID',$userID)->count();
+	//daca nu a mai fost deja downloadat de acest user il pun in baza de date ca l-a downloadat acum
+	//si cresc documentului numarul de downloaduri
+	if($already_downloaded==0)	
+		{	DB::table('downloaded_docs')->insert(array('docTitle'=>$documentName,'docID'=>$document->_id,'userID'=>$userID,'data'=>$data));
+			$document->nrDownloads=$document->nrDownloads+1;
+			$document->save();
+	
+		}
+	//ii raspund user-ului cu fisierul cerut
 	return Response::download($file);
 	
 	//return Redirect::to('/documents/'.$documentName);
@@ -34,7 +47,25 @@ class DocumentsController extends BaseController{
 	}
 	
 	
+	public function DocumentsDownloaded()
+	{
+	$documents=DB::table('downloaded_docs')->where('userID',Auth::user()->id)->get();
 	
+  
+	return View::make('profile.documents_downloaded')->with('documents',$documents);
+	}
+	
+	public function DocumentsUploaded()
+	{
+	
+	$userID=Auth::user()->id;
+	
+	$documents=Document::where('userID',$userID)->get();
+	
+	return View::make('profile.documents_uploaded')->with('documents',$documents);
+	
+	
+	}
 	
 	public function GetCreate()
 	{
