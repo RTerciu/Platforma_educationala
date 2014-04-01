@@ -117,4 +117,50 @@ class DocumentsController extends BaseController{
 		return Redirect::to('/documents/create')->with('create_errors','Ati uploadat documentul cu success');
 	}
 
+	
+	public function GetReviewPage($docID)
+	{
+	
+	$document=Document::find($docID);
+	return View::make('documents.review_form')->with('document',$document);
+	
+	}
+	
+	
+	public function PostReview()
+	{
+	
+	echo 'da';
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

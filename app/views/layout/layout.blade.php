@@ -12,6 +12,7 @@
 	
 	<script>
         tinymce.init({selector:'textarea#descriere_job'});
+
 	</script>
 	
 	<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}"/>

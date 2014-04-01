@@ -19,8 +19,12 @@ $m=Session::get('mesaj');
 
 <h2>{{$document->title}}
 
-<?php $url='/download/document/'.$document->title; ?>
-<a href="{{URL::to($url)}}" class="btn btn-primary">Downloadeaza acest document!</a></h2>
+<?php $url='/download/document/'.$document->title;
+	  $url2='/documents/review/'.$document->id;
+
+
+ ?>
+<a href="{{URL::to($url)}}" class="btn btn-primary">Downloadeaza acest document!</a>  <a href="{{URL::to($url2)}}" class="btn btn-primary">Review pentru document!</a></h2>
 
 <hr>
 

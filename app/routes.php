@@ -42,7 +42,8 @@ Route::get('/search/joburi/{searchString}','SearchController@SearchJobs');
 
 Route::group(array('before' => 'auth'), function()
 
-{
+{	
+
 	Route::get('tags/create','TagsController@CreateTagForm');
 	Route::post('tags/create','TagsController@CreateTag');
 	
@@ -61,6 +62,9 @@ Route::group(array('before' => 'auth'), function()
 	
 	Route::get('documents','DocumentsController@ShowMainPage');
 	Route::get('documents/all','DocumentsController@GetList');
+	
+	Route::get('documents/review/{docID}','DocumentsController@GetReviewPage');
+	Route::post('documents/review/{docID}','DocumentsController@PostReview');
 	
 	Route::get('documents/create','DocumentsController@GetCreate');
 	Route::post('documents/create','DocumentsController@PostCreate');
