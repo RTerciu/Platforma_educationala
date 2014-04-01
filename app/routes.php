@@ -40,14 +40,18 @@ Route::get('/search/documents/{searchString}','SearchController@SearchDocs');
 Route::get('/search/joburi/{searchString}','SearchController@SearchJobs');
 
 
-
-
-
-
-
 Route::group(array('before' => 'auth'), function()
 
 {
+	Route::get('tags/create','TagsController@CreateTagForm');
+	Route::post('tags/create','TagsController@CreateTag');
+	
+
+	Route::get('tags/all','TagsController@GetAllTags');
+	Route::get('tags/{tagName}','TagsController@GetSomeTags');
+	Route::get('tags/check/{tagName}','TagsController@CheckTag');
+
+
 	Route::get('/download/document/{documentName}','DocumentsController@DocumentDownload');
 
 	Route::get('/users/{userName}','UsersController@ShowProfile');
@@ -66,9 +70,6 @@ Route::group(array('before' => 'auth'), function()
 	
 	Route::get('documents/{documentName}','DocumentsController@GetDocumentDetailPage');
 	 
-
-	
-	
 	Route::get('remove/job/created/{jobID}','JobsController@RemoveJobCreated');
 	Route::get('remove/job/applied/{jobID}','JobsController@RemoveJobApplied');
 	Route::get('myjobs/applied','JobsController@ShowMyJobsApplied');

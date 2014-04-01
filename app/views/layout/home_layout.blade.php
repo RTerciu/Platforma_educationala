@@ -168,54 +168,55 @@
 				</ul>
 			</div>
 		</nav>
-		</div>
-		
-		
-		
+		</div>		
 		
 		<div class="row">
-		<div class="search1" >
-				 <input type="text" class="input1" id="search1" placeholder="Cauta ce iti doresti..."/>
-				 <div class="post_job" id="post_job"></div>
-		</div>
-		</div>
-		
-		<br>
-		<div class="row">
-		
-		<div class="col-md-2" id="doc_recent">Docuri recente</div>
-		<div class="col-md-2" id="doc_recommended">Docuri recomandate</div>
-		<div class="col-md-2" id="doc_results">O vrajeala ieftina</div>
-		<div class="col-md-2" id="job_results">O alta vrajeala ieftina</div>
-		<div class="col-md-2" id="job_recommended">Joburi recomandate</div>
-		<div class="col-md-2" id="job_recent">Joburi recente</div>
-		
-		
-		</div>
-		
-		
-		<div class="row">
-			<div class="main-buttons">
-				<div class="button button-1">
-					<img src="{{asset('img/buton_inactiv/bulina_banner_1.png')}}">
-				</div>
-				
-				<div class="button button-2">
-					<img src="{{asset('img/buton_inactiv/bulina_banner_2.png')}}">
-				</div>
-				
-				<div class="button button-3">
-					<img src="{{asset('img/buton_inactiv/bulina_banner_3.png')}}">
+			<div class="col-md-12">
+				<div class="main-buttons">
+					<div class="button button-1">
+						<img src="{{asset('img/buton_inactiv/bulina_banner_1.png')}}">
+					</div>
+					
+					<div class="button button-2">
+						<img src="{{asset('img/buton_inactiv/bulina_banner_2.png')}}">
+					</div>
+					
+					<div class="button button-3">
+						<img src="{{asset('img/buton_inactiv/bulina_banner_3.png')}}">
+					</div>
 				</div>
 			</div>
-			<div id="slides">
+		</div>
+
+		<div class="row">
+			<div id="slides" class="col-md-12" style="padding:0px">
 				<img src="{{asset('img/banner_st.jpg')}}">
 				<img src="{{asset('img/banner_principal.jpg')}}">
 				<img src="{{asset('img/banner_dr.jpg')}}">
 			</div>
 		</div>
+
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3" style="margin-top: -23%;z-index:666;">
+				<div class="search1">
+					 <input type="text" class="input1" id="search1" placeholder="Cauta ce iti doresti..."/>
+					 <div class="post_job" id="post_job"></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-2" id="doc_recent">Docuri recente</div>
+			<div class="col-md-2" id="doc_recommended">Docuri recomandate</div>
+			<div class="col-md-2" id="doc_results">O vrajeala ieftina</div>
+			<div class="col-md-2" id="job_results">O alta vrajeala ieftina</div>
+			<div class="col-md-2" id="job_recommended">Joburi recomandate</div>
+			<div class="col-md-2" id="job_recent">Joburi recente</div>
+		</div>
+			
 		
 		@yield('content')
+
 </div>
 </body>
 </html>

@@ -1,31 +1,36 @@
 .search1
 {
-height:280px;
-margin:auto;
 background:url('../img/search_box1.png') no-repeat ; 
 background-position:center; 
-
-
+background-size: 100% 100%;
+z-index:999;
+padding:0;
+width: 91.2%;
+padding-bottom: 12.7%;
+margin: 0 auto;
 }
 
 .input1
 {
-margin-left:29%;
-margin-top:110px;
-width:25%;
-height:40px;
--webkit-border-radius: 10px;
--moz-border-radius: 10px;
-border-radius: 10px;
-
-
+line-height:30px;
+-webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+border-radius: 20px;
+border:0px;
+position:relative;
+padding:5px;
+margin-top: 13%;
+margin-left: 5%;
+width: 49%;
 }
 
 
 .post_job
 {
-width:30%;
-float:right;
-height:280px;
-margin-right:5%;
+width: 20%;
+cursor: pointer;
+float: right;
+height: 100%;
+padding: 40px;
+margin-top: 13%;
 }
