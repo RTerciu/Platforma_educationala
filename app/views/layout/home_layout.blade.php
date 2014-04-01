@@ -129,7 +129,7 @@
 				</div>
 				<ul class="nav navbar-nav">
 					<li>
-						<a href="{{URL::to('/documents/create')}}" class="navbar-brand">Upload document</a>
+						<a href="{{URL::to('/documents/create')}}" class="navbar-brand">Docs</a>
 					</li>
 					
 					<li>
