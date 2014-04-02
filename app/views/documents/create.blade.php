@@ -21,7 +21,9 @@
 		</div>
 		<div class="form-group">
 			<label for="tags">Tags</label>
-			<input class="form-control" name="tags" id="tags">
+			<div rows="1" class="form-control" contenteditable="true" id="inserted_tags"></div>
+			<input type="text" class="form-control" id="tags" name="tags" placeholder="Type here to insert tags ...">
+			<div id="results"></div>
 		</div>
 		
 		<div class="form-group">
@@ -48,7 +50,21 @@
 		});;
 	
 		$('#tags').autocomplete({
-			source:availableTags
+			appendTo: '#results',
+			source:availableTags,
+			select: function(event,ui)
+			{
+				selected_value = ui.item.value;
+				console.log(selected_value);
+				message = "<span class='label label-info'>" + selected_value + "<span class='close-button'> &times; </span></span>";
+				
+				console.log(message);
+				
+				$('#inserted_tags').append(message);
+				$('#tags').val('');
+				
+				return false;
+			}
 		});
 	</script>
 	

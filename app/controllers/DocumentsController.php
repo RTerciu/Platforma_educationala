@@ -130,7 +130,18 @@ class DocumentsController extends BaseController{
 	public function PostReview()
 	{
 	
-	echo 'da';
+	//De verificat si aici input-urile si sa nu verific numai prin jquery
+	
+	$review=new Review;
+	$review->mark=Input::get('mark');
+	$review->docID=Input::get('docID');
+	$review->userID=Auth::user()->id;
+	$review->rezumat=Input::get('rezumat');
+	$review->utilitate=Input::get('utilitate');
+	
+	$review->save();
+	$url="documents/".Input::get('docName');
+	return Redirect::to($url)->with('mesaj','Review adaugat cu success');
 	
 	}
 	

@@ -25,6 +25,7 @@ return View::make('teo');
 
 
 
+
 Route::get('/signup','UsersController@ShowSignUp');
 
 Route::post('/signup','UsersController@PostSignUp');
@@ -64,7 +65,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('documents/all','DocumentsController@GetList');
 	
 	Route::get('documents/review/{docID}','DocumentsController@GetReviewPage');
-	Route::post('documents/review/{docID}','DocumentsController@PostReview');
+	Route::post('documents/review','DocumentsController@PostReview');
 	
 	Route::get('documents/create','DocumentsController@GetCreate');
 	Route::post('documents/create','DocumentsController@PostCreate');

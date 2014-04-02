@@ -56,4 +56,36 @@ class UsersController extends BaseController {
 		return Redirect::to('/');
 	}
 
+		public function PostProfile()
+	{
+		$user_id = Auth::user()->id;
+		$user = User::find($user_id);
+		
+		if(Input::has('password'))
+		{
+			$user->password = Hash::make(Input::get('password'));
+		}
+		
+		if(Input::has('avatar_check'))
+		{
+			$destinationPath = 'uploads/avatars/';
+			$file = Input::file('avatar');
+			
+			$filename = Input::file('avatar')->getClientOriginalName();
+			$uploadSuccess = Input::file('avatar')->move($destinationPath, $filename);
+			
+			$user->avatar = $destinationPath.$filename;
+		}
+		
+		
+		$user->email = Input::get('email');
+		$user->username = Input::get('username');
+		
+		$user->save();
+		
+		return $user;
+		
+	}
+	
+	
 }
