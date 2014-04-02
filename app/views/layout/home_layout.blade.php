@@ -149,7 +149,7 @@
 
 							<ul class="dropdown-menu">
 								<li>
-									<a href="{{URL::to('/users/'.Auth::user()->username)}}">Profile</a>
+									<a href="{{URL::to('/users/'.Auth::user()->username)}}">Profil</a>
 								</li>
 								<li class="divider"></li>
 								<li>
@@ -190,17 +190,17 @@
 
 		<div class="row">
 			<div id="slides" class="col-md-12" style="padding:0px">
-				<img src="{{asset('img/banner_st.jpg')}}">
-				<img src="{{asset('img/banner_principal.jpg')}}">
-				<img src="{{asset('img/banner_dr.jpg')}}">
-			</div>
-		</div>
+				<div class="slide" style="background-image:url({{asset('img/banner_st.jpg')}})">
 
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3" style="margin-top: -23%;z-index:666;">
-				<div class="search1">
-					 <input type="text" class="input1" id="search1" placeholder="Cauta ce iti doresti..."/>
-					 <div class="post_job" id="post_job"></div>
+				</div>
+				<div class="slide" style="background-image:url({{asset('img/banner_principal.jpg')}})">
+					<div class="search1">
+						 <input type="text" class="input1" id="search1" placeholder="Cauta ce iti doresti..."/>
+						 <div class="post_job" id="post_job"></div>
+					</div>
+				</div>
+				<div class="slide" style="background-image:url({{asset('img/banner_dr.jpg')}})">
+				
 				</div>
 			</div>
 		</div>

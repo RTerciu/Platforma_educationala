@@ -41,8 +41,8 @@ Categorii <strong>{{$document->category}}</strong>
 <br>
 {{ Form::open(array('action' => 'DocumentsController@PostReview', 'role' => 'form' ))}}
 		<div class="form-group">
-        <label for="mark">Va rugam alegeti un rating de la 10 la 100</label>
-		<input type=range min=10 max=100 value=50 class="form-control" id="mark">
+        <label for="mark">Va rugam alegeti un rating de la 1 la 100</label>
+		<input type=range min=1 max=100 value=50 class="form-control" id="mark">
 		</div>
 		
 		<div class="form-group">

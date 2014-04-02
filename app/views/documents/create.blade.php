@@ -20,8 +20,8 @@
 			<input type="file" class="form-control" name="document" id="document" />
 		</div>
 		<div class="form-group">
-			<label for="email">Category</label>
-			<textarea class="form-control" name="category" id="category"></textarea>
+			<label for="tags">Tags</label>
+			<input class="form-control" name="tags" id="tags">
 		</div>
 		
 		<div class="form-group">
@@ -31,4 +31,25 @@
 		
 		<input type="submit" class="btn btn-primary" name="submit" value="Upload" />
 	{{Form::close()}}
+	<script>
+		var availableTags = [];
+		
+		$.getJSON("{{action('TagsController@GetAllTags')}}", function(data)
+		{			
+			$.each(data, function(key,val)
+			{
+				availableTags[key] = new Object();
+				availableTags[key].descriere = data[key].descriere;
+				availableTags[key].label = data[key].name;
+			});
+		}).done(function()
+		{
+			console.log(availableTags);
+		});;
+	
+		$('#tags').autocomplete({
+			source:availableTags
+		});
+	</script>
+	
 @stop

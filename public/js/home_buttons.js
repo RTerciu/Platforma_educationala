@@ -36,12 +36,6 @@ function search()
 }
 
 $(document).ready(function(){
-
-
-		 $("div#post_job").click(function(){
-		document.location.href='job/create';
-			
-		});
 	
 		$("input#search1").on("keyup", function(e) {
 		// Set Timeout

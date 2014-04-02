@@ -9,10 +9,9 @@
 	<script type="text/javascript" href="{{asset('js/bootstrap.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('js/home_buttons.js')}}"></script>
 	<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
-	
+	<script src="{{asset('js/jquery-ui-1.10.4.custom.min.js')}}"></script>
 	<script>
         tinymce.init({selector:'textarea#descriere_job'});
-
 	</script>
 	
 	<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}"/>

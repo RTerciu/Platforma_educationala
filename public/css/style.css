@@ -62,7 +62,7 @@
 .main-buttons .button
 {
 	display:inline-block;
-	width:32%;
+	width:31.5%;
 	height:100%;
 }
 
@@ -71,3 +71,13 @@
 	width:100%;
 	height:100%;
 }
+
+#slides .slide
+{
+	width:100%;
+	height:100%;
+	background-size:100%;
+}
+
+/*autocomplete list */
+
