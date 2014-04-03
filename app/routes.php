@@ -67,6 +67,8 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('documents/review/{docID}','DocumentsController@GetReviewPage');
 	Route::post('documents/review','DocumentsController@PostReview');
 	
+	Route::post('grade/review','DocumentsController@GradeReview');
+	
 	Route::get('documents/create','DocumentsController@GetCreate');
 	Route::post('documents/create','DocumentsController@PostCreate');
 	

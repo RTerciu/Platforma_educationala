@@ -74,8 +74,14 @@ class DocumentsController extends BaseController{
 	
 	public function GetDocumentDetailPage($documentName)
 	{
+	
+	$user=Auth::user()->id;
+	$downloaded=DB::table('downloaded_docs')->where('userID',$user)->where('docTitle',$documentName)->count();
+	
+	$reviews=Review::where('docName',$documentName)->take(3)->get();
 	$document=Document::where('title',$documentName)->first();
-	return View::make('documents.document_detail')->with('document',$document);
+	return View::make('documents.document_detail')->with('document',$document)->with('reviews',$reviews)
+												  ->with('downloaded',$downloaded);
 
 	}
 	
@@ -135,6 +141,7 @@ class DocumentsController extends BaseController{
 	$review=new Review;
 	$review->mark=Input::get('mark');
 	$review->docID=Input::get('docID');
+	$review->docName=Input::get('docName');
 	$review->userID=Auth::user()->id;
 	$review->rezumat=Input::get('rezumat');
 	$review->utilitate=Input::get('utilitate');
@@ -145,7 +152,37 @@ class DocumentsController extends BaseController{
 	
 	}
 	
+	public function GradeReview()
+	{
 	
+	$reviewID=Input::get('reviewID');
+	$userID=Auth::user()->id;
+	
+	
+	
+	$reviewNr=ReviewGrade::where('reviewID',$reviewID)->where('userID',$userID)->count();
+	
+	if(!$reviewNr)
+	    $review=new ReviewGrade;
+	else 
+		$review=ReviewGrade::where('reviewID',$reviewID)->where('userID',$userID)->first();
+		
+	$review->docID=Input::get('docID');
+	$review->userID=$userID;
+	$review->reviewID=Input::get('reviewID');
+	$review->mark=Input::get('mark');
+	
+	$review->save();
+	
+	$url='documents/'.Input::get('docName').'#review_grades';
+	
+	return Redirect::to($url)->with('mesaj','Review Notat cu success!');
+	
+		
+	//return $review;
+	
+
+	}
 	
 	
 	
