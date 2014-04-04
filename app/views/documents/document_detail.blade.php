@@ -5,6 +5,7 @@
 @section('documents_content')
 
 <script  src="{{asset('js/documents_detail.js')}}" ></script>
+<link rel="stylesheet" href="{{ asset('css/style_radu.css')}}" type="text/css" media="screen">
 
 <?php
 $m=Session::get('mesaj');

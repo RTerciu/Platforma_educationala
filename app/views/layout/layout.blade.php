@@ -47,7 +47,10 @@
 
 							<ul class="dropdown-menu">
 								<li>
-									<a href="{{URL::to('/users/'.Auth::user()->username)}}">Profile</a>
+									<a href="{{URL::to('/users/'.Auth::user()->username)}}">Settings</a>
+								</li>
+								<li>
+									<a href="{{URL::to('/profile/'.Auth::user()->username)}}">Public Profile</a>
 								</li>
 								<li class="divider"></li>
 								<li>

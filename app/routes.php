@@ -40,10 +40,20 @@ Route::get('/signout','UsersController@SignOut');
 Route::get('/search/documents/{searchString}','SearchController@SearchDocs');
 Route::get('/search/joburi/{searchString}','SearchController@SearchJobs');
 
+Route::get('/profile/{userName}','UsersController@GetPublicProfile');
+
+
 
 Route::group(array('before' => 'auth'), function()
-
 {	
+
+
+	Route::post('message/trimite','MessageController@PostMessage');
+	Route::get('message/trimite',function()
+	{
+	return "x";
+	
+	});
 
 	Route::get('tags/create','TagsController@CreateTagForm');
 	Route::post('tags/create','TagsController@CreateTag');

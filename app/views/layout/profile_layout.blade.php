@@ -12,11 +12,13 @@
 	<div  class="col-md-2">
 		<nav>
 		  <ul class="nav nav-pills nav-stacked">
+		  
 			<li><a href="{{URL::to('/users/'.Auth::user()->username)}}">Profil</a></li>
 			<li><a href="{{action('JobsController@ShowMyJobsApplied')}}">Job-uri licitate</a></li>
 			<li><a href="{{action('JobsController@ShowMyJobsCreated')}}">Job-uri create</a></li>
 			<li><a href="{{action('DocumentsController@DocumentsDownloaded')}}">Docs Down</a></li>
 			<li><a href="{{action('DocumentsController@DocumentsUploaded')}}">Docs Up</a></li>
+		 
 		  </ul>
 		</nav>
 	</div>

@@ -56,6 +56,7 @@ class UsersController extends BaseController {
 		return Redirect::to('/');
 	}
 
+	
 		public function PostProfile()
 	{
 		$user_id = Auth::user()->id;
@@ -85,6 +86,37 @@ class UsersController extends BaseController {
 		
 		return $user;
 		
+	}
+	
+	
+	public function GetPublicProfile($userName)
+	{
+	
+	//caut user-ul cautat
+	$user=User::where('username',$userName)->get();
+	
+	if(!isset($user[0]))
+	//Daca nu exista user-ul
+		if(Auth::check()) //daca avem un user autentificat
+			{$userLogged=Auth::user()->username; //redirectez la profilul user-ului logat
+					return Redirect::to('users/'.$userLogged);
+			}
+		 else 
+			return Redirect::to('/');//daca nu e user logat si nici user-ul cautat nu exista redirectez	
+									 //la home
+	
+	else
+		{//user-ul cautat exista
+		 //afisez profilul public
+		return View::make('profile.public_profile')->with('user',$user);
+			
+		
+		
+		}
+	
+	
+	
+	
 	}
 	
 	
