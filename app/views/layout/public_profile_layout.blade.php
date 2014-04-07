@@ -11,10 +11,10 @@
 	<div class="row">
 	
 	<div  class="col-md-2">
-		<h3>{{$user[0]->username}}</h3>
-		<img src="{{URL::to($user[0]->avatar)}}"/>
+		<h3>{{$user['username']}}</h3>
+		<img src="{{URL::to($user->avatar)}}"/>
 		<p>S-a alaturat comunitatii la
-		<strong>{{$user[0]->created_at}}</strong>
+		<strong>{{$user->created_at}}</strong>
 		</p>
 	
 		<h3>Sa fim prieteni!</h3>
@@ -23,7 +23,7 @@
 		<p id="form_errors"></p>
 		
 		{{Form::open(array('action' => 'MessageController@PostMessage', 'role' => 'form' ))}}
-		<input type="hidden" id="userTo" name="userTo" value="{{$user[0]->_id}}" >	
+		<input type="hidden" id="userTo" name="userTo" value="{{$user->_id}}" >	
 		<input type="hidden" id="userFrom" name="userFrom" value="{{Auth::user()->id}}" >
 		
 		
@@ -50,10 +50,10 @@
 	<div  class="col-md-10">
 		<nav>
 				<ul class="nav nav-pills nav-justified">
-				  <li class="active"><a href="#">Despre EL Hombre</a></li>
-				  <li ><a href="#">Doc Stats</a></li>
-				  <li><a href="#">Job Stats</a></li>
-				  <li><a href="#">Community Stats</a></li>
+				  <li><a href="{{URL::to('profile/'.$user->username)}}">Despre EL Hombre</a></li>
+				  <li><a href="{{URL::to('profile/docsStats/'.$user->username)}}">Doc Stats</a></li>
+				  <li><a href="{{URL::to('profile/jobsStats/'.$user->username)}}">Job Stats</a></li>
+				  <li><a href="{{URL::to('profile/communityStats/'.$user->username)}}">Community Stats</a></li>
 				</ul>
 		</nav>	
 	<hr>

@@ -41,6 +41,9 @@ Route::get('/search/documents/{searchString}','SearchController@SearchDocs');
 Route::get('/search/joburi/{searchString}','SearchController@SearchJobs');
 
 Route::get('/profile/{userName}','UsersController@GetPublicProfile');
+Route::get('profile/docsStats/{userName}','UsersController@GetDocsStats');
+Route::get('profile/jobsStats/{userName}','UsersController@GetJobsStats');
+Route::get('profile/communityStats/{userName}','UsersController@GetCommunityStats');
 
 
 

@@ -89,13 +89,43 @@ class UsersController extends BaseController {
 	}
 	
 	
+	private function DoUserVerification($userName,$view)
+	{
+	
+	//caut user-ul cautat
+	$user=User::where('username',$userName)->first();
+	
+	if(!isset($user))
+	//Daca nu exista user-ul
+		if(Auth::check()) //daca avem un user autentificat
+			{$userLogged=Auth::user()->username; //redirectez la profilul user-ului logat
+					return Redirect::to('users/'.$userLogged);
+			}
+		 else 
+			return Redirect::to('/');//daca nu e user logat si nici user-ul cautat nu exista redirectez	
+									 //la home
+	
+	else
+		{//user-ul cautat exista
+		 //afisez profilul public
+		return View::make($view)->with('user',$user);
+			
+		
+		
+		}
+	
+	
+	
+	}
+	
+	
 	public function GetPublicProfile($userName)
 	{
 	
 	//caut user-ul cautat
-	$user=User::where('username',$userName)->get();
+	$user=User::where('username',$userName)->first();
 	
-	if(!isset($user[0]))
+	if(!isset($user))
 	//Daca nu exista user-ul
 		if(Auth::check()) //daca avem un user autentificat
 			{$userLogged=Auth::user()->username; //redirectez la profilul user-ului logat
@@ -119,5 +149,19 @@ class UsersController extends BaseController {
 	
 	}
 	
+	
+	
+	public function GetDocsStats($userName)
+	{
+    return $this->DoUserVerification($userName,'profile.public_doc_stats');
+	}
+	public function GetJobsStats($userName)
+	{
+	return $this->DoUserVerification($userName,'profile.public_job_stats');
+	}
+	public function GetCommunityStats($userName)
+	{
+	return $this->DoUserVerification($userName,'profile.public_community_stats');
+	}
 	
 }

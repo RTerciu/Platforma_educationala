@@ -8,12 +8,12 @@
 		
 
 		
-			<label for="email">Nume Tag</label>
+			<label for="name">Nume Tag</label>
 			<input type="text" class="form-control" name="name" id="name" />
 		</div>
 		<div class="form-group">
-			<label for="password">Nume Descriere</label>
-			<input type="text" class="form-control" name="descriere" id="descriere" />
+			<label for="password">Descriere</label>
+			<textarea rows="10" class="form-control" name="descriere" id="descriere" ></textarea>
 		</div>
 		<input type="submit" class="btn btn-primary" name="submit" value="Creeaza" />
 	{{Form::close()}}
