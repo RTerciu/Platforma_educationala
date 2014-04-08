@@ -67,13 +67,13 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('tags/check/{tagName}','TagsController@CheckTag');
 
 
-	Route::get('/download/document/{documentName}','DocumentsController@DocumentDownload');
+	
 
 	Route::get('/users/{userName}','UsersController@ShowProfile');
 	Route::post('/users/{userName}','UsersController@PostProfile');
 	
 	
-	
+	Route::get('/download/document/{documentName}','DocumentsController@DocumentDownload');
 	Route::get('documents','DocumentsController@ShowMainPage');
 	Route::get('documents/all','DocumentsController@GetList');
 	
@@ -94,7 +94,15 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('remove/job/applied/{jobID}','JobsController@RemoveJobApplied');
 	Route::get('myjobs/applied','JobsController@ShowMyJobsApplied');
 	Route::get('myjobs/created','JobsController@ShowMyJobsCreated');
+	
+	Route::get('mysignins','UsersController@GetSigninLogs');
+	
+	//De mutat in Grupul admin, e anormal sa aiba orice care e logat access
+	//cu un id la logurile unui utilizator
+	Route::get('signinlogs/{userID}','UsersController@GetLogsJson');
 
+	
+	
 	
 	Route::get('job/create','JobsController@ShowCreateJobsPage');
 	Route::post('job/create','JobsController@ProcessCreateJob');
@@ -113,5 +121,8 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::get('jobs/{jobName}','JobsController@ShowJobDetailPage');
 	Route::get('jobs/{jobName}/{userId}','JobsController@ProcessBetForJob');
+	
+	
+	
 
 });

@@ -29,8 +29,10 @@ class UsersController extends BaseController {
 		$login=Login::where('userID',$userID)->orderBy('created_at', 'desc')->first();
 		
 		if(isset($login))
-			{$login->signOut="Da";
-			$login->save();}
+			{
+			$login->signOut="Da";
+			$login->save();
+			}
 		
 		Auth::logout();
 		return Redirect::to('/')->with('signout_notice','Sadly, you have successfully signed out.');
@@ -65,6 +67,61 @@ class UsersController extends BaseController {
 			return Redirect::to('signin');
 		}
 	}
+	
+	public function GetLogsJson($userID)
+	{
+	
+		//iau toate log-urile din baza de date
+	$logs=Login::where('userID',$userID)->orderBy('created_at','desc')->get();
+	
+	//iau un contor sa vad cate sunt cand le parcurg
+	$i=0;
+	$loguri=array();
+		foreach($logs as $log)
+		{
+			//preiau datele login
+			$t1=$log->created_at;
+			
+			// si de logout
+			$t2=$log->updated_at;
+			
+			//le fac diferenta sa gasesc cat timp a fost respectivul user logat
+			$time_logged=$t2->diffForHumans($t1);
+			
+			//Carbon returneaza cu un after la final si sterg ultimul cuvant din string
+			$time_logged_str= preg_replace('/\W\w+\s*(\W*)$/', '$1', $time_logged);
+			
+			
+			
+			//daca nu e ultima inregistrare, adica chiar logarea din care fac accesarea 
+			//acestei pagini
+			if($i)
+				{//afisez informatii
+				//echo $t1.' pana la '.$t2.' = '.$time_logged_str.'<br>';
+				
+				$element=array('login'=>$t1,'logout'=>$t2,'timp'=>$time_logged_str,'logout_manual'=>$log->signOut);
+				array_push($loguri,$element);
+				
+				}
+			//cresc contorul
+			$i++;
+			
+		
+		}
+	
+	
+	return  $loguri;
+	
+	}
+
+	public function GetSigninLogs()
+	{
+	
+	$loguri=$this->GetLogsJson(Auth::user()->id);
+	return View::make('profile.SigninLogs')->with('logs',$loguri);
+	
+	}
+	
 	
 	public function PostSignUp()
 	{
