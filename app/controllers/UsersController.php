@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 class UsersController extends BaseController {
 
 	public function ShowSignUp()
@@ -18,7 +20,18 @@ class UsersController extends BaseController {
 	}
 	
 	public function SignOut()
-	{
+	{	
+	
+		//La delogare updatam ultimul login al acestui utilizator , astfel incat sa ramana 
+		//la created_at - Cand s-a logat
+		//La updated_at - Cat s-a delogat
+		$userID=Auth::user()->id;
+		$login=Login::where('userID',$userID)->orderBy('created_at', 'desc')->first();
+		
+		if(isset($login))
+			$login->signOut="Da";
+		$login->save();
+		
 		Auth::logout();
 		return Redirect::to('/')->with('signout_notice','Sadly, you have successfully signed out.');
 	}
@@ -26,7 +39,12 @@ class UsersController extends BaseController {
 	public function PostSignIn()
 	{
 		if(Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password'))))
-		{
+		{	
+			//La logare adaug o noua intrare in tabela logins cu data la care a survenit logarea
+			$login=new Login();
+			$login->userID=Auth::user()->id;
+			$login->save();
+			
 			return Redirect::to('/');
 		}
 		else

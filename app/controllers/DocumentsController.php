@@ -1,5 +1,7 @@
 <?php
 
+
+
 class DocumentsController extends BaseController{
 
 	public function ShowMainPage()
