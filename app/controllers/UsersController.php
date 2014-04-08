@@ -29,8 +29,8 @@ class UsersController extends BaseController {
 		$login=Login::where('userID',$userID)->orderBy('created_at', 'desc')->first();
 		
 		if(isset($login))
-			$login->signOut="Da";
-		$login->save();
+			{$login->signOut="Da";
+			$login->save();}
 		
 		Auth::logout();
 		return Redirect::to('/')->with('signout_notice','Sadly, you have successfully signed out.');
@@ -40,6 +40,19 @@ class UsersController extends BaseController {
 	{
 		if(Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password'))))
 		{	
+			$userID=Auth::user()->id;
+		
+			//Verific daca logarea trecuta a fost terminata prin SignOut sau prin Browser Clear Cache/computer restart etc
+			//Daca da, atunci inchid aceea autentificare cu data curenta.
+		
+			$last_login=Login::where('userID',$userID)->orderBy('created_at', 'desc')->first();
+			if(isset($last_login))
+				if(!isset($last_login->signOut))
+				      { 
+						$last_login->signOut="Nu";
+						$last_login->save();
+					  }
+		
 			//La logare adaug o noua intrare in tabela logins cu data la care a survenit logarea
 			$login=new Login();
 			$login->userID=Auth::user()->id;
