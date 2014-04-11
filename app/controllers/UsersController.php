@@ -90,8 +90,7 @@ class UsersController extends BaseController {
 			
 			//Carbon returneaza cu un after la final si sterg ultimul cuvant din string
 			$time_logged_str= preg_replace('/\W\w+\s*(\W*)$/', '$1', $time_logged);
-			
-			
+            			
 			
 			//daca nu e ultima inregistrare, adica chiar logarea din care fac accesarea 
 			//acestei pagini

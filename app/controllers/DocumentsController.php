@@ -89,11 +89,11 @@ class DocumentsController extends BaseController{
 	
 
 	
-	public function PostCreate()
+		public function PostCreate()
 	{
 		$destinationPath = 'uploads/documents/';
 		
-		if(Input::has('title') && Input::get('category'))
+		if(Input::has('title') && Input::has('tags') && Input::has('descriere'))
 		{
 		
 			$file = Input::file('document');
@@ -106,8 +106,9 @@ class DocumentsController extends BaseController{
 				$document = new Document;
 				$document->title = Input::get('title');
 				$document->userID=Auth::user()->id;
-				$document->category = Input::get('category');
+				$document->tags = Input::get('tags');
 				$document->descriere= Input::get('descriere');
+				$document->tags = Input::get('tags');
 				$document->nrDownloads=0;
 				$document->document = $destinationPath.$filename;
 				$document->save();
