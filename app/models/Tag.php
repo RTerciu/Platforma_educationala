@@ -19,6 +19,17 @@ class Tag extends Eloquent implements UserInterface, RemindableInterface {
 	protected $collection = 'tags';
 
 
+	public function getHTMLTag()
+	{
+	$url=url('/documents/byTag/'.$this->_id);
+	$tagHTML='<a href="'.$url.'" title="'.$this->descriere.'"><span class="label label-info" style="margin-right:5px;">'.$this->name.'</span<</a>&nbsp;';
+	
+	return $tagHTML;
+	}
+	
+	
+	
+	
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *

@@ -28,7 +28,19 @@ Route::get('search/docs/{tagString}/{name?}','SearchController@GetDocsByTags');
 // De decis daca mutam in interiorul autentificarii sau nu
 Route::get('/documents/byTag/{tag}',function($tag)
 {
-return json_encode(Document::findByTag($tag));
+//Returnez obiectul tag-ului cu respectivul ID
+$tagObject=Tag::find($tag);
+//Daca obiectul e setat caut documentele in functie de tag si returnez documentele impreuna cu numele tag-ului 
+//catre un view
+if(isset($tagObject))
+	{ 
+	  $documents=Document::findByTag($tag);
+	  $tagName=$tagObject->name;
+	  return View::make('documents.documentsByTag')->with('docs',$documents)->with('tagName',$tagName);
+	}
+else return Redirect::to('documents/all');
+
+
 });
 
 
