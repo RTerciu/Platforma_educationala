@@ -23,6 +23,15 @@ return View::make('teo');
 
 });
 
+Route::get('search/docs/{tagString}/{name?}','SearchController@GetDocsByTags');
+
+// De decis daca mutam in interiorul autentificarii sau nu
+Route::get('/documents/byTag/{tag}',function($tag)
+{
+return json_encode(Document::findByTag($tag));
+});
+
+
 
 
 
@@ -101,23 +110,20 @@ Route::group(array('before' => 'auth'), function()
 	//cu un id la logurile unui utilizator
 	Route::get('signinlogs/{userID}','UsersController@GetLogsJson');
 
-	
-	
-	
+
 	Route::get('job/create','JobsController@ShowCreateJobsPage');
 	Route::post('job/create','JobsController@ProcessCreateJob');
 	
 	Route::get('jobs','JobsController@ShowJobsPage');
 	Route::get('jobs/all','JobsController@ShowJobsTable');
 	
-	Route::get('jobs/category/{categoryName}','JobsController@ShowJobsForCategoryPage');
+	
 	
 
 	Route::get('job/create','JobsController@ShowCreateJobsPage');
 	Route::post('job/create','JobsController@ProcessCreateJob');
 	Route::get('jobs','JobsController@ShowJobsPage');
 	Route::get('jobs/all','JobsController@ShowJobsTable');
-	Route::get('jobs/category/{categoryName}','JobsController@ShowJobsForCategoryPage');
 
 	Route::get('jobs/{jobName}','JobsController@ShowJobDetailPage');
 	Route::get('jobs/{jobName}/{userId}','JobsController@ProcessBetForJob');

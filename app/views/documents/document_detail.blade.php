@@ -40,7 +40,10 @@ $userEmail=$user['email'];
 
 ?>
 <small><p class="text-right">Adaugat de <strong>{{$userEmail}} </strong> la data de <strong>{{$document->created_at}}</strong><br>
-Categorii <strong>{{$document->category}}</strong>
+Categorii 
+@foreach($document->tags as $tag)
+<strong>{{$tag}}</strong>
+@endforeach
 </p></small>
 <hr>
 

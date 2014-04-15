@@ -5,7 +5,7 @@
 		<h1>Upload <small>and share!</small></h1>
 	</div>
 	
-	{{ Form::open(array('action' => 'DocumentsController@PostCreate', 'files' => true, 'role' => 'form' ))}}
+	{{ Form::open(array('action' => 'DocumentsController@PostCreate', 'files' => true, 'role' => 'form', 'id' => 'documents'))}}
 		<div class="form-group">
 		
 			@if(Session::has('create_errors'))
@@ -35,61 +35,67 @@
 		<input type="submit" class="btn btn-primary" name="submit" value="Upload" />
 	{{Form::close()}}
 		<script>
-		$('form').submit(function()
-		{		
-			tags = '';
 		
-			$('#inserted_tags span').each(function(index)
-			{
-				if($(this).attr('id'))
-				{
-					tags = tags + $(this).attr('id') + ';';
-				}
-			});
+		function autoCompleteTags(form_id)
+		{
+			$(form_id).submit(function()
+			{		
+				tags = '';
 			
-			$('#tags_input').val(tags);
-			
-		});
-	
-		var availableTags = [];
-		
-		$.getJSON("{{action('TagsController@GetAllTags')}}", function(data)
-		{			
-			$.each(data, function(key,val)
-			{
-				availableTags[key] = new Object();
-				availableTags[key].descriere = data[key].descriere;
-				availableTags[key].label = data[key].name;
-				availableTags[key].id = data[key]._id;
-			});
-		});
-	
-		$('#tags').autocomplete({
-			appendTo: '#results',
-			source:availableTags,
-			select: function(event,ui)
-			{
-				selected_value = ui.item.value;
-				
-				var selected_tag = $.grep(availableTags,function(data)
+				$('#inserted_tags span').each(function(index)
 				{
-					return data.label == selected_value;
+					if($(this).attr('id'))
+					{
+						tags = tags + $(this).attr('id') + ';';
+					}
 				});
-
-				message = "<span id='"+selected_tag[0].id+"' onclick='$(this).remove();' class='label label-info'>" + selected_value + "<span class='close-button'> &times; </span></span>";				
 				
-				if($('#inserted_tags').css('display') == 'none')
+				$('#tags_input').val(tags);
+				
+			});
+		
+			var availableTags = [];
+			
+			$.getJSON("{{action('TagsController@GetAllTags')}}", function(data)
+			{			
+				$.each(data, function(key,val)
 				{
-					$('#inserted_tags').css('display','block');
+					availableTags[key] = new Object();
+					availableTags[key].descriere = data[key].descriere;
+					availableTags[key].label = data[key].name;
+					availableTags[key].id = data[key]._id;
+				});
+			});
+		
+			$('#tags').autocomplete({
+				appendTo: '#results',
+				source:availableTags,
+				select: function(event,ui)
+				{
+					selected_value = ui.item.value;
+					
+					var selected_tag = $.grep(availableTags,function(data)
+					{
+						return data.label == selected_value;
+					});
+
+					message = "<span id='"+selected_tag[0].id+"' onclick='$(this).remove();' class='label label-info'>" + selected_value + "<span class='close-button'> &times; </span></span>";				
+					
+					if($('#inserted_tags').css('display') == 'none')
+					{
+						$('#inserted_tags').css('display','block');
+					}
+					
+					$('#inserted_tags').append(message);
+					
+					$('#tags').val('');
+					
+					return false;
 				}
-				
-				$('#inserted_tags').append(message);
-				
-				$('#tags').val('');
-				
-				return false;
-			}
-		});
+			});
+		}
+		
+		autoCompleteTags('#documents');
 	</script>
 	
 @stop

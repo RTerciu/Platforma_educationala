@@ -15,9 +15,8 @@ class DocumentsController extends BaseController{
 	
 	public function GetList()
 	{
-
-	$documents=Document::all();
-	return View::make('documents.documents_list')->with('documents',$documents);
+		$documents=Document::all();
+		return View::make('documents.documents_list')->with('documents',$documents);
 	}
 
 	public function DocumentDownload($documentName)
@@ -77,19 +76,27 @@ class DocumentsController extends BaseController{
 	public function GetDocumentDetailPage($documentName)
 	{
 	
-	$user=Auth::user()->id;
-	$downloaded=DB::table('downloaded_docs')->where('userID',$user)->where('docTitle',$documentName)->count();
-	
-	$reviews=Review::where('docName',$documentName)->take(3)->get();
-	$document=Document::where('title',$documentName)->first();
-	return View::make('documents.document_detail')->with('document',$document)->with('reviews',$reviews)
-												  ->with('downloaded',$downloaded);
+		$user=Auth::user()->id;
+		$downloaded=DB::table('downloaded_docs')->where('userID',$user)->where('docTitle',$documentName)->count();
+		
+		$reviews=Review::where('docName',$documentName)->take(3)->get();
+		$document=Document::where('title',$documentName)->first();
+		
+		if(isset($document))
+		{
+			return View::make('documents.document_detail')->with('document',$document)->with('reviews',$reviews)
+														  ->with('downloaded',$downloaded);
+		}
+		else
+		{
+			return Redirect::to('documents/all');
+		}
 
 	}
 	
 
 	
-		public function PostCreate()
+	public function PostCreate()
 	{
 		$destinationPath = 'uploads/documents/';
 		
@@ -104,11 +111,27 @@ class DocumentsController extends BaseController{
 			if($uploadSuccess)
 			{
 				$document = new Document;
-				$document->title = Input::get('title');
+				
+				//verificare de apostrof si inlocuirea lui cu spatiu
+				
+				$title = Input::get('title');
+				
+				$title = str_replace('"', "", $title);
+				$title = str_replace("'", "", $title);
+				$title = rtrim($title," ");
+				
+				if(empty($title))
+				{
+					return Redirect::to('/documents/create')->with('create_errors','Incorrect title.');
+				}
+
+				$document->title = $title;
 				$document->userID=Auth::user()->id;
-				$document->tags = Input::get('tags');
 				$document->descriere= Input::get('descriere');
-				$document->tags = Input::get('tags');
+				
+				//introducem un vector de tag-uri in baza de date 
+				
+				$document->tags = explode(';',rtrim(Input::get('tags'),";"));
 				$document->nrDownloads=0;
 				$document->document = $destinationPath.$filename;
 				$document->save();
