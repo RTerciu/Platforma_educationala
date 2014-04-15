@@ -22,7 +22,7 @@ class Tag extends Eloquent implements UserInterface, RemindableInterface {
 	public function getHTMLTag()
 	{
 	$url=url('/documents/byTag/'.$this->_id);
-	$tagHTML='<a href="'.$url.'" title="'.$this->descriere.'"><span class="label label-info" style="margin-right:5px;">'.$this->name.'</span<</a>&nbsp;';
+	$tagHTML='<a href="'.$url.'" title="'.$this->descriere.'"><span class="label label-info" style="margin-right:5px;">'.$this->name.'</span></a>';
 	
 	return $tagHTML;
 	}

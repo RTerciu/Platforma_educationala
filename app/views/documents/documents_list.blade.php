@@ -25,11 +25,21 @@
 $user=DB::table('users')->where('_id',$document->userID)->first();
 $userEmail=$user['email'];
 
+$tagsArray=$document->tags;
+$tagsHTML='';
+
+
+foreach($tagsArray as $tagID)
+	{
+	$tag=Tag::find($tagID);
+	$tagsHTML=$tagsHTML.$tag->getHTMLTag();
+	}
+
 $i++ ?>
 <td>{{$i}}</td>
 <td>{{$document->title}}</td>
 <td>{{$userEmail}}</td>
-<td>{{$document->category}}</td>
+<td>{{$tagsHTML}}</td>
 <td>{{$document->created_at}}</td>
 
 

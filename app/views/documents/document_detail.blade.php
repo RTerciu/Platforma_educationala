@@ -40,9 +40,14 @@ $userEmail=$user['email'];
 
 ?>
 <small><p class="text-right">Adaugat de <strong>{{$userEmail}} </strong> la data de <strong>{{$document->created_at}}</strong><br>
-Categorii 
+Tag-uri 
 @foreach($document->tags as $tag)
-<strong>{{$tag}}</strong>
+<strong>
+<?php
+$t=Tag::find($tag);
+echo $t->getHTMLTag();
+?>
+</strong>
 @endforeach
 </p></small>
 <hr>
