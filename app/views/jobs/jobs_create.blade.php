@@ -1,16 +1,33 @@
 @extends('layout.jobs_layout')
 
 @section('jobs_content')
+<link rel="stylesheet" href="{{ asset('css/style_document.css')}}" type="text/css" media="screen">
+
 <h2 class="text-left">Creaza Job</h2>
 
-	{{ Form::open(array('action' => 'JobsController@ProcessCreateJob', 'files' => true, 'role' => 'form' ))}}
+
+<?php
+$m=Session::get('mesaj');
+
+?>
+@if(isset($m))
+<div class="alert alert-warning">  
+	<a href="javascript:$('.alert-warning').toggle();" class="close" data-dismiss="alert">×</a>  
+	<strong>Info!</strong>{{Session::get('mesaj')}}  
+</div> 
+@endif
+
+	{{ Form::open(array('action' => 'JobsController@ProcessCreateJob', 'files' => true, 'role' => 'form' ,'id'=>'jobs' ))}}
 		<div class="form-group">
 			<label for="titlu">Titlu</label>
 			<input type="text" class="form-control" name="titlu" id="titlu" />
 		</div>
 		<div class="form-group">
-			<label for="categorie">Categorie</label>
-			<input type="text" class="form-control" name="categorie" id="categorie" />
+			<label for="tags">Tags</label>
+			<div class="form-control" id="inserted_tags"></div>
+			<input type="text" class="form-control" id="tags" name="tags" placeholder="Type here to insert tags ...">
+			<input type="hidden" name="tags" id="tags_input">
+			<div id="results"></div>
 		</div>
 		
 		
@@ -18,6 +35,8 @@
 			<label for="pret">Pret</label>
 			<input type="number"  class="form-control" name="pret" id="pret" min="0" max="100"/>
 		</div>
+		
+		
 		
 		<div class="form-group">
 			<label for="pret">Data Deadline</label>
@@ -32,4 +51,10 @@
 		
 		<input type="submit" class="btn btn-primary" name="submit" value="Creeaza" />
 	{{Form::close() }}
+	
+	<script>
+		autoCompleteTags('#jobs','{{action('TagsController@GetAllTags')}}');
+	</script>
+	
+	
 @stop

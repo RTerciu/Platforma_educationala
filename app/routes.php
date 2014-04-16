@@ -40,9 +40,24 @@ if(isset($tagObject))
 	}
 else return Redirect::to('documents/all');
 
-
 });
 
+// De decis daca mutam in interiorul autentificarii sau nu
+Route::get('/jobs/byTag/{tag}',function($tag)
+{
+//Returnez obiectul tag-ului cu respectivul ID
+$tagObject=Tag::find($tag);
+//Daca obiectul e setat caut documentele in functie de tag si returnez documentele impreuna cu numele tag-ului 
+//catre un view
+if(isset($tagObject))
+	{ 
+	  $documents=Job::findByTag($tag);
+	  $tagName=$tagObject->name;
+	  return View::make('jobs.jobsByTag')->with('jobs',$documents)->with('tagName',$tagName);
+	}
+else return Redirect::to('jobs/all');
+
+});
 
 
 

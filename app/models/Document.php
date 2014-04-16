@@ -18,7 +18,7 @@ class Document extends Eloquent {
 	
 	
 	public static function findByTag($tag,$how=4)
-	{
+    {
 	
 	//returnez toate documentele
 	//ORDONATE IN felul urmator

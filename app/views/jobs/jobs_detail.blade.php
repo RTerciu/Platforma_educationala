@@ -32,7 +32,19 @@ $user=DB::table('users')->where('_id',$job->id_user)->first();
 $userEmail=$user['email'];
 
 ?>
-<small><p class="text-right">Adaugat de <strong>{{$userEmail}} </strong> la data de <strong>{{$job->created_at}}</strong> <strong>{{$job->edited_at}}</strong></p></small>
+<small><p class="text-right">Adaugat de <strong>{{$userEmail}} </strong> la data de <strong>{{$job->created_at}}</strong> <strong>{{$job->edited_at}}</strong>
+<br>
+Tag-uri 
+@foreach($job->tags as $tag)
+<strong>
+<?php
+$t=Tag::find($tag);
+echo $t->getHTMLTagJob();
+?>
+</strong>
+@endforeach
+
+</p></small>
 
 <p class="text-right">Suma oferita <strong>{{$job->pret}}</strong> si trebuie realizat pana pe <strong> {{$job->deadline}} </strong></p><hr>
 

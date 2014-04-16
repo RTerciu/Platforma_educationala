@@ -23,7 +23,7 @@
 <?php 
 
 $user=DB::table('users')->where('_id',$document->userID)->first();
-$userEmail=$user['email'];
+$userEmail=$user['username'];
 
 $tagsArray=$document->tags;
 $tagsHTML='';

@@ -10,10 +10,10 @@
 <td>Nr. Crt </td>
 <td>Titlu</td>
 <td>Adaugat de</td>
-<td>In categoria</td>
+<td>Tag-uri</td>
 <td>Pret</td>
 <td>La data</td>
-<td>Pana pe</td>
+<td>Deadline</td>
 
 
 </tr>
@@ -25,16 +25,27 @@
 <?php 
 
 $user=DB::table('users')->where('_id',$job->id_user)->first();
-$userEmail=$user['email'];
+$userEmail=$user['username'];
+
+$tagsArray=$job->tags;
+$tagsHTML='';
+
+
+foreach($tagsArray as $tagID)
+	{
+	$tag=Tag::find($tagID);
+	$tagsHTML=$tagsHTML.$tag->getHTMLTagJob();
+	}
 
 $i++ ?>
+
 <td>{{$i}}</td>
 <td>{{$job->titlu}}</td>
 <td>{{$userEmail}}</td>
-<td>{{$job->categorie}}</td>
+<td>{{$tagsHTML}}</td>
 <td>{{$job->pret}}</td>
 <td>{{$job->created_at}}</td>
-<td>{{$job->deadline}}</td>
+<td>{{\Carbon\Carbon::createFromTimeStamp(strtotime($job->deadline))->diffForHumans()}}</td>
 
 
 </tr>

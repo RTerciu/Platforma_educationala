@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 class JobsController extends BaseController {
 
 	public function ShowJobsPage()
@@ -185,30 +187,41 @@ class JobsController extends BaseController {
 
 	$rules = array(
 	'titlu' 	=> 'required|min:3|max:100',
-	'categorie' => 'required',
 	'pret' 		=> 'required|integer',
 	'descriere' => 'required|min:10|max:500',
-	'deadline'	=> 'required|after:2014-03-17'
+	'deadline'	=> 'required'
 	);
 
  $v = Validator::make($input, $rules);
 	
 	if( $v->fails() )
 			{
-				echo 'wroooooong';
+				return Redirect::to('job/create')->with('mesaj','Nu ati completat corect campurile');
+
 			}
 			else
 			{
+			
+				$data_minima=Carbon::now();
+				$data_minima->addDays(3);
+				$timp=Input::get('deadline');
+				$liniaMoarta=Carbon::createFromFormat('Y-m-d',$timp); 
+
+				if($data_minima->gt($liniaMoarta))
+					return Redirect::to('job/create')->with('mesaj','Pune un deadline uman!');
+					
+
 				$job=new Job;
 				
 				$job->titlu=Input::get('titlu');
-				$job->categorie=Input::get('categorie');
+				$job->tags = explode(';',rtrim(Input::get('tags'),";"));
 				$job->id_user=Auth::user()->id;
 				$job->pret=Input::get('pret');
-				$job->deadline=Input::get('deadline');
+				$job->deadline=$liniaMoarta->toDateTimeString();;
 				$job->descriere=Input::get('descriere');
 				
 				$job->save();
+			
 				return Redirect::to('jobs/all');
 			}
 				
