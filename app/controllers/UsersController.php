@@ -4,6 +4,21 @@ use Carbon\Carbon;
 
 class UsersController extends BaseController {
 
+
+//functie care preia un input din $query si intoarce 
+//maxim 10 rezultate care se potrivesc cu acel query 
+//cu numai id, username, email
+	public function GetUsersShort($query)
+	{
+	
+	return User::where(function($q) use ($query)
+            {
+                $q->where('username', 'LIKE','%'.$query.'%')
+                  ->orwhere('email' , 'LIKE' , '%'.$query.'%');
+            })->take(10)->get(array('_id','username','email'));
+	}
+
+
 	public function ShowSignUp()
 	{
 		return View::make('signUp');
@@ -60,7 +75,7 @@ class UsersController extends BaseController {
 			$login->userID=Auth::user()->id;
 			$login->save();
 			
-			return Redirect::to('/');
+			return Redirect::intended('/');
 		}
 		else
 		{
@@ -130,17 +145,50 @@ class UsersController extends BaseController {
 		$filename = Input::file('avatar')->getClientOriginalName();
 		$uploadSuccess = Input::file('avatar')->move($destinationPath, $filename);
 		
+		
 		if($uploadSuccess)
 		{
-			$user = new User;
-			$user->email = Input::get('email');
-			$user->password = Hash::make(Input::get('password'));
-			$user->avatar = $destinationPath.$filename;
-			$user->username = Input::get('username');
-			$user->save();
+				$user = new User;
+				$user->email = Input::get('email');
+				$user->password = Hash::make(Input::get('password'));
+				$user->avatar = $destinationPath.$filename;
+				$user->username = Input::get('username');
+				$user->save();
+			
+			
+
+
+			if(Auth::attempt(array('email' =>$user->email, 'password' => Input::get('password'))))
+			{	
+				$userID=Auth::user()->id;
+			
+				//Verific daca logarea trecuta a fost terminata prin SignOut sau prin Browser Clear Cache/computer restart etc
+				//Daca da, atunci inchid aceea autentificare cu data curenta.
+			
+				$last_login=Login::where('userID',$userID)->orderBy('created_at', 'desc')->first();
+				if(isset($last_login))
+					if(!isset($last_login->signOut))
+						  { 
+							$last_login->signOut="Nu";
+							$last_login->save();
+						  }
+			
+				//La logare adaug o noua intrare in tabela logins cu data la care a survenit logarea
+				$login=new Login();
+				$login->userID=Auth::user()->id;
+				$login->save();
+				
+				return Redirect::intended('/');
+			}
+			else
+			{
+				return Redirect::to('signin');
+			}
+			
+		
 		}
 		
-		return Redirect::to('/');
+		else return Redirect::to('signup');
 	}
 
 	

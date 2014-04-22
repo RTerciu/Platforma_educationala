@@ -1,5 +1,26 @@
 $(document).ready(function() {  
 
+$("#catre").keyup(function()
+{
+var query=$('input#catre').val();
+var link="usersBrief/"+query;
+
+$.getJSON(link, function(data){
+	var cod='';
+	$.each(data,function(key,val)
+	{
+	cod=cod+data[key].username;
+	
+	
+	});
+	$("#contacte").html(cod);
+});
+
+
+
+
+});
+
 $("#send_message").click(function(){
 
 

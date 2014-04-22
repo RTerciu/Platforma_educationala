@@ -40,6 +40,8 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					@if(Auth::check())
+					
+						<li ><a href="{{url('messages')}}" ><span class="glyphicon glyphicon-envelope"></span><span class="badge badge-info">0</span></a></li>
 						<li class="dropdown">
 
 							<a href="javascript:$('.dropdown-menu').toggle();"  class="dropdown-toggle" data-toggle="dropdown"><img src="{{URL::to(Auth::user()->avatar)}}" class="img-thumbnail" width="50" height="50">{{Auth::user()->email}} <b class="caret"></b></a>

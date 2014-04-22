@@ -85,14 +85,10 @@ Route::get('profile/communityStats/{userName}','UsersController@GetCommunityStat
 
 Route::group(array('before' => 'auth'), function()
 {	
-
+	
 
 	Route::post('message/trimite','MessageController@PostMessage');
-	Route::get('message/trimite',function()
-	{
-	return "x";
-	
-	});
+	Route::get('messages','MessageController@GetMessagesPage');
 
 	Route::get('tags/create','TagsController@CreateTagForm');
 	Route::post('tags/create','TagsController@CreateTag');
@@ -104,7 +100,7 @@ Route::group(array('before' => 'auth'), function()
 
 
 	
-
+	Route::get('/usersBrief/{query}','UsersController@GetUsersShort');
 	Route::get('/users/{userName}','UsersController@ShowProfile');
 	Route::post('/users/{userName}','UsersController@PostProfile');
 	

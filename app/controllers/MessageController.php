@@ -18,5 +18,11 @@ public function PostMessage()
 	}
 
 
+public function GetMessagesPage()
+	{
+	return View::make('messages.messages_main');
+	}
+	
+	
 }
 
