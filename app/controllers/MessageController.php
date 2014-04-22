@@ -23,6 +23,18 @@ public function GetMessagesPage()
 	return View::make('messages.messages_main');
 	}
 	
+public function GetMessagesWithUser($userID)
+	{
+	$mesaje=Message::GetMessages(Auth::user()->id,$userID);
+	//$mesaje=Message::with('user')->get();
+	return View::make('messages.conversation')->with('mesaje',$mesaje);
+	
+	}
+	
+	
 	
 }
+
+	
+
 

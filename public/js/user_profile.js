@@ -6,13 +6,14 @@ var query=$('input#catre').val();
 var link="usersBrief/"+query;
 
 $.getJSON(link, function(data){
-	var cod='';
+	var cod='<ul>';
 	$.each(data,function(key,val)
 	{
-	cod=cod+data[key].username;
+	cod=cod+"<li>"+data[key].username+"</li>";
 	
 	
 	});
+	cod=cod+"</ul>";
 	$("#contacte").html(cod);
 });
 

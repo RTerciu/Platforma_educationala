@@ -89,6 +89,7 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::post('message/trimite','MessageController@PostMessage');
 	Route::get('messages','MessageController@GetMessagesPage');
+	Route::get('messages/with/{userID}','MessageController@GetMessagesWithUser');
 
 	Route::get('tags/create','TagsController@CreateTagForm');
 	Route::post('tags/create','TagsController@CreateTag');
