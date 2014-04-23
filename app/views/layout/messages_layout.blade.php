@@ -15,7 +15,13 @@
 	<nav>
 	  <ul class="nav nav-pills nav-stacked span2">
 		<li class="active"><a href="{{action('MessageController@GetMessagesPage')}}" >Mesaj nou</a></li>
-		<li><a href="#">Lista Useri cu mesaje</a></li>
+		
+		{{
+		
+		Message::GetListOfPeople(Auth::user()->id);
+		
+		}}	
+
 
 		
 		

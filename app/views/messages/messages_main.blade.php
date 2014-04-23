@@ -30,4 +30,8 @@
 		
 		<div class="btn btn-primary" id="send_message" >Trimite Mesajul</div>
 
+		
+		
+	
+		
 @stop

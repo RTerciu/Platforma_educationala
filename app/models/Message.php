@@ -50,8 +50,41 @@ class Message extends Eloquent implements UserInterface, RemindableInterface {
 	public static function GetListOfPeople($userID)
 	{
 	//de gasit doar acei useri cu care cel cu userID a schimbat mesaje
-	$mesaje=Message::with('user')->get();
-	return $mesaje;
+	$mesaje=Message::where('userTo',$userID)->orWhere('userFrom',$userID)->orderBy('created_at','DESC')->get(['userTo','userFrom']);
+	$users=array();
+	
+	foreach($mesaje as $mesaj)
+	{
+	if($mesaj->userTo!=$userID)
+		{
+		$userName=User::find($mesaj->userTo)->username;
+		$de_inserat=array('userID'=>$mesaj->userTo,'userName'=>$userName);
+		if(!in_array($de_inserat,$users))
+			array_push($users,$de_inserat);
+	
+		}
+	else 
+		{
+		$userName=User::find($mesaj->userFrom)->username;
+		$de_inserat=array('userID'=>$mesaj->userFrom,'userName'=>$userName);
+		if(!in_array($de_inserat,$users))
+			array_push($users,$de_inserat);
+
+		}
+			
+		
+	
+	
+	}
+
+	$html='';	
+	foreach($users as $user)
+		{
+		$url=url('messages/with/'.$user['userID']);
+		$html=$html.'<li><a href="'.$url.'">Vorbeste cu '.$user['userName'].'</a></li>';
+		}
+	
+	return $html;
 	
 	}
 	
