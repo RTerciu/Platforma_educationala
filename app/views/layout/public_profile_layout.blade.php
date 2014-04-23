@@ -12,7 +12,7 @@
 	
 	<div  class="col-md-2">
 		<h3>{{$user['username']}}</h3>
-		<img src="{{URL::to($user->avatar)}}"/>
+		<img width="100%" src="{{URL::to($user->avatar)}}"/>
 		<p>S-a alaturat comunitatii la
 		<strong>{{$user->created_at}}</strong>
 		</p>
