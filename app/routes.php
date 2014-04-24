@@ -152,7 +152,60 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('jobs/{jobName}','JobsController@ShowJobDetailPage');
 	Route::get('jobs/{jobName}/{userId}','JobsController@ProcessBetForJob');
 	
+	/*		teo's routes for admin page	*/
+	Route::get('admin/admin_layout',function(){Return View::make('admin.admin_layout');});
+	Route::get('admin/show_users','AdministratorController@showUsers');
+	Route::get('admin/show_jobs','AdministratorController@showJobs');
+	Route::get('admin/show_docs','AdministratorController@showDocs');	
+	Route::get('admin/show_downloaded_docs','AdministratorController@showDownloadedDocs');
+	Route::get('admin/show_grades_reviews','AdministratorController@showGradesReviews');
+	Route::get('admin/show_jobs_bet','AdministratorController@showJobsBet');
+	Route::get('admin/show_messages','AdministratorController@showMessages');
+	Route::get('admin/show_reviews','AdministratorController@showReviews');	
+	Route::get('admin/show_tags','AdministratorController@showTags');
 	
+	/*		delete stuff	  	*/	
+	Route::get('admin/delete_users/{id}','AdministratorController@deleteUsers');	
+	Route::get('admin/delete_jobs/{id}','AdministratorController@deleteJobs');
+	Route::get('admin/delete_docs/{id}','AdministratorController@deleteDocs');
+	Route::get('admin/delete_downloaded/{id}','AdministratorController@deleteDownloadedDocs');
+	Route::get('admin/delete_grades_reviews/{id}','AdministratorController@deleteGradesReviews');
+	Route::get('admin/delete_jobs_bet/{id}','AdministratorController@deleteJobsBet');
+	Route::get('admin/delete__messages/{id}','AdministratorController@deleteMessages');
+	Route::get('admin/delete__reviews/{id}','AdministratorController@deleteReviews');
+	Route::get('admin/delete_tags/{id}','AdministratorController@deleteTags');
+	
+	/*		model stuff		*/
+	Route::model('user', 'User');
+	Route::model('job', 'Job');
+	Route::model('doc', 'Document');
+	Route::model('grade/review', 'ReviewGrade');
+	Route::model('bet', 'JobBet');
+	Route::model('msg', 'Message');
+	Route::model('review', 'Review');
+	Route::model('tag', 'Tag');
+	
+	/*		edit stuff		*/
+	//Route::get('admin/edit_users/{user}','AdministratorController@editUsers');
+	//Route::get('admin/edit_jobs/{job}','AdministratorController@editJobs');
+	Route::get('admin/edit_docs/{doc}','AdministratorController@editDocs');
+	Route::get('admin/edit_grades_reviews/{grade/review}','AdministratorController@editGradesReviews');
+	Route::get('admin/edit_jobs_bet/{bet}','AdministratorController@editJobsBet');
+	Route::get('admin/edit_messages/{msg}','AdministratorController@editMessages');
+	Route::get('admin/edit_reviews/{review}','AdministratorController@editReviews');
+	Route::get('admin/edit_tags/{tag}','AdministratorController@editTags');
+	
+	/*		handle edit		*/
+	Route::post('admin/edit_users', 'AdministratorController@handleEditUsers');
+	//Route::post('admin/edit_jobs', 'AdministratorController@handleEditJobs');
+	Route::post('admin/edit_docs', 'AdministratorController@handleEditDocs');
+	Route::post('admin/edit_grades_reviews', 'AdministratorController@handleEditGradesReviews');
+	Route::post('admin/edit_jobs_bet', 'AdministratorController@handleEditJobsBet');
+	Route::post('admin/edit_reviews', 'AdministratorController@handleEditReviews');
+	Route::post('admin/edit_tags', 'AdministratorController@handleEditTags');
+	
+	Route::post('admin/edit_users_ajax', 'AdministratorController@handleEditUsersAjax');
+	Route::post('admin/edit_jobs_ajax', 'AdministratorController@handleEditJobsAjax');
 	
 
 });
