@@ -14,7 +14,7 @@
 	<script src="{{asset('js/d3.chart.min.js')}}"></script>
 	
 	<script>
-        tinymce.init({selector:'textarea#descriere_job'});
+        tinymce.init({menubar:false,selector:'textarea#descriere_job'});
 	</script>
 	
 	<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}"/>

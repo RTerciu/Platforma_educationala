@@ -1,2 +1,50 @@
+.mesaj_primit
+{
+display:block;
+float:right;
+width:80%;
+padding:10px;
+margin-bottom:5px;
+-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=84)";
+filter: alpha(opacity=84);
+-moz-opacity: 0.84;
+-khtml-opacity: 0.84;
+opacity: 0.84;
+background-color: #e3fbd5;
 
+-webkit-border-radius: 30px;
+-moz-border-radius: 30px;
+border-radius: 30px;
+
+-webkit-border-bottom-right-radius: 0px;
+-moz-border-radius-bottomright: 0px;
+border-bottom-right-radius: 0px;
+
+}
+
+.mesaj_trimis
+{
+
+display:block;
+float:left;
+width:80%;
+margin-bottom:5px;
+padding:10px;
+
+
+-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=84)";
+filter: alpha(opacity=84);
+-moz-opacity: 0.84;
+-khtml-opacity: 0.84;
+opacity: 0.84;
+background-color: #d5fbfa;
+
+-webkit-border-radius: 30px;
+-moz-border-radius: 30px;
+border-radius: 30px;
+
+-webkit-border-bottom-left-radius: 0px;
+-moz-border-radius-bottomleft: 0px;
+border-bottom-left-radius:0px;
+}
 
