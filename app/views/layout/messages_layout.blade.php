@@ -21,10 +21,6 @@
 		Message::GetListOfPeople(Auth::user()->id);
 		
 		}}	
-
- 
- 
-		
 		
 
 	  </ul>

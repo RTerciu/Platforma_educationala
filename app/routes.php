@@ -175,7 +175,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('admin/delete__reviews/{id}','AdministratorController@deleteReviews');
 	Route::get('admin/delete_tags/{id}','AdministratorController@deleteTags');
 	
-	/*		model stuff		*/
+	/*		model stuff		
 	Route::model('user', 'User');
 	Route::model('job', 'Job');
 	Route::model('doc', 'Document');
@@ -183,7 +183,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::model('bet', 'JobBet');
 	Route::model('msg', 'Message');
 	Route::model('review', 'Review');
-	Route::model('tag', 'Tag');
+	Route::model('tag', 'Tag');*/
 	
 	/*		edit stuff		*/
 	//Route::get('admin/edit_users/{user}','AdministratorController@editUsers');

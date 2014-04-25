@@ -54,6 +54,7 @@ else
 				cache: false,
 				success: function(html){
 					$("#form_errors").html(cod2+"Ati trimis cu succes mesajul</div>");
+					window.location.reload(true);
 				}
 			});
 	

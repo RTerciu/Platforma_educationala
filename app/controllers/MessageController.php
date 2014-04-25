@@ -26,7 +26,7 @@ public function GetMessagesPage()
 public function GetMessagesWithUser($userID)
 	{
 	$mesaje=Message::GetMessages(Auth::user()->id,$userID);
-	return View::make('messages.conversation')->with('mesaje',$mesaje);
+	return View::make('messages.conversation')->with('mesaje',$mesaje)->with("userID",$userID);
 	}
 	
 	
