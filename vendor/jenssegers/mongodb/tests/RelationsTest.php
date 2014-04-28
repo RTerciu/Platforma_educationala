@@ -1,11 +1,6 @@
 <?php
 
-use Illuminate\Database\Eloquent\Collection;
-
-class RelationsTest extends PHPUnit_Framework_TestCase {
-
-    public function setUp() {
-    }
+class RelationsTest extends TestCase {
 
     public function tearDown()
     {
@@ -148,8 +143,8 @@ class RelationsTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue(array_key_exists('user_ids', $client->getAttributes()));
         $this->assertTrue(array_key_exists('client_ids', $user->getAttributes()));
 
-        $users = $client->getRelation('users');
         $clients = $user->getRelation('clients');
+        $users = $client->getRelation('users');
 
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $users);
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $clients);
@@ -280,18 +275,32 @@ class RelationsTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(1, $user->photos->count());
         $this->assertEquals($photo->id, $user->photos->first()->id);
 
-        $photo = Photo::create(array('url' => 'http://graph.facebook.com/john.doe/picture'));
-        $client->photos()->save($photo);
+        $photo = Photo::create(array('url' => 'http://graph.facebook.com/jane.doe/picture'));
+        $client->photo()->save($photo);
 
-        $this->assertEquals(1, $client->photos->count());
-        $this->assertEquals($photo->id, $client->photos->first()->id);
+        $this->assertNotNull($client->photo);
+        $this->assertEquals($photo->id, $client->photo->id);
 
         $client = Client::find($client->_id);
-        $this->assertEquals(1, $client->photos->count());
-        $this->assertEquals($photo->id, $client->photos->first()->id);
+        $this->assertNotNull($client->photo);
+        $this->assertEquals($photo->id, $client->photo->id);
 
         $photo = Photo::first();
         $this->assertEquals($photo->imageable->name, $user->name);
+
+        $user = User::with('photos')->find($user->_id);
+        $relations = $user->getRelations();
+        $this->assertTrue(array_key_exists('photos', $relations));
+        $this->assertEquals(1, $relations['photos']->count());
+
+        $photos = Photo::with('imageable')->get();
+        $relations = $photos[0]->getRelations();
+        $this->assertTrue(array_key_exists('imageable', $relations));
+        $this->assertInstanceOf('User', $relations['imageable']);
+
+        $relations = $photos[1]->getRelations();
+        $this->assertTrue(array_key_exists('imageable', $relations));
+        $this->assertInstanceOf('Client', $relations['imageable']);
     }
 
     public function testEmbedsManySave()
@@ -313,6 +322,10 @@ class RelationsTest extends PHPUnit_Framework_TestCase {
         $this->assertInstanceOf('DateTime', $address->created_at);
         $this->assertInstanceOf('DateTime', $address->updated_at);
         $this->assertNotNull($address->_id);
+        $this->assertTrue(is_string($address->_id));
+
+        $raw = $address->getAttributes();
+        $this->assertInstanceOf('MongoId', $raw['_id']);
 
         $address = $user->addresses()->save(new Address(array('city' => 'Paris')));
 
@@ -332,6 +345,7 @@ class RelationsTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(2, count($user->addresses));
         $this->assertEquals(2, count($user->addresses()->get()));
         $this->assertEquals(2, $user->addresses->count());
+        $this->assertEquals(2, $user->addresses()->count());
         $this->assertEquals(array('London', 'New York'), $user->addresses->lists('city'));
 
         $freshUser = User::find($user->_id);
@@ -342,6 +356,7 @@ class RelationsTest extends PHPUnit_Framework_TestCase {
         $this->assertInstanceOf('DateTime', $address->created_at);
         $this->assertInstanceOf('DateTime', $address->updated_at);
         $this->assertInstanceOf('User', $address->user);
+        $this->assertEmpty($address->relationsToArray()); // prevent infinite loop
 
         $user = User::find($user->_id);
         $user->addresses()->save(new Address(array('city' => 'Bruxelles')));
@@ -386,20 +401,48 @@ class RelationsTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(array('London', 'Bristol'), $freshUser->addresses->lists('city'));
     }
 
+    public function testEmbedsManyDuplicate()
+    {
+        $user = User::create(array('name' => 'John Doe'));
+        $address = new Address(array('city' => 'London'));
+        $user->addresses()->save($address);
+        $user->addresses()->save($address);
+        $this->assertEquals(1, $user->addresses->count());
+        $this->assertEquals(array('London'), $user->addresses->lists('city'));
+
+        $user = User::find($user->id);
+        $this->assertEquals(1, $user->addresses->count());
+
+        $address->city = 'Paris';
+        $user->addresses()->save($address);
+        $this->assertEquals(1, $user->addresses->count());
+        $this->assertEquals(array('Paris'), $user->addresses->lists('city'));
+
+        $user->addresses()->create(array('_id' => $address->_id, 'city' => 'Bruxelles'));
+        $this->assertEquals(1, $user->addresses->count());
+        $this->assertEquals(array('Bruxelles'), $user->addresses->lists('city'));
+    }
+
     public function testEmbedsManyCreate()
     {
         $user = User::create(array());
         $address = $user->addresses()->create(array('city' => 'Bruxelles'));
         $this->assertInstanceOf('Address', $address);
-        $this->assertInstanceOf('MongoID', $address->_id);
+        $this->assertTrue(is_string($address->_id));
         $this->assertEquals(array('Bruxelles'), $user->addresses->lists('city'));
+
+        $raw = $address->getAttributes();
+        $this->assertInstanceOf('MongoId', $raw['_id']);
 
         $freshUser = User::find($user->id);
         $this->assertEquals(array('Bruxelles'), $freshUser->addresses->lists('city'));
 
         $user = User::create(array());
         $address = $user->addresses()->create(array('_id' => '', 'city' => 'Bruxelles'));
-        $this->assertInstanceOf('MongoID', $address->_id);
+        $this->assertTrue(is_string($address->_id));
+
+        $raw = $address->getAttributes();
+        $this->assertInstanceOf('MongoId', $raw['_id']);
     }
 
     public function testEmbedsManyCreateMany()
@@ -506,7 +549,7 @@ class RelationsTest extends PHPUnit_Framework_TestCase {
     {
         $user = User::create(array('name' => 'John Doe'));
         $address = new Address(array('city' => 'New York'));
-        $address->exists = true;
+        $user->addresses()->save($address);
 
         $address->setEventDispatcher($events = Mockery::mock('Illuminate\Events\Dispatcher'));
         $events->shouldReceive('until')->once()->with('eloquent.saving: '.get_class($address), $address)->andReturn(true);
@@ -532,6 +575,62 @@ class RelationsTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(array('New York'), $user->addresses->lists('city'));
 
         $address->unsetEventDispatcher();
+    }
+
+    public function testEmbedsManyFindOrContains()
+    {
+        $user = User::create(array('name' => 'John Doe'));
+        $address1 = $user->addresses()->save(new Address(array('city' => 'New York')));
+        $address2 = $user->addresses()->save(new Address(array('city' => 'Paris')));
+
+        $address = $user->addresses()->find($address1->_id);
+        $this->assertEquals($address->city, $address1->city);
+
+        $address = $user->addresses()->find($address2->_id);
+        $this->assertEquals($address->city, $address2->city);
+
+        $this->assertTrue($user->addresses()->contains($address2->_id));
+        $this->assertFalse($user->addresses()->contains('123'));
+    }
+
+    public function testEmbedsManyEagerLoading()
+    {
+        $user = User::create(array('name' => 'John Doe'));
+        $address1 = $user->addresses()->save(new Address(array('city' => 'New York')));
+        $address2 = $user->addresses()->save(new Address(array('city' => 'Paris')));
+
+        $user = User::find($user->id);
+        $relations = $user->getRelations();
+        $this->assertFalse(array_key_exists('addresses', $relations));
+
+        $user = User::with('addresses')->find($user->id);
+        $relations = $user->getRelations();
+        $this->assertTrue(array_key_exists('addresses', $relations));
+        $this->assertEquals(2, $relations['addresses']->count());
+    }
+
+    public function testEmbedsManyDelete()
+    {
+        $user1 = User::create(array('name' => 'John Doe'));
+        $user1->addresses()->save(new Address(array('city' => 'New York')));
+        $user1->addresses()->save(new Address(array('city' => 'Paris')));
+
+        $user2 = User::create(array('name' => 'Jane Doe'));
+        $user2->addresses()->save(new Address(array('city' => 'Berlin')));
+        $user2->addresses()->save(new Address(array('city' => 'Paris')));
+
+        $user1->addresses()->delete();
+        $this->assertEquals(0, $user1->addresses()->count());
+        $this->assertEquals(0, $user1->addresses->count());
+        $this->assertEquals(2, $user2->addresses()->count());
+        $this->assertEquals(2, $user2->addresses->count());
+
+        $user1 = User::find($user1->id);
+        $user2 = User::find($user2->id);
+        $this->assertEquals(0, $user1->addresses()->count());
+        $this->assertEquals(0, $user1->addresses->count());
+        $this->assertEquals(2, $user2->addresses()->count());
+        $this->assertEquals(2, $user2->addresses->count());
     }
 
 }

@@ -1,11 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
-
-class SchemaTest extends PHPUnit_Framework_TestCase {
-
-	public function setUp() {}
+class SchemaTest extends TestCase {
 
 	public function tearDown()
 	{
@@ -17,6 +12,18 @@ class SchemaTest extends PHPUnit_Framework_TestCase {
 		Schema::create('newcollection');
 		$this->assertTrue(Schema::hasCollection('newcollection'));
 		$this->assertTrue(Schema::hasTable('newcollection'));
+	}
+
+	public function testCreateWithCallback()
+	{
+		$instance = $this;
+
+		Schema::create('newcollection', function($collection) use ($instance)
+		{
+			$instance->assertInstanceOf('Jenssegers\Mongodb\Schema\Blueprint', $collection);
+		});
+
+		$this->assertTrue(Schema::hasCollection('newcollection'));
 	}
 
 	public function testDrop()
@@ -107,11 +114,11 @@ class SchemaTest extends PHPUnit_Framework_TestCase {
 	{
 		Schema::collection('newcollection', function($collection)
 		{
-			$collection->background('backgroundkey');
+			$collection->sparse('sparsekey');
 		});
 
-		$index = $this->getIndex('newcollection', 'backgroundkey');
-		$this->assertEquals(1, $index['background']);
+		$index = $this->getIndex('newcollection', 'sparsekey');
+		$this->assertEquals(1, $index['sparse']);
 	}
 
 	public function testExpire()

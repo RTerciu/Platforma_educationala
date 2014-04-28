@@ -1,12 +1,6 @@
 <?php
-use Illuminate\Support\Facades\DB;
-use Jenssegers\Mongodb\Connection;
 
-class ConnectionTest extends PHPUnit_Framework_TestCase {
-
-	public function setUp() {}
-
-	public function tearDown() {}
+class ConnectionTest extends TestCase {
 
 	public function testConnection()
 	{
@@ -15,17 +9,20 @@ class ConnectionTest extends PHPUnit_Framework_TestCase {
 
 		$c1 = DB::connection('mongodb');
 		$c2 = DB::connection('mongodb');
-		$this->assertEquals($c1, $c2);
+		$this->assertEquals(spl_object_hash($c1), spl_object_hash($c2));
 
 		$c1 = DB::connection('mongodb');
 		$c2 = DB::reconnect('mongodb');
-		$this->assertNotEquals($c1, $c2);
+		$this->assertNotEquals(spl_object_hash($c1), spl_object_hash($c2));
 	}
 
 	public function testDb()
 	{
 		$connection = DB::connection('mongodb');
 		$this->assertInstanceOf('MongoDB', $connection->getMongoDB());
+
+		$connection = DB::connection('mongodb');
+		$this->assertInstanceOf('MongoClient', $connection->getMongoClient());
 	}
 
 	public function testCollection()
@@ -85,6 +82,35 @@ class ConnectionTest extends PHPUnit_Framework_TestCase {
 	{
 		$schema = DB::connection('mongodb')->getSchemaBuilder();
 		$this->assertInstanceOf('Jenssegers\Mongodb\Schema\Builder', $schema);
+	}
+
+	public function testDriverName()
+	{
+		$driver = DB::connection('mongodb')->getDriverName();
+		$this->assertEquals('mongodb', $driver);
+	}
+
+	public function testAuth()
+	{
+		Config::set('database.connections.mongodb.username', 'foo');
+		Config::set('database.connections.mongodb.password', 'bar');
+		$host = Config::get('database.connections.mongodb.host');
+		$port = Config::get('database.connections.mongodb.port', 27017);
+		$database = Config::get('database.connections.mongodb.database');
+
+		$this->setExpectedException('MongoConnectionException', "Failed to connect to: $host:$port: Authentication failed on database '$database' with username 'foo': auth fails");
+		$connection = DB::connection('mongodb');
+	}
+
+	public function testCustomPort()
+	{
+		$port = 27000;
+		Config::set('database.connections.mongodb.port', $port);
+		$host = Config::get('database.connections.mongodb.host');
+		$database = Config::get('database.connections.mongodb.database');
+
+		$this->setExpectedException('MongoConnectionException', "Failed to connect to: $host:$port: Connection refused");
+		$connection = DB::connection('mongodb');
 	}
 
 }

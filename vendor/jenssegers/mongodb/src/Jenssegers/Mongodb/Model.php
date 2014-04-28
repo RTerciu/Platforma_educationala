@@ -92,19 +92,19 @@ abstract class Model extends \Jenssegers\Eloquent\Model {
      */
     public function fromDateTime($value)
     {
-        // Convert DateTime to MongoDate
-        if ($value instanceof DateTime)
+        // If the value is already a MongoDate instance, we don't need to parse it.
+        if ($value instanceof MongoDate)
         {
-            $value = new MongoDate($value->getTimestamp());
+            return $value;
         }
 
-        // Convert timestamp to MongoDate
-        elseif (is_numeric($value))
+        // Let Eloquent convert the value to a DateTime instance.
+        if ( ! $value instanceof DateTime)
         {
-            $value = new MongoDate($value);
+            $value = parent::asDateTime($value);
         }
 
-        return $value;
+        return new MongoDate($value->getTimestamp());
     }
 
     /**
@@ -115,25 +115,23 @@ abstract class Model extends \Jenssegers\Eloquent\Model {
      */
     protected function asDateTime($value)
     {
-        // Convert timestamp
-        if (is_numeric($value))
-        {
-            return Carbon::createFromTimestamp($value);
-        }
-
-        // Convert string
-        if (is_string($value))
-        {
-            return new Carbon($value);
-        }
-
-        // Convert MongoDate
+        // Convert MongoDate instances.
         if ($value instanceof MongoDate)
         {
             return Carbon::createFromTimestamp($value->sec);
         }
 
-        return Carbon::instance($value);
+        return parent::asDateTime($value);
+    }
+
+    /**
+     * Get the format for database stored dates.
+     *
+     * @return string
+     */
+    protected function getDateFormat()
+    {
+        return 'Y-m-d H:i:s';
     }
 
     /**
@@ -169,27 +167,23 @@ abstract class Model extends \Jenssegers\Eloquent\Model {
     }
 
     /**
-     * Set the array of model attributes. No checking is done.
+     * Get an attribute from the model.
      *
-     * @param  array  $attributes
-     * @param  bool   $sync
-     * @return void
+     * @param  string  $key
+     * @return mixed
      */
-    public function setRawAttributes(array $attributes, $sync = false)
+    public function getAttribute($key)
     {
-        foreach($attributes as $key => &$value)
+        $attribute = parent::getAttribute($key);
+
+        // If the attribute is a MongoId object, return it as a string.
+        // This is makes Eloquent relations a lot easier.
+        if ($attribute instanceof MongoId)
         {
-            /**
-             * MongoIds are converted to string to make it easier to pass
-             * the id to other instances or relations.
-             */
-            if ($value instanceof MongoId)
-            {
-                $value = (string) $value;
-            }
+            return (string) $attribute;
         }
 
-        parent::setRawAttributes($attributes, $sync);
+        return $attribute;
     }
 
     /**
@@ -201,16 +195,20 @@ abstract class Model extends \Jenssegers\Eloquent\Model {
     {
         $attributes = parent::attributesToArray();
 
+        // Because the original Eloquent never returns objects, we convert
+        // MongoDB related objects to a string representation. This kind
+        // of mimics the SQL behaviour so that dates are formatted
+        // nicely when your models are converted to JSON.
         foreach ($attributes as &$value)
         {
-            /**
-             * Here we convert MongoDate instances to string. This mimics
-             * original SQL behaviour so that dates are formatted nicely
-             * when your models are converted to JSON.
-             */
-            if ($value instanceof MongoDate)
+            if ($value instanceof MongoId)
             {
-                $value = $this->asDateTime($value)->format('Y-m-d H:i:s');
+                $value = (string) $value;
+            }
+
+            else if ($value instanceof MongoDate)
+            {
+                $value = $this->asDateTime($value)->format($this->getDateFormat());
             }
         }
 
@@ -223,7 +221,7 @@ abstract class Model extends \Jenssegers\Eloquent\Model {
      * @param  mixed $columns
      * @return int
      */
-    public function dropColumn($columns)
+    public function drop($columns)
     {
         if (!is_array($columns)) $columns = array($columns);
 
@@ -234,7 +232,7 @@ abstract class Model extends \Jenssegers\Eloquent\Model {
         }
 
         // Perform unset only on current document
-        return $query = $this->newQuery()->where($this->getKeyName(), $this->getKey())->unset($columns);
+        return $this->newQuery()->where($this->getKeyName(), $this->getKey())->unset($columns);
     }
 
     /**
@@ -289,7 +287,7 @@ abstract class Model extends \Jenssegers\Eloquent\Model {
         // Unset method
         if ($method == 'unset')
         {
-            return call_user_func_array(array($this, 'dropColumn'), $parameters);
+            return call_user_func_array(array($this, 'drop'), $parameters);
         }
 
         return parent::__call($method, $parameters);

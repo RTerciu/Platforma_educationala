@@ -6,6 +6,7 @@
 	"require": {
 		"laravel/framework": "4.1.*",
 		"jenssegers/mongodb": "*",
+		"jenssegers/agent": "*",
 		"roumen/sitemap": "dev-master"
 	},
 	"autoload": {
