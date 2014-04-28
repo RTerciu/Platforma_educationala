@@ -15,9 +15,9 @@
 $userLogged=Auth::user()->id;
 foreach($mesaje as $mesaj)
 	if($mesaj->userTo==$userLogged)	
-		echo '<div class="mesaj_trimis"><strong>Subiect</strong> '.$mesaj->subject.'<hr> <strong>Mesaj </strong>'.$mesaj->mesaj.'</div>';
+		echo '<div class="mesaj_trimis"><strong>Subiect</strong> '.$mesaj->subject.'<hr> <strong>Mesaj </strong>'.$mesaj->mesaj.'<p class="text-right"><small><strong>'.$mesaj->created_at.'</strong></small></p></div>';
 	else
-		echo '<div class="mesaj_primit"><strong>Subiect</strong> '.$mesaj->subject.'<hr> <strong>Mesaj </strong>'.$mesaj->mesaj.'</div>';
+		echo '<div class="mesaj_primit"><strong>Subiect</strong> '.$mesaj->subject.'<hr> <strong>Mesaj </strong>'.$mesaj->mesaj.'<p class="text-right"><small><strong>'.$mesaj->created_at.'</strong></small></p></div>';
 
 
 
