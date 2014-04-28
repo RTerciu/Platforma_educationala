@@ -4,6 +4,9 @@ class MessageController extends BaseController{
 
 public function PostMessage()
 	{
+	
+		Securitate::globalXssClean();
+		
 		$mesaj=new Message;
 		$mesaj->userTo=Input::get('userTo');
 		$mesaj->userFrom=Input::get('userFrom');

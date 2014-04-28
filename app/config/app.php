@@ -107,6 +107,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Jenssegers\Mongodb\MongodbServiceProvider',
+		'Jenssegers\Agent\AgentServiceProvider',
 		'Roumen\Sitemap\SitemapServiceProvider',
 
 	),
@@ -174,6 +175,7 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
+		'Agent'            => 'Jenssegers\Agent\Facades\Agent',
 
 	),
 

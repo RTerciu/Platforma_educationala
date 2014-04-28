@@ -72,6 +72,9 @@ class UsersController extends BaseController {
 		
 			//La logare adaug o noua intrare in tabela logins cu data la care a survenit logarea
 			$login=new Login();
+			$login->ip=Request::getClientIp();
+			$login->browser=Agent::browser();
+			$login->os=Agent::platform();
 			$login->userID=Auth::user()->id;
 			$login->save();
 			
@@ -113,7 +116,7 @@ class UsersController extends BaseController {
 				{//afisez informatii
 				//echo $t1.' pana la '.$t2.' = '.$time_logged_str.'<br>';
 				
-				$element=array('login'=>$t1,'logout'=>$t2,'timp'=>$time_logged_str,'logout_manual'=>$log->signOut);
+				$element=array('login'=>$t1,'logout'=>$t2,'timp'=>$time_logged_str,'logout_manual'=>$log->signOut,'ip'=>$log->ip,'browser'=>$log->browser,'os'=>$log->os);
 				array_push($loguri,$element);
 				
 				}
@@ -175,6 +178,9 @@ class UsersController extends BaseController {
 			
 				//La logare adaug o noua intrare in tabela logins cu data la care a survenit logarea
 				$login=new Login();
+				$login->ip=Request::getClientIp();
+				$login->browser=Agent::browser();
+				$login->os=Agent::platform();
 				$login->userID=Auth::user()->id;
 				$login->save();
 				

@@ -32,6 +32,7 @@ $m=Session::get('mesaj');
 <tr>
 <td> Data si Ora Logarii </td>
 <td> Data si Ora Logout  </td>
+<td> Ip/Browser/Sistem Operare </td>
 <td> Timp Petrecut </td>
 <td> Ti-ai dat singur logout? </td>
 
@@ -55,6 +56,13 @@ $m=Session::get('mesaj');
 			<span class="glyphicon glyphicon-time"> {{$log['logout']}}</span> 
 			
 			</td>
+			
+			<td>
+			<span class="glyphicon glyphicon-eye-open">
+			{{$log['ip']}}/{{$log['browser']}}/{{$log['os']}}
+			</span> 
+			</td>
+			
 			<td>
 			<span class="glyphicon glyphicon-time">
 			{{$log['timp']}}
