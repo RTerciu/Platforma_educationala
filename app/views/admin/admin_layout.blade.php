@@ -1,5 +1,6 @@
 @extends('layout.layout')
-
+@section('content')
+<script src="{{asset('js/save_button.js')}}" type="text/javascript"></script>
 <nav class="navbar navbar-default" role="navigation">
 	<div class="navbar-header" style="height:60px; width:100%; background-color:#DCDCDC;">
 		<ul class="nav navbar-nav">
@@ -20,3 +21,4 @@
 
 
 @yield('admin_content')
+@stop

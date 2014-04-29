@@ -106,7 +106,7 @@ class AdministratorController extends BaseController {
 	{
 		return View::make('admin.edit_docs', compact('doc'));
 	}
-	public function handleEditDocs()
+	public function handleEditDocsAjax()
 	{
 	    // Handle edit form submission.
         $doc = Document::findOrFail(Input::get('id'));
@@ -116,22 +116,23 @@ class AdministratorController extends BaseController {
 		$doc->save();
 		
 		$docs = Document::all();
-		return Redirect::to('admin/show_docs')->with('docs',$docs);
+		//return Redirect::to('admin/show_docs')->with('docs',$docs);
+		return "ok";
 
 	}
 	
 	public function showDownloadedDocs()
 	{
-		$downs = Document::all();
+		$downloads = Document::all();
 		
-		return View::make('admin.show_downloaded_docs')->with('downs',$downs);
+		return View::make('admin.show_downloaded_docs')->with('downloads',$downloads);
 	}
 	public function deleteDownloadedDocs($id)
 	{
 		$down = Document::where('_id',$id);
 		$down->delete();
-		$downs = Document::all();
-		return Redirect::to('admin/show_downloaded_docs')->with('downs',$downs);
+		$downloads = Document::all();
+		return Redirect::to('admin/show_downloaded_docs')->with('downloads',$downloads);
 	}
 	public function editDownloadedDocs()
 	{
@@ -155,7 +156,7 @@ class AdministratorController extends BaseController {
 	{
 		return View::make('admin.edit_grades_reviews', compact('doc'));
 	}
-	public function handleEditGradesReviews()
+	public function handleEditGradesReviewsAjax()
 	{
 	    // Handle edit form submission.
         $grade = ReviewGrade::findOrFail(Input::get('id'));
@@ -165,8 +166,8 @@ class AdministratorController extends BaseController {
 		$grade->save();
 		
 		$grades = ReviewGrade::all();
-		return Redirect::to('admin/show_grades_reviews')->with('grades',$grades);
-
+		//return Redirect::to('admin/show_grades_reviews')->with('grades',$grades);
+		return "ok";
 	}
 	
 	public function showJobsBet()
@@ -186,7 +187,7 @@ class AdministratorController extends BaseController {
 	{
 		return View::make('admin.edit_jobs_bet', compact('bet'));
 	}
-	public function handleEditJobsBet()
+	public function handleEditJobsBetAjax()
 	{
 	    // Handle edit form submission.
         $bet = JobBet::findOrFail(Input::get('id'));
@@ -195,7 +196,8 @@ class AdministratorController extends BaseController {
 		$bet->save();
 		
 		$bets = JobBet::all();
-		return Redirect::to('admin/show_grades_reviews')->with('bets',$bets);
+		//return Redirect::to('admin/show_grades_reviews')->with('bets',$bets);
+		return "ok";
 	}
 	
 	public function showMessages()
@@ -246,7 +248,7 @@ class AdministratorController extends BaseController {
 	{
 		return View::make('admin.edit_reviews', compact('review'));
 	}
-	public function handleEditReviews()
+	public function handleEditReviewsAjax()
 	{
 	    // Handle edit form submission.
         $review = Review::findOrFail(Input::get('id'));
@@ -257,7 +259,8 @@ class AdministratorController extends BaseController {
 		$review->save();
 		
 		$reviews = Review::all();
-		return Redirect::to('admin/show_reviews')->with('reviews',$reviews);
+		//return Redirect::to('admin/show_reviews')->with('reviews',$reviews);
+		return "ok";
 	}
 	
 	public function showTags()
@@ -277,7 +280,7 @@ class AdministratorController extends BaseController {
 	{
 		return View::make('admin.edit_tags', compact('tag'));
 	}
-	public function handleEditTags()
+	public function handleEditTagsAjax()
 	{
 	    // Handle edit form submission.
         $tag = Tag::findOrFail(Input::get('id'));
@@ -286,7 +289,8 @@ class AdministratorController extends BaseController {
 		$tag->save();
 		
 		$tags = Tag::all();
-		return Redirect::to('admin/show_tags')->with('tags',$tags);
+		//return Redirect::to('admin/show_tags')->with('tags',$tags);
+		return "ok";
 	}
 	
 }

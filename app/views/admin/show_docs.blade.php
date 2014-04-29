@@ -5,7 +5,7 @@
         <h1>Show Docs <small>Bla bla bla!</small></h1>
     </div>	
 
-<table class="table table-hover table-bordered table-striped">
+<table class="table table-hover table-bordered table-striped" id="docs">
 	<tr>
 		<td></td>
 		<td>Title </td>
@@ -23,17 +23,25 @@
 		<?php $i++ ?>
 		
 		<td>{{$i}}</td>
-		<td>{{$doc->title}}</td>
-		<td>{{$doc->descriere}}</td>
-		<td>{{$doc->nrDownloads}}</td>
-		<td>{{$doc->document}}</td>
+		<td><div id="{{$i}}_title" contenteditable="false">{{$doc->title}}</div></td>
+		<td><div id="{{$i}}_descriere" contenteditable="false">{{$doc->descriere}}</div></td>
+		<td><div id="{{$i}}_nrDownloads" contenteditable="false">{{$doc->nrDownloads}}</div></td>
+		<td><div id="{{$i}}_document" contenteditable="false">{{$doc->document}}</div></td>
 		<td>{{$doc->updated_at}}</td>
 		<td>{{$doc->created_at}}</td>
-		<td><a href="{{ action('AdministratorController@editDocs', $doc->id) }}" class="btn btn-default"> Edit </a></td>
+		<td>
+			<a href="javascript:null" class="btn btn-default" id="{{$i}}" > Edit </a>
+			<a href="javascript:null" class="btn btn-primary" id_value="{{$doc->id}}" id="{{$i}}_save" style="display:none"> Save </a>
+		</td>
 		<td><a href="delete_docs/id={{$doc->id}}" class="btn btn-danger"> Delete</a></td>
 	</tr>
 		
 @endforeach
 </table>
+<script>
 
+	var docs=new Array("title","descriere","nrDownloads","document");
+	editable_table("docs",docs);
+
+</script>
 @stop

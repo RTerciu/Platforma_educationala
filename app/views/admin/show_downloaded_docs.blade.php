@@ -16,7 +16,7 @@
 		<td></td>
 	</tr>
 <?php $i=0 ?>
-@foreach($downs as $down)
+@foreach($downloads as $down)
 	<tr>
 		<?php 
 		$username=User::find($down->userID)->username;

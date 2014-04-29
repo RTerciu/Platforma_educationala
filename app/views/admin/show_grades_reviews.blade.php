@@ -7,7 +7,7 @@
        <h1>Show grades reviews <small>Bla bla bla!</small></h1>
 </div>
 
-<table class="table table-hover table-bordered table-striped">
+<table class="table table-hover table-bordered table-striped" id="grades">
 	<tr>
 		<td> </td>
 		<td>Doc </td>
@@ -26,17 +26,25 @@
 	<tr>
 		<?php $i++ ?>
 		<td>{{$i}}</td>
-		<td>{{$grade->docID}}</td>
-		<td>{{$grade->mark}}</td>
-		<td>{{$grade->reviewID}}</td>
-		<td>{{$grade->userID}}</td>
+		<td><div id="{{$i}}_docID" contenteditable="false">{{$grade->docID}}</div></td>
+		<td><div id="{{$i}}_mark" contenteditable="false">{{$grade->mark}}</div></td>
+		<td><div id="{{$i}}_reviewID" contenteditable="false">{{$grade->reviewID}}</div></td>
+		<td><div id="{{$i}}_userID" contenteditable="false">{{$grade->userID}}</div></td>
 		<td>{{$grade->created_at}}</td>
 		<td>{{$grade->updated_at}}</td>
-		<td><a href="{{ action('AdministratorController@editGradesReviews', $grade->id) }}" class="btn btn-default"> Edit </a></td>
+		<td>
+			<a href="javascript:null" class="btn btn-default" id="{{$i}}" > Edit </a>
+			<a href="javascript:null" class="btn btn-primary" id_value="{{$grade->id}}" id="{{$i}}_save" style="display:none"> Save </a>
+		</td>
 		<td><a href="delete_grades_reviews/{{$grade->id}}" class="btn btn-danger"> Delete</a></td>
 	</tr>
 		
 @endforeach
 </table>
+<script>
 
+	var grades=new Array("docID","mark","reviewID","userID");
+	editable_table("grades",grades);
+
+</script>
 @stop

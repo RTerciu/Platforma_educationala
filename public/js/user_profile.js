@@ -1,27 +1,5 @@
 $(document).ready(function() {  
 
-$("#catre").keyup(function()
-{
-var query=$('input#catre').val();
-var link="usersBrief/"+query;
-
-$.getJSON(link, function(data){
-	var cod='<ul>';
-	$.each(data,function(key,val)
-	{
-	cod=cod+"<li>"+data[key].username+"</li>";
-	
-	
-	});
-	cod=cod+"</ul>";
-	$("#contacte").html(cod);
-});
-
-
-
-
-});
-
 $("#send_message").click(function(){
 
 

@@ -1,7 +1,3 @@
-
-/*Functia care trimite un GET catre cele 2 rute care intorc
-rezultate ale cautari conform query-ului din campul de search
-*/
 function search() 
 {
 	var query_value = $('input#search1').val();
@@ -38,82 +34,6 @@ function search()
 		
 	}return false;    
 }
-
-/*
-Functia care realizeaza autocomplete-ul pentru tag-uri in functie de 
-id-ul formului care ii este furnizat
-
-Formular-ul trebuie sa contina:
-* input cu id inserted_tags
-* input cu id tags 
-* input-hidden cu id tags_input
-
-
-*/
-
-
-		function autoCompleteTags(form_id,link)
-		{
-			$(form_id).submit(function()
-			{		
-				tags = '';
-			
-				$('#inserted_tags span').each(function(index)
-				{
-					if($(this).attr('id'))
-					{
-						tags = tags + $(this).attr('id') + ';';
-					}
-				});
-				
-				$('#tags_input').val(tags);
-				
-			});
-		
-			var availableTags = [];
-			
-			$.getJSON(link, function(data)
-			{			
-				$.each(data, function(key,val)
-				{
-					availableTags[key] = new Object();
-					availableTags[key].descriere = data[key].descriere;
-					availableTags[key].label = data[key].name;
-					availableTags[key].id = data[key]._id;
-				});
-			});
-		
-			$('#tags').autocomplete({
-				appendTo: '#results',
-				source:availableTags,
-				select: function(event,ui)
-				{
-					selected_value = ui.item.value;
-					
-					var selected_tag = $.grep(availableTags,function(data)
-					{
-						return data.label == selected_value;
-					});
-
-					message = "<span id='"+selected_tag[0].id+"' onclick='$(this).remove();' class='label label-info'>" + selected_value + "<span class='close-button'> &times; </span></span>";				
-					
-					if($('#inserted_tags').css('display') == 'none')
-					{
-						$('#inserted_tags').css('display','block');
-					}
-					
-					$('#inserted_tags').append(message);
-					
-					$('#tags').val('');
-					
-					return false;
-				}
-			});
-		}
-
-
-
-
 
 $(document).ready(function(){
 
