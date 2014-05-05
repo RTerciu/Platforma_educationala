@@ -30,6 +30,8 @@ var mes=$("#mesaj").val();
 var user1=$("#userTo").val();
 var user2=$("#userFrom").val();
 
+
+var url=$("#link_mesaje").val();
 var mesaj='';
 
 if(!sub)
@@ -49,7 +51,7 @@ else
 	
 	$.ajax({
 				type: "POST",
-				url: "http://localhost/Platforma_educationala/public/message/trimite",
+				url: url,
 				data: { subiect: sub , mesaj:mes, userTo:user1, userFrom:user2 },
 				cache: false,
 				success: function(html){

@@ -16,6 +16,15 @@ class Document extends Eloquent {
 	protected $collection = 'documents';
 	
 	
+public function validate($input) {
+
+        $rules = array(
+			'document' => 'required|mimes:pdf,doc,docx'
+        );
+
+        return Validator::make($input, $rules);
+	}
+	
 	
 	public static function findByTag($tag,$how=4)
     {

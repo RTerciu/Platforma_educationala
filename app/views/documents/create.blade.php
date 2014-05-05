@@ -4,14 +4,16 @@
 	<div class="page-header">
 		<h1>Upload <small>and share!</small></h1>
 	</div>
+
+	
+@if(Session::has('create_errors'))
+				<p class="alert alert-info">{{Session::get('create_errors')}}</p>
+@endif
 	
 	{{ Form::open(array('action' => 'DocumentsController@PostCreate', 'files' => true, 'role' => 'form', 'id' => 'documents'))}}
-		<div class="form-group">
-		
-			@if(Session::has('create_errors'))
-				<p class="alert alert-info">{{Session::get('create_errors')}}</p>
-			@endif
-		
+	
+
+		<div class="form-group">		
 			<label for="email">Title</label>
 			<input type="text" class="form-control" name="title" id="title" />
 		</div>
@@ -22,7 +24,7 @@
 		<div class="form-group">
 			<label for="tags">Tags</label>
 			<div class="form-control" id="inserted_tags"></div>
-			<input type="text" class="form-control" id="tags" name="tags" placeholder="Type here to insert tags ...">
+			<input type="text" class="form-control" id="tags" placeholder="Type here to insert tags ...">
 			<input type="hidden" name="tags" id="tags_input">
 			<div id="results"></div>
 		</div>

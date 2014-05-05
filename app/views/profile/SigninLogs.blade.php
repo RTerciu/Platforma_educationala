@@ -30,11 +30,11 @@ $m=Session::get('mesaj');
 
 <table class="table table-responsive">
 <tr>
-<td> Data si Ora Logarii </td>
-<td> Data si Ora Logout  </td>
-<td> Ip/Browser/Sistem Operare </td>
-<td> Timp Petrecut </td>
-<td> Ti-ai dat singur logout? </td>
+<td> Data/Ora Logarii </td>
+<td> Data/Ora Logout  </td>
+<td> Ip/Browser/OS </td>
+<td> Timp </td>
+<td> Logout manual? </td>
 
 
 </tr>

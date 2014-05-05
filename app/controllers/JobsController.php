@@ -214,7 +214,12 @@ class JobsController extends BaseController {
 				$job=new Job;
 				
 				$job->titlu=Input::get('titlu');
-				$job->tags = explode(';',rtrim(Input::get('tags'),";"));
+				
+				if(null!==Input::get('tags'))
+					$job->tags=array('53679b39626b2b900e00002a');
+				else	
+					$job->tags = explode(';',rtrim(Input::get('tags'),";"));
+				
 				$job->id_user=Auth::user()->id;
 				$job->pret=Input::get('pret');
 				$job->deadline=$liniaMoarta->toDateTimeString();;

@@ -33,6 +33,7 @@ foreach($mesaje as $mesaj)
 		{{Form::open(array('action' => 'MessageController@PostMessage', 'role' => 'form' ))}}
 		<input type="hidden" id="userTo" name="userTo" value="{{$userID}}" >	
 		<input type="hidden" id="userFrom" name="userFrom" value="{{Auth::user()->id}}" >
+		<input type="hidden" id="link_mesaje" name="link_mesaje" value="{{url('message/trimite')}}">
 		
 		
 		<div class="form-group">

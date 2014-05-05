@@ -11,6 +11,13 @@
 |
 */
 
+Route::get('register',function()
+{
+
+return View::make('register');
+});
+
+
 Route::get('/', function()
 {
 	return View::make('home');

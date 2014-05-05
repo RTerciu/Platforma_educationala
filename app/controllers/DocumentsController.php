@@ -100,10 +100,17 @@ class DocumentsController extends BaseController{
 	{
 		$destinationPath = 'uploads/documents/';
 		
-		if(Input::has('title') && Input::has('tags') && Input::has('descriere'))
+		if(Input::has('descriere'))
 		{
 		
 			$file = Input::file('document');
+			
+			/*
+			$v=Document::validate(Input::all());
+			
+			if($v->fails())
+			 return Redirect::to('/')->withErrors($v->getMessages());
+			*/
 			
 			$filename = Input::file('document')->getClientOriginalName();
 			$uploadSuccess = Input::file('document')->move($destinationPath, $filename);
@@ -131,19 +138,21 @@ class DocumentsController extends BaseController{
 				
 				//introducem un vector de tag-uri in baza de date 
 				
-				$document->tags = explode(';',rtrim(Input::get('tags'),";"));
+				if(null!==Input::get('tags'))
+					$document->tags=array('53679b39626b2b900e00002a');
+				else	
+					$document->tags = explode(';',rtrim(Input::get('tags'),";"));
 				$document->nrDownloads=0;
 				$document->document = $destinationPath.$filename;
 				$document->save();
 			}
 			else
-			{
-				return Redirect::to('/documents/create')->with('create_errors','Error uploading file.');
-			}
+				return Redirect::to('/documents/create')->with('create_errors','Error uploading file.')->with('document',$Input::all());
+			
 		}
 		else
 		{
-			return Redirect::to('/documents/create')->with('create_errors', 'Missing fields.');
+			return Redirect::to('/documents/create')->with('create_errors', 'Missing fields.'.json_encode(Input::all()));
 		}
 		
 		return Redirect::to('/documents/create')->with('create_errors','Ati uploadat documentul cu success');
