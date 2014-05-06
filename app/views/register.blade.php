@@ -70,6 +70,11 @@
 					</div>
 				</nav>
 			
+			
+			<div id="progress_bar">
+				<div id="progress"></div>
+				<div id="progress_text">0% Complete</div>
+			</div>
 		<div id="container">
 				<form action="#" method="post">
 			
@@ -160,10 +165,7 @@
 					
 				</form>
 		</div>
-			<div id="progress_bar">
-				<div id="progress"></div>
-				<div id="progress_text">0% Complete</div>
-			</div>
+
 	</div>
 </body>
 </html>

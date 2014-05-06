@@ -110,6 +110,26 @@ Formular-ul trebuie sa contina:
 				}
 			});
 		}
+		
+		function search(link)
+		{			
+			var json_results = $.Deferred();
+		
+			$.getJSON(link,function()
+			{
+			})
+			.done(function(data)
+			{
+				json_results.resolve(
+				{
+					data:data
+				});
+			});			
+			return json_results;
+		}
+		
+		
+		
 
 
 
