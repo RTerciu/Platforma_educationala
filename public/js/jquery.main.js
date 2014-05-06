@@ -1,5 +1,5 @@
 $(function(){
-    //original field values
+   //original field values
     var field_values = {
             //id        :  value
             'username'  : 'username',

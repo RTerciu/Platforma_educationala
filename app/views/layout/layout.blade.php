@@ -14,7 +14,7 @@
 	<script src="{{asset('js/d3.chart.min.js')}}"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.js">
 	<script>
-        tinymce.init({selector:'textarea#descriere_job'});
+        tinymce.init({selector:'textarea'});
 	</script>
 	
 	<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}"/>
@@ -126,7 +126,11 @@
 							$("#docs_list").append('<li style="font-size:12px;" class="list-group-item"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;<a href="'+url_location+'">' + value.title + '</a></li>');						
 						});
 					}
-
+					else
+					{
+						$("#docs").css("display","block");
+						$("#docs_list").html('<li style="font-size:12px;" class="list-group-item">Nici un rezultat.</li>');
+					}
 				});
 				
 				
@@ -146,8 +150,11 @@
 							$("#jobs_list").append('<li style="font-size:12px;" class="list-group-item"><span class="glyphicon glyphicon-wrench"></span>&nbsp;<a href="'+url_location+'">' + value.titlu + '</a></li>');						
 						});
 					}
-
-				
+					else
+					{
+						$("#jobs").css("display","block");
+						$("#jobs_list").html('<li style="font-size:12px;" class="list-group-item">Nici un rezultat.</li>');
+					}
 				});
 			}
 			else
