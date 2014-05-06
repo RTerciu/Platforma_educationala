@@ -50,11 +50,15 @@
 					<div id="second_step">
 						<h1>Acum spune-ne <span>Cine </span> esti!</h1>
 
-						<div class="form">
+						<div class="form-group has-feedback" id="div_firstname">
 							<input type="text" name="firstname" id="firstname" value="first name" class="form-control" />
 							<label for="firstname">Preumele dumneavoastra? </label>
+						</div> 	
+						<div class="form-group has-feedback" id="div_lastname">
 							<input type="text" name="lastname" id="lastname" value="last name" class="form-control"  />
 							<label for="lastname">Prenumele dumneavoastra? </label>
+						</div> 	
+						<div class="form-group has-feedback" id="div_email">
 							<input type="text" name="email" id="email" value="email address"  class="form-control"  />
 							<label for="email">Adresa de email? Asa va putem contacta mai usor! </label>                    
 						</div>      <!-- clearfix --><div class="clear"></div><!-- /clearfix -->
@@ -69,7 +73,7 @@
 					<div id="third_step">
 						<h1>Daca nu e cu suparare <span>Detalii </span> mai precise...</h1>
 
-						<div class="form">
+						<div class="form-group has-feedback" id="div_email">
 							<select id="age" name="age" class="form-control" >
 								<option> 0 - 17</option>
 								<option>18 - 25</option>
@@ -77,13 +81,15 @@
 								<option>40+</option>
 							</select>
 							<label for="age">Varsta dumneavoastra? </label> <!-- clearfix --><div class="clear"></div><!-- /clearfix -->
-
+						</div>
+						<div class="form-group has-feedback" id="div_email">
 							<select id="gender" name="gender" class="form-control"  >
 								<option>Masculin</option>
 								<option>Feminin</option>
 							</select>
 							<label for="gender">Genul dumneavoastra? </label> <!-- clearfix --><div class="clear"></div><!-- /clearfix -->
-							
+						</div>
+						<div class="form-group has-feedback" id="div_email">	
 							<select id="country" name="country" class="form-control" >
 								<option>Romania</option>
 								<option>UE</option>
@@ -108,7 +114,8 @@
 						<div class="form">
 							
 							<table>
-								<tr><td>Username</td><td></td></tr>								
+								<tr><td>Username &nbsp;</td><td></td></tr>								
+								<tr><td>Password</td><td></td></tr>
 								<tr><td>Email</td><td></td></tr>
 								<tr><td>Nume</td><td></td></tr>
 								<tr><td>Varsta</td><td></td></tr>
