@@ -12,7 +12,7 @@
 	<script src="{{asset('js/jquery-ui-1.10.4.custom.min.js')}}"></script>
 	<script src="{{asset('js/d3.min.js')}}"></script>
 	<script src="{{asset('js/d3.chart.min.js')}}"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.js">
+
 	<script>
         tinymce.init({selector:'textarea'});
 	</script>

@@ -1,7 +1,7 @@
 @extends('layout.jobs_layout')
 
 @section('jobs_content')
-<link rel="stylesheet" href="{{ asset('css/style_document.css')}}" type="text/css" media="screen">
+
 
 <h2 class="text-left">Creaza Job</h2>
 

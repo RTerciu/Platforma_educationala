@@ -24,8 +24,8 @@
 		<div class="form-group">
 			<label for="tags">Tags</label>
 			<div class="form-control" id="inserted_tags"></div>
-			<input type="text" class="form-control" id="tags" placeholder="Type here to insert tags ...">
-			<input type="hidden" name="tags" id="tags_input">
+			<input type="text" class="form-control" id="tags" placeholder="Scrie-ti aici pentru introduce tag-uri...">
+			<input type="hidden" name="tags" id="tags_input" />
 			<div id="results"></div>
 		</div>
 		

@@ -138,10 +138,14 @@ class DocumentsController extends BaseController{
 				
 				//introducem un vector de tag-uri in baza de date 
 				
-				if(null!==Input::get('tags'))
+				//$document->tags = explode(';',rtrim(Input::get('tags'),";"));
+				$taguri=Input::get('tags');
+
+				if($taguri==null)
 					$document->tags=array('53679b39626b2b900e00002a');
 				else	
 					$document->tags = explode(';',rtrim(Input::get('tags'),";"));
+				
 				$document->nrDownloads=0;
 				$document->document = $destinationPath.$filename;
 				$document->save();

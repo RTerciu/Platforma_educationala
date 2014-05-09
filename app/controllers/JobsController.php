@@ -142,6 +142,35 @@ class JobsController extends BaseController {
 	return Redirect::to('jobs/'.$jobName)->with('mesaj',$mesaj);
 	}
 	
+	
+	public function ProcessAsignUserForJob($userID,$jobID)
+	{
+	
+	$bet=JobBet::where('jobID',$jobID)->where('userID',$userID)->first();
+	
+	if(!isset($bet))
+		return "Nu exista nici o licitatie pentru acest job";
+	
+	$job=Job::find($jobID);
+	if(!isset($job))
+		return "Nu mai exista job-ul";
+	
+	$user=User::find($userID);
+	if(!isset($user))
+		return "Nu mai exista user-ul";
+	
+	$job->assignedTo=$userID;
+	$job->save();
+	
+	return 'ok';
+	
+	
+	return 'bla '.$userID.'  ## '.$jobID;
+	}
+	
+	
+	
+	
 	public function ShowJobsForCategoryPage($categoryName)
 	{
 	
@@ -184,7 +213,7 @@ class JobsController extends BaseController {
 
 	
 	$input = Input::all();
-
+	return var_dump($input);
 	$rules = array(
 	'titlu' 	=> 'required|min:3|max:100',
 	'pret' 		=> 'required|integer',
@@ -214,14 +243,16 @@ class JobsController extends BaseController {
 				$job=new Job;
 				
 				$job->titlu=Input::get('titlu');
+				return var_dump(Input::get('tags'));
 				
-				if(null!==Input::get('tags'))
+				/*if($taguri==null)
 					$job->tags=array('53679b39626b2b900e00002a');
-				else	
+				else	*/
 					$job->tags = explode(';',rtrim(Input::get('tags'),";"));
 				
 				$job->id_user=Auth::user()->id;
 				$job->pret=Input::get('pret');
+				$job->assignedTo="0";
 				$job->deadline=$liniaMoarta->toDateTimeString();;
 				$job->descriere=Input::get('descriere');
 				

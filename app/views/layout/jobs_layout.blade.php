@@ -1,6 +1,6 @@
 @extends('layout.layout')
 
-
+<link rel="stylesheet" href="{{ asset('css/style_document.css')}}" type="text/css" media="screen">
 
 @section('content')
 	<div class="page-header">
