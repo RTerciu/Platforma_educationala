@@ -20,7 +20,7 @@
 			</div>
 		<div id="container">
 			
-			<form action="" method="post">
+			<form action="{{action('UsersController@PostSignUp')}}" method="post" enctype="multipart/form-data" id="form_register">
 			
 					<!-- #first_step -->
 					<div id="first_step">
@@ -28,7 +28,7 @@
 
 						<div class="form-group has-feedback" id="div_username">
 							<input type="text" name="username" id="username" value="username" class="form-control" />
-							<label for="username">Cel putin 4 caractere, cifre sau litere.</label>
+							<label for="username">Cel putin 6 caractere, cifre sau litere.</label>
 						</div> 
 						<div class="form-group has-feedback" id="div_password">
 							<input type="password" name="password" id="password" value="password"  class="form-control"  />
@@ -41,7 +41,7 @@
 						
 						
 						<div class="span7 text-right">
-						<input class="btn btn-success" type="submit" name="submit_first" id="submit_first" value="Pasul urmator"  />
+						<div class="btn btn-success"  id="submit_first" >Pasul urmator</div>
 						</div>
 					</div>      <!-- clearfix --><div class="clear"></div><!-- /clearfix -->
 
@@ -51,20 +51,21 @@
 						<h1>Acum spune-ne <span>Cine </span> esti!</h1>
 
 						<div class="form-group has-feedback" id="div_firstname">
-							<input type="text" name="firstname" id="firstname" value="first name" class="form-control" />
-							<label for="firstname">Preumele dumneavoastra? </label>
+							<input type="text" name="firstname" id="firstname" value="nume" class="form-control" />
+							<label for="firstname">Numele dumneavoastra? </label>
 						</div> 	
-						<div class="form-group has-feedback" id="div_lastname">
-							<input type="text" name="lastname" id="lastname" value="last name" class="form-control"  />
-							<label for="lastname">Prenumele dumneavoastra? </label>
-						</div> 	
+						<div class="form-group has-feedback" id="div_avatar">
+							
+							<input type="file" class="form-control" name="avatar" id="avatar" />
+							<label for="avatar">Avatar</label>
+						</div>	
 						<div class="form-group has-feedback" id="div_email">
 							<input type="text" name="email" id="email" value="email address"  class="form-control"  />
 							<label for="email">Adresa de email? Asa va putem contacta mai usor! </label>                    
 						</div>      <!-- clearfix --><div class="clear"></div><!-- /clearfix -->
 						
 						<div class="span7 text-right">
-						<input class="btn btn-success" type="submit" name="submit_second" id="submit_second" value="Pasul urmator" />
+						<div class="btn btn-success"   id="submit_second" >Pasul urmator</div>
 						</div>
 					</div>      <!-- clearfix --><div class="clear"></div><!-- /clearfix -->
 
@@ -101,7 +102,7 @@
 						</div>      <!-- clearfix --><div class="clear"></div><!-- /clearfix -->
 						
 						<div class="span7 text-right">
-						<input class="btn btn-success" type="submit" name="submit_third" id="submit_third" value="Pasul Urmator" />
+						<div class="btn btn-success"  id="submit_third"> Pasul Urmator</div>
 						</div>
 						
 					</div>      <!-- clearfix --><div class="clear"></div><!-- /clearfix -->
@@ -109,13 +110,12 @@
 					
 					<!-- #fourth_step -->
 					<div id="fourth_step">
-						<h1>Sunt informatiile <span>corecte?</span> Daca da apasa Send!</h1>
+						<h1>Va multumim pentru inregistrare!<hr> <span>Daca informatiile sunt corecte</span> apasati inregistrare pentru a finaliza operatia</h1>
 
 						<div class="form">
 							
 							<table>
 								<tr><td>Username &nbsp;</td><td></td></tr>								
-								<tr><td>Password</td><td></td></tr>
 								<tr><td>Email</td><td></td></tr>
 								<tr><td>Nume</td><td></td></tr>
 								<tr><td>Varsta</td><td></td></tr>
@@ -128,7 +128,7 @@
 						<input class="btn btn-success" type="submit" name="submit_fourth" id="submit_fourth" value="Inregistrare" />
 						</div>						
 					</div>
-					
+					<input type="hidden" id="link_signup"  value="{{action('UsersController@PostSignUp')}}"/>
 				</form>
 			</div>
 			<div class="col-md-3"></div>

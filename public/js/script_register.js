@@ -12,14 +12,14 @@ $("#fourth_step").css("display","none");
             'username'  : 'username',
             'password'  : 'password',
             'cpassword' : 'password',
-            'firstname'  : 'first name',
-            'lastname'  : 'last name',
+            'firstname'  : 'nume',
+            'avatar'  : 'avatar',
             'email'  : 'email address'
     };
 
 //Procesez click-ul pentru prima parte a inregistrarii
 
- $("input#submit_first").click(function(){
+ $("#submit_first").click(function(){
  
  $('#first_step input').removeClass('has-success').removeClass('has-error');
  
@@ -94,6 +94,7 @@ $("#fourth_step").css("display","none");
         var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;  
         var fields = $('#second_step input[type=text]');
         var error = 0;
+
         fields.each(function(){
             var value = $(this).val();
             if( value.length<1 || value==field_values[$(this).attr('id')] || ( $(this).attr('id')=='email' && !emailPattern.test(value) ) ) {
@@ -113,7 +114,21 @@ $("#fourth_step").css("display","none");
                 $(id_elem).addClass('has-success');
             }
         });
-
+		if($("input#avatar").val())
+			{
+			$("#div_avatar").removeClass('has-success').removeClass('has-error');
+			$("#div_avatar").addClass('has-success');
+			}
+		else 
+			{
+			$("#div_avatar").removeClass('has-success').removeClass('has-error');
+			$("#div_avatar").addClass('has-error');
+			$("#div_avatar").effect("shake", { times:2 }, 500);
+			error++;
+			}
+		
+		
+		
         if(!error) {
                 //update progress bar
                 $('#progress_text').html('Doua treimi gata!');
@@ -142,9 +157,8 @@ $("#fourth_step").css("display","none");
         //prepare the fourth step
         var fields = new Array(
             $('#username').val(),
-            $('#password').val(),
             $('#email').val(),
-            $('#firstname').val() + ' ' + $('#lastname').val(),
+            $('#firstname').val(),
             $('#age').val(),
             $('#gender').val(),
             $('#country').val()                       
@@ -164,8 +178,22 @@ $("#fourth_step").css("display","none");
 
 
     $('#submit_fourth').click(function(){
-        //send information to server
-        alert('Data sent');
+	var url=$("#link_signup").val();
+	//var ftype=$("input#avatar")[0].files[0].type;
+	//console.log($("input#avatar")[0].files[0]);
+	//var formData = new FormData($('form')[0]);
+	/*$.ajax({
+				type: "POST",
+				url: url,
+				data: { email: $('#email').val() , username:$('#username').val(), avatar:$("input#avatar")[0].files[0], password:$('#password').val() },
+				cache: false,
+
+			});
+	*/
+	
+
+	//$('#form_register').ajaxSubmit();
+	
     });
 
 
