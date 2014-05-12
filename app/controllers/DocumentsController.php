@@ -146,6 +146,7 @@ class DocumentsController extends BaseController{
 				else	
 					$document->tags = explode(';',rtrim(Input::get('tags'),";"));
 				
+				$document->pret=Input::get('pret');
 				$document->nrDownloads=0;
 				$document->document = $destinationPath.$filename;
 				$document->save();

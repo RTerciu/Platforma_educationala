@@ -49,6 +49,14 @@ echo $t->getHTMLTag();
 ?>
 </strong>
 @endforeach
+<br>
+Pret: 
+@if(isset($document->pret))
+    <strong>{{$document->pret}}</strong>
+@else 
+	<strong>gratuit</strong>
+@endif
+
 </p></small>
 <hr>
 

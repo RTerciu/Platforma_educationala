@@ -30,6 +30,11 @@
 		</div>
 		
 		<div class="form-group">
+			<label for="pret">Pret</label>
+			<input type="number"  class="form-control" name="pret" id="pret" min="0" max="100"/>
+		</div>
+		
+		<div class="form-group">
 			<label for="descriere">Descriere</label>
 			<textarea name="descriere" class="form-control" rows="10" id="descriere_job" ></textarea>
 		</div>
