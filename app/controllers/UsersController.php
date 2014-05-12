@@ -140,6 +140,75 @@ class UsersController extends BaseController {
 	}
 	
 	
+	
+	
+	
+		public function PostRegister()
+	{
+		$destinationPath = 'uploads/avatars/';
+		$file = Input::file('avatar');
+		
+		$filename = Input::file('avatar')->getClientOriginalName();
+		$uploadSuccess = Input::file('avatar')->move($destinationPath, $filename);
+		
+		
+		if($uploadSuccess)
+		{
+				$user = new User;
+				$user->email = Input::get('email');
+				$user->password = Hash::make(Input::get('password'));
+				$user->avatar = $destinationPath.$filename;
+				$user->nume=Input::get('firstname');
+				$user->age=Input::get('age');
+				$user->gender=Input::get('gender');
+				$user->country=Input::get('country');
+				$user->username = Input::get('username');
+				$user->save();
+			
+			
+
+
+			if(Auth::attempt(array('email' =>$user->email, 'password' => Input::get('password'))))
+			{	
+				$userID=Auth::user()->id;
+			
+				//Verific daca logarea trecuta a fost terminata prin SignOut sau prin Browser Clear Cache/computer restart etc
+				//Daca da, atunci inchid aceea autentificare cu data curenta.
+			
+				$last_login=Login::where('userID',$userID)->orderBy('created_at', 'desc')->first();
+				if(isset($last_login))
+					if(!isset($last_login->signOut))
+						  { 
+							$last_login->signOut="Nu";
+							$last_login->save();
+						  }
+			
+				//La logare adaug o noua intrare in tabela logins cu data la care a survenit logarea
+				$login=new Login();
+				$login->ip=Request::getClientIp();
+				$login->browser=Agent::browser();
+				$login->os=Agent::platform();
+				$login->userID=Auth::user()->id;
+				$login->save();
+				
+				return Redirect::intended('/');
+			}
+			else
+			{
+				return Redirect::to('signin');
+			}
+			
+		
+		}
+		
+		else return Redirect::to('register');
+	}
+	
+	
+	
+	
+	
+	
 	public function PostSignUp()
 	{
 		$destinationPath = 'uploads/avatars/';

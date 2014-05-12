@@ -50,7 +50,34 @@ echo $t->getHTMLTagJob();
 
 <h3>Descriere:</h3><p>{{$job->descriere}}</p><hr>
 
+<?php
+if($job->id_user==Auth::user()->id)
+    {echo 'Selectati un utilizatori dintre cei de mai jos pentru realiza jobul:<br><table class="table table-striped">';
+		foreach($bidders as $bidder)
+			{
+			
+			echo '<tr>';
+			
+				echo '<td>'.User::where('_id',$bidder['userID'])->first()['username'].'</td>';
+				echo '<td>'.$bidder['created_at'].'</td>';
+				//De generat functie la onclick...
+				echo '<td><div id="button" class="btn btn-default" jobID="'.$job->_id.'" userID="'.$bidder['userID'].'" >Alege</div>';
+			
+			
+			echo '</tr>';
+			}
+	
+	
+	echo '</table>';
+	}
+else echo 'blabla';
+
+?>
+
 <p>Au licitat la acest job urmatorii useri:</p>
+
+
+
 @foreach($bidders as $bidder)
 
 <?php  
@@ -62,7 +89,7 @@ $bidderName=$b['email'];
 
 @endforeach
 
-
-
+{{-- de apelat o functie din acest script--}}
+<script src="{{asset('js/job_detail.js')}}"></script>
 
 @stop

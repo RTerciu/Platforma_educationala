@@ -142,7 +142,20 @@ class JobsController extends BaseController {
 	return Redirect::to('jobs/'.$jobName)->with('mesaj',$mesaj);
 	}
 	
+	/*Metoda care realizeaza desemnarea unui user pentru a realiza un job
+	Se verifica daca :
+	-exista bet-ul pentru job
+	-exista jobul
+	-exista user-ul
+	-persoana care face operatia este creatorul jobului
+	-creatorul jobului nu a desemnat deja pe altcineva
 	
+	Daca exista toate cele de mai sus , se updateaza intrarea jobului din baza de date 
+	cu id-ul user-ului desemnat DOAR de catre creatorul job-ului
+	
+	
+	
+	*/
 	public function ProcessAsignUserForJob($userID,$jobID)
 	{
 	
@@ -159,13 +172,21 @@ class JobsController extends BaseController {
 	if(!isset($user))
 		return "Nu mai exista user-ul";
 	
+	$userLogat=Auth::user()->id;
+	
+	if($userLogat!=$job->userID)
+		return "Nu esti autorizat sa desemnezi useri pentru acest job!";
+	
+	if($job->assignedTo!=0)
+		return "Ai desemnat deja o persoana pentru acesto job";
+		
 	$job->assignedTo=$userID;
 	$job->save();
 	
 	return 'ok';
 	
 	
-	return 'bla '.$userID.'  ## '.$jobID;
+	//return 'bla '.$userID.'  ## '.$jobID;
 	}
 	
 	

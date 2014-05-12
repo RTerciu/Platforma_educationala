@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('register',function()
-{
-return View::make('register');
-});
+
 
 
 Route::get('/', function()
@@ -64,6 +61,13 @@ if(isset($tagObject))
 else return Redirect::to('jobs/all');
 
 });
+
+Route::get('register',function()
+{
+return View::make('register');
+});
+
+Route::post('register','UsersController@PostRegister');
 
 
 

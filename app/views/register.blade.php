@@ -20,7 +20,7 @@
 			</div>
 		<div id="container">
 			
-			<form action="{{action('UsersController@PostSignUp')}}" method="post" enctype="multipart/form-data" id="form_register">
+			<form action="{{action('UsersController@PostRegister')}}" method="post" enctype="multipart/form-data" id="form_register">
 			
 					<!-- #first_step -->
 					<div id="first_step">
@@ -74,7 +74,7 @@
 					<div id="third_step">
 						<h1>Daca nu e cu suparare <span>Detalii </span> mai precise...</h1>
 
-						<div class="form-group has-feedback" id="div_email">
+						<div class="form-group has-feedback" id="div_age">
 							<select id="age" name="age" class="form-control" >
 								<option> 0 - 17</option>
 								<option>18 - 25</option>
@@ -83,14 +83,14 @@
 							</select>
 							<label for="age">Varsta dumneavoastra? </label> <!-- clearfix --><div class="clear"></div><!-- /clearfix -->
 						</div>
-						<div class="form-group has-feedback" id="div_email">
+						<div class="form-group has-feedback" id="div_gender">
 							<select id="gender" name="gender" class="form-control"  >
 								<option>Masculin</option>
 								<option>Feminin</option>
 							</select>
 							<label for="gender">Genul dumneavoastra? </label> <!-- clearfix --><div class="clear"></div><!-- /clearfix -->
 						</div>
-						<div class="form-group has-feedback" id="div_email">	
+						<div class="form-group has-feedback" id="div_country">	
 							<select id="country" name="country" class="form-control" >
 								<option>Romania</option>
 								<option>UE</option>
