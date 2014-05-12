@@ -213,7 +213,7 @@ class JobsController extends BaseController {
 
 	
 	$input = Input::all();
-	return var_dump($input);
+
 	$rules = array(
 	'titlu' 	=> 'required|min:3|max:100',
 	'pret' 		=> 'required|integer',
@@ -243,11 +243,11 @@ class JobsController extends BaseController {
 				$job=new Job;
 				
 				$job->titlu=Input::get('titlu');
-				return var_dump(Input::get('tags'));
+				$taguri=Input::get('tags');
 				
-				/*if($taguri==null)
+				if($taguri==null)
 					$job->tags=array('53679b39626b2b900e00002a');
-				else	*/
+				else
 					$job->tags = explode(';',rtrim(Input::get('tags'),";"));
 				
 				$job->id_user=Auth::user()->id;

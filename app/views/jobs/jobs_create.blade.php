@@ -17,7 +17,7 @@ $m=Session::get('mesaj');
 </div> 
 @endif
 
-	{{ Form::open(array('action' => 'JobsController@ProcessCreateJob', 'files' => true, 'role' => 'form' ,'id'=>'jobs' ))}}
+	{{ Form::open(array('action' => 'JobsController@ProcessCreateJob', 'files' => true, 'role' => 'form' ,'id'=>'joburi' ))}}
 		<div class="form-group">
 			<label for="titlu">Titlu</label>
 			<input type="text" class="form-control" name="titlu" id="titlu" />
@@ -25,7 +25,7 @@ $m=Session::get('mesaj');
 		<div class="form-group">
 			<label for="tags">Tags</label>
 			<div class="form-control" id="inserted_tags"></div>
-			<input type="text" class="form-control" id="tags" name="tags" placeholder="Type here to insert tags ...">
+			<input type="text" class="form-control" id="tags"  placeholder="Type here to insert tags ...">
 			<input type="hidden" name="tags" id="tags_input">
 			<div id="results"></div>
 		</div>
@@ -53,7 +53,7 @@ $m=Session::get('mesaj');
 	{{Form::close() }}
 	
 	<script>
-		autoCompleteTags('#jobs','{{action('TagsController@GetAllTags')}}');
+		autoCompleteTags('#joburi','{{action('TagsController@GetAllTags')}}');
 	</script>
 	
 	

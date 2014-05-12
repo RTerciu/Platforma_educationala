@@ -68,6 +68,7 @@ Formular-ul trebuie sa contina:
 				
 				$('#tags_input').val(tags);
 				
+				//alert($('#tags_input').val());
 			});
 		
 			var availableTags = [];
