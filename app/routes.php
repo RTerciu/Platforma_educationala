@@ -139,10 +139,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::post('job/create','JobsController@ProcessCreateJob');
 	
 	Route::get('jobs','JobsController@ShowJobsPage');
-	Route::get('jobs/all','JobsController@ShowJobsTable');
-	
-	
-	
+	Route::get('jobs/all','JobsController@ShowJobsTable');	
 
 	Route::get('job/create','JobsController@ShowCreateJobsPage');
 	Route::post('job/create','JobsController@ProcessCreateJob');
@@ -151,6 +148,7 @@ Route::group(array('before' => 'auth'), function()
 
 	Route::get('jobs/{jobName}','JobsController@ShowJobDetailPage');
 	Route::get('jobs/{jobName}/{userId}','JobsController@ProcessBetForJob');
+	
 	
 	/*		teo's routes for admin page	*/
 	Route::get('admin/admin_layout',function(){Return View::make('admin.admin_layout');});
@@ -165,37 +163,61 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('admin/show_tags','AdministratorController@showTags');
 	
 	/*		delete stuff	  	*/	
-	Route::get('admin/delete_users/{id}','AdministratorController@deleteUsers');	
-	Route::get('admin/delete_jobs/{id}','AdministratorController@deleteJobs');
-	Route::get('admin/delete_docs/{id}','AdministratorController@deleteDocs');
-	Route::get('admin/delete_downloaded/{id}','AdministratorController@deleteDownloadedDocs');
-	Route::get('admin/delete_grades_reviews/{id}','AdministratorController@deleteGradesReviews');
-	Route::get('admin/delete_jobs_bet/{id}','AdministratorController@deleteJobsBet');
-	Route::get('admin/delete__messages/{id}','AdministratorController@deleteMessages');
-	Route::get('admin/delete__reviews/{id}','AdministratorController@deleteReviews');
-	Route::get('admin/delete_tags/{id}','AdministratorController@deleteTags');
-	
-	/*		model stuff		*/
-	//Route::model('user', 'User');
-	//Route::model('job', 'Job');
-	//Route::model('doc', 'Document');
-	//Route::model('grade/review', 'ReviewGrade');
-	//Route::model('bet', 'JobBet');
-	Route::model('msg', 'Message');
-	//Route::model('review', 'Review');
-	//Route::model('tag', 'Tag');
-	
-	/*		edit stuff		*/
-	Route::get('admin/edit_messages/{msg}','AdministratorController@editMessages');
+	Route::post('admin/delete_users/{id?}','AdministratorController@deleteusers');	
+	Route::post('admin/delete_jobs/{id?}','AdministratorController@deletejobs');
+	Route::post('admin/delete_docs/{id?}','AdministratorController@deletedocs');
+	Route::post('admin/delete_downloaded/{id?}','AdministratorController@deletedownloadeddocs');
+	Route::post('admin/delete_gradesreviews/{id?}','AdministratorController@deletegradesreviews');
+	Route::post('admin/delete_jobsbet/{id?}','AdministratorController@deletejobsbet');
+	Route::post('admin/delete_messages/{id?}','AdministratorController@deletemessages');
+	Route::post('admin/delete_reviews/{id?}','AdministratorController@deletereviews');
+	Route::post('admin/delete_tags/{id?}','AdministratorController@deletetags');
 	
 	/* handle edit- save_button.js */
 	Route::post('admin/edit_users_ajax', 'AdministratorController@handleEditUsersAjax');
 	Route::post('admin/edit_jobs_ajax', 'AdministratorController@handleEditJobsAjax');
 	Route::post('admin/edit_docs_ajax', 'AdministratorController@handleEditDocsAjax');
 	Route::post('admin/edit_grades_ajax', 'AdministratorController@handleEditGradesReviewsAjax');
-	Route::post('admin/edit_bets_ajax', 'AdministratorController@handleEditJobsBetAjax');
+	Route::post('admin/edit_jobsbet_ajax', 'AdministratorController@handleEditJobsBetAjax');
 	Route::post('admin/edit_reviews_ajax', 'AdministratorController@handleEditReviewsAjax');
+	Route::post('admin/edit_messages_ajax', 'AdministratorController@handleEditMessagesAjax');
 	Route::post('admin/edit_tags_ajax', 'AdministratorController@handleEditTagsAjax');
 
+	/* routes for makeTableAdmin.js */
+	Route::get('admin/getUsersAjax','AdministratorController@getUsersAjax');
+	Route::get('admin/getGradesReviewsAjax','AdministratorController@getGradesReviewsAjax');
+	Route::get('admin/getDocsAjax','AdministratorController@getDocsAjax');
+	Route::get('admin/getDownloadedDocsAjax','AdministratorController@getDownloadedDocsAjax');
+	Route::get('admin/getJobsAjax','AdministratorController@getJobsAjax');
+	Route::get('admin/getJobsBetAjax','AdministratorController@getJobsBetAjax');
+	Route::get('admin/getMessagesAjax','AdministratorController@getMessagesAjax');
+	Route::get('admin/getReviewsAjax','AdministratorController@getReviewsAjax');
+	Route::get('admin/getTagsAjax','AdministratorController@getTagsAjax');
 	
-});
+	/*		Statictics		*/
+	Route::get('admin/graphNrDownloads','AdministratorController@showGraph');
+	Route::get('admin/getInfo/{an?}','AdministratorController@getNrDowns');
+	
+	/*	costul  documentelor plotat pe categoria din care face parte ( adica asa ne dam seama daca poate unele au preturi dubioase si trebuie corectate)
+		MOMENTAN DOCUMENTELE NU AU PRET = NO CAN DO 
+		Route::get('admin/getDocsCost','AdministratorController@getCost');
+		Route::get('admin/getCostpeTag','AdministratorController@showGraph2');
+	*/
+	/*		 numar de job-uri postate pe zi/sapt/luna		*/
+	Route::get('admin/graphNrJobs','AdministratorController@showGraphNrJobs');
+	Route::get('admin/getNrJobsPerMonth/{an?}','AdministratorController@getNrJobsPerMonth');
+	Route::get('admin/getInfoJobs/{luna}/{an}','AdministratorController@getNrJobs');
+	//Route::get('admin/getNrJobsPerWeek','AdministratorController@getNrJobsPerWeek');
+	
+//getNrJobsPerWeek
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	});
