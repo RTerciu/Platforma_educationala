@@ -52,7 +52,7 @@ echo $t->getHTMLTagJob();
 
 <?php
 if($job->id_user==Auth::user()->id)
-    {echo 'Selectati un utilizatori dintre cei de mai jos pentru realiza jobul:<br><table class="table table-striped">';
+    {echo 'Selectati un utilizatori dintre cei de mai jos pentru realiza jobul<br><p id="alege_feedback"></p>:<br><table class="table table-striped">';
 		foreach($bidders as $bidder)
 			{
 			
@@ -61,7 +61,7 @@ if($job->id_user==Auth::user()->id)
 				echo '<td>'.User::where('_id',$bidder['userID'])->first()['username'].'</td>';
 				echo '<td>'.$bidder['created_at'].'</td>';
 				//De generat functie la onclick...
-				echo '<td><div id="button" class="btn btn-default" jobID="'.$job->_id.'" userID="'.$bidder['userID'].'" >Alege</div>';
+				echo '<td><div class="text-right"><div id="'.$bidder['_id'].'" class="btn btn-default" jobID="'.$job->_id.'" userID="'.$bidder['userID'].'" onClick="alege(this.id);" >Alege</div></div></td>';
 			
 			
 			echo '</tr>';

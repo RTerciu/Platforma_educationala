@@ -174,7 +174,7 @@ class JobsController extends BaseController {
 	
 	$userLogat=Auth::user()->id;
 	
-	if($userLogat!=$job->userID)
+	if($userLogat!=$job->id_user)
 		return "Nu esti autorizat sa desemnezi useri pentru acest job!";
 	
 	if($job->assignedTo!=0)
