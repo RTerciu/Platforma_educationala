@@ -38,7 +38,7 @@ foreach($tagsArray as $tagID)
 $i++ ?>
 <td>{{$i}}</td>
 <td>{{$document->title}}</td>
-<td>{{$userEmail}}</td>
+<td><strong><a href="{{url('/profile/'.$userEmail)}}">{{$userEmail}}</a></strong></td>
 <td>{{$tagsHTML}}</td>
 <td>{{$document->created_at}}</td>
 

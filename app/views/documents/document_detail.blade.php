@@ -36,10 +36,10 @@ $m=Session::get('mesaj');
 <?php 
 
 $user=DB::table('users')->where('_id',$document->userID)->first();
-$userEmail=$user['email'];
+$username=$user['username'];
 
 ?>
-<small><p class="text-right">Adaugat de <strong>{{$userEmail}} </strong> la data de <strong>{{$document->created_at}}</strong><br>
+<small><p class="text-right">Adaugat de <strong><a href="{{url('/profile/'.$username)}}">{{$username}}</a></strong> la data de <strong>{{$document->created_at}}</strong><br>
 Tag-uri 
 @foreach($document->tags as $tag)
 <strong>

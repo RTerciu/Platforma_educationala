@@ -41,7 +41,7 @@ $i++ ?>
 
 <td>{{$i}}</td>
 <td>{{$job->titlu}}</td>
-<td>{{$userEmail}}</td>
+<td><strong><a href="{{url('/profile/'.$userEmail)}}">{{$userEmail}}</a></strong></td>
 <td>{{$tagsHTML}}</td>
 <td>{{$job->pret}}</td>
 <td>{{$job->created_at}}</td>

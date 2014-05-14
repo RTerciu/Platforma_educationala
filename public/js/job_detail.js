@@ -13,7 +13,10 @@ $.ajax({
 				url: url,
 				cache: false,
 				success: function(html){
-					$("#alege_feedback").html(html);
+					if(html=="ok")
+						window.location.reload(true);
+					else
+					$("#alege_feedback").html('<div class="alert alert-warning"><a href="javascript:$(\'.alert-warning\').toggle();" class="close" data-dismiss="alert">x</a>'+ html+'</div');
 
 				}
 			});
