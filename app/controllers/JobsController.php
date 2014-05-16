@@ -94,7 +94,21 @@ class JobsController extends BaseController {
 	
 	$jobs=Job::all();
 	
-	return View::make('jobs.Jobs_table')->with('tabel',$jobs);
+	return View::make('jobs.Jobs_table')->with('tabel',$jobs)->with('expirate','DA');
+	
+	
+	}
+	
+	public function ShowAvailableJobsTable()
+	{
+	
+	
+	
+	
+	$formatted_date = Carbon::now()->toDateTimeString();
+	$jobs=Job::where('deadline','>=',$formatted_date)->orderBy('deadline','ASC')->get();
+	//echo $jobs;
+	return View::make('jobs.Jobs_table')->with('tabel',$jobs)->with('expirate','NU');
 	
 	
 	}
@@ -276,7 +290,7 @@ class JobsController extends BaseController {
 				$job->assignedTo="0";
 				$job->deadline=$liniaMoarta->toDateTimeString();;
 				$job->descriere=Input::get('descriere');
-				
+				$job->jobDoneDocument='0';
 				$job->save();
 			
 				return Redirect::to('jobs/all');

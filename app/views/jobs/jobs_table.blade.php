@@ -3,6 +3,16 @@
 
 
 @section('jobs_content')
+
+@if($expirate=='DA')
+	<a href="{{url('jobs/available')}}"><p class="btn btn-default" >Arata doar Job-urile Disponibile</p></a>
+	
+@else
+	<a href="{{url('jobs/all')}}"><p class="btn btn-default" >Arata toate Job-urile</p></a>
+@endif
+
+
+
 <h2>Acestea sunt toate joburile disponibile</h2><hr>
 <table class="table table-hover table-bordered table-striped">
 <tr>

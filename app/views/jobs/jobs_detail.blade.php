@@ -50,18 +50,19 @@ echo $t->getHTMLTagJob();
 
 <h3>Descriere:</h3><p>{{$job->descriere}}</p><hr>
 
+@if($job->assignedTo==Auth::user()->id)
 
-
-@if($job->assignedTo!=="0")
+	<p class="bg-danger text-center"><br>Ati fost ales sa realizati acest proiect!	
+	
+	<br><br></p>
+@elseif($job->assignedTo!=="0")
 	<p class="bg-success text-center"><br>A fost ales sa realizeze acest proiect utilizatorul
 	<?php
 	$user=User::find($job->assignedTo);
 	?>
 	<strong><a href="{{url('/profile/'.$user->username)}}">{{$user->username}}</a></strong>
-	
-	
 	<br><br></p>
-@else 
+@else
 
 <p>Au licitat la acest job urmatorii useri:</p>
 
@@ -71,11 +72,12 @@ echo $t->getHTMLTagJob();
 
 <?php  
 $b=User::where('_id',$bidder['userID'])->first();
-$bidderName=$b['email'];
+$bidderName=$b['username'];
 
 ?>
-<strong>{{$bidderName}}</strong>
-<hr>
+
+<strong><a href="{{url('/profile/'.$bidderName)}}">{{$bidderName}}</a></strong> 
+
 @endforeach
 
 
@@ -90,7 +92,7 @@ if($job->id_user==Auth::user()->id && $job->assignedTo=="0"&&isset($bidders[0]))
 			echo '<tr>';
 				$username=User::where('_id',$bidder['userID'])->first()['username'];
 				echo '<td><strong><a href="'.url('/profile/'.$username).'">'.$username.'</a></strong></td>';
-				echo '<td><span class="glyphicon glyphicon-time">'.$bidder['created_at'].'</span></td>';
+				echo '<td><span class="glyphicon glyphicon-time"> '.$bidder['created_at'].'</span></td>';
 				//De generat functie la onclick...
 				echo '<td><div class="text-right"><div id="'.$bidder['_id'].'" class="btn btn-danger" jobID="'.$job->_id.'" userID="'.$bidder['userID'].'" onClick="alege(this.id);" >Alege</div></div></td>';
 			
@@ -104,6 +106,11 @@ if($job->id_user==Auth::user()->id && $job->assignedTo=="0"&&isset($bidders[0]))
 
 
 ?>
+
+
+
+
+
 
 
 {{-- de apelat o functie din acest script--}}

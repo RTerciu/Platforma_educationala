@@ -150,6 +150,7 @@ Route::group(array('before' => 'auth'), function()
 	
 	Route::get('jobs','JobsController@ShowJobsPage');
 	Route::get('jobs/all','JobsController@ShowJobsTable');
+	Route::get('jobs/available','JobsController@ShowAvailableJobsTable');
 	
 	
 	
