@@ -163,6 +163,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::get('jobs/{jobName}','JobsController@ShowJobDetailPage');
 	Route::get('jobs/{jobName}/{userId}','JobsController@ProcessBetForJob');
 	Route::get('jobs/{userID}/assigned/{jobID}','JobsController@ProcessAsignUserForJob');
+	Route::post('jobs/upload/JobDoneDocument','JobsController@UploadJobDoneDocument');
 	
 	/*		teo's routes for admin page	*/
 	Route::get('admin/admin_layout',function(){Return View::make('admin.admin_layout');});

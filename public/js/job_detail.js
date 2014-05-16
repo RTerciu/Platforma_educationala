@@ -22,3 +22,30 @@ $.ajax({
 			});
 
 }
+
+
+
+$(document).ready(function() { 
+
+	$("#incarca").click(function()
+	{
+	
+		if($("input#jobDoneDocument").val())
+			{
+			$("#div_avatar").removeClass('has-success').removeClass('has-error');
+			$("#div_avatar").addClass('has-success');
+			$("#uploadJobDoneDocument").submit();
+			}
+		else 
+			{
+			$("#div_avatar").removeClass('has-success').removeClass('has-error');
+			$("#div_avatar").addClass('has-error');
+			$("#div_avatar").effect("shake", { times:2 }, 500);
+			return false;
+			}
+		
+	
+	});
+
+
+});

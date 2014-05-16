@@ -242,6 +242,37 @@ class JobsController extends BaseController {
 	
 	}
 	
+	// XXXXXX TO DO-Redirecturile potrivite
+	public function UploadJobDoneDocument()
+	{
+	
+	$job=Job::find(Input::get('jobID'));
+	
+	
+	if(!isset($job))
+		return 'job-ul nu exista';
+	
+	$file = Input::file('jobDoneDocument');
+			
+	$destinationPath = 'uploads/jobsCompleted/';
+			
+			$filename = Input::file('jobDoneDocument')->getClientOriginalName();
+			$uploadSuccess = Input::file('jobDoneDocument')->move($destinationPath, $filename);
+			
+			if($uploadSuccess && $job->assignedTo==Input::get('userID'))
+			{
+			$job->jobDoneDocument=$destinationPath.$filename;
+			$job->save();
+			return 'ok';
+			}
+			else return 'Nashpa';
+	
+	
+	}
+	
+	
+	
+	
 	
     public function ProcessCreateJob()
 	{

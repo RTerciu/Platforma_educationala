@@ -3,6 +3,8 @@
 
 
 @section('jobs_content')
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
 
 <?php
 $m=Session::get('mesaj');
@@ -53,6 +55,29 @@ echo $t->getHTMLTagJob();
 @if($job->assignedTo==Auth::user()->id)
 
 	<p class="bg-danger text-center"><br>Ati fost ales sa realizati acest proiect!	
+	
+		<form action="{{action('JobsController@UploadJobDoneDocument')}}" method="post" enctype="multipart/form-data" id="uploadJobDoneDocument">
+			<input type="hidden" name="userID" value="{{Auth::user()->id}}"/>
+			<input type="hidden" name="jobID"  value="{{$job->id}}"/>
+			<p class="text-center">Incarcati documentul sau arhiva pentru indeplinirea job-ului</p>
+			<div class="row">
+				<div class="col-md-10">	
+					<div class="form-group has-feedback" id="div_avatar">
+							
+						<input type="file" class="form-control" name="jobDoneDocument" id="jobDoneDocument" />
+						
+					</div>	
+				</div>
+				<div class="col-md-2">
+					<div class="text-center">
+					<div class="btn btn-danger" id="incarca" >Incarca</div>
+					</div>
+				</div>	
+			</div>
+		</form>
+	
+	
+	
 	
 	<br><br></p>
 @elseif($job->assignedTo!=="0")
